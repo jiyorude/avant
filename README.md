@@ -1,29 +1,19 @@
-# README #
+### Avant
+Random-data generating Algorithm for <br>experimental Machinima post-production
+<br>
 
-This README would normally document whatever steps are necessary to get your application up and running.
+---
+<br>
 
-### What is this repository for? ###
+**Version: 0.1.0 - January 2024**
+<br><br>
+Created by Jordy Veenstra (A Pixelated Point of View)<br>
+Licensed under MIT
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+<br>
 
-### How do I get set up? ###
+### Table of Contents
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
 
-### Contribution guidelines ###
 
-* Writing tests
-* Code review
-* Other guidelines
 
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
