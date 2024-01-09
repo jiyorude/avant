@@ -1,3 +1,5 @@
+<br>
+
 ### Avant
 Random-data generating Algorithm for <br>experimental Machinima post-production
 <br>
@@ -14,6 +16,14 @@ Licensed under MIT
 
 ### Table of Contents
 
-
+* [Background](#background)
+* [Supported Software](#softwaresupport)
+* [Installation](#installation)
+* [How to Use](#how-to-use)
+* [Interpreting Generated Data](#interpreting-data)
+* [Using Generated Data](#using-data)
+* [Troubleshooting](#troubleshooting)
+* [Changelog](#changelog)
+* [License](#license)
 
 
