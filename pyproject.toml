@@ -1,6 +1,6 @@
 [project]
 name = "avant_jiyorude"
-version = "0.1.0"
+version = "0.0.1"
 authors = [
   { name="Jordy Veenstra / A Pixelated Point of View", email="jordy.gaptx@gmail.com" },
 ]
