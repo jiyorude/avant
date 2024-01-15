@@ -4,7 +4,7 @@ version = "0.0.1"
 authors = [
   { name="Jordy Veenstra / A Pixelated Point of View", email="jordy.gaptx@gmail.com" },
 ]
-description = "Random data-generating algorithm for experimental Machinima post-production"
+description = "Random data-generating algorithm for experimental, depth-based Quake III Arena Machinima (post-)production"
 readme = "README.md"
 requires-python = ">=3.8"
 classifiers = [
@@ -16,4 +16,4 @@ classifiers = [
 [project.urls]
 GitHub = "https://github.com/jiyorude/avant"
 Issues = "https://github.com/jiyorude/avant/issues"
-Homepage = "#"
+Bitbucket = "https://bitbucket.org/appov/avant/src/main/"
