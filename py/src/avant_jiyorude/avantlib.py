@@ -24,7 +24,7 @@ def terminate(int: int):
 
 def getTime():
     now = datetime.now()
-    formatted = now.strftime("%d %B %Y - %H:%M")
+    formatted = now.strftime("%A %d %B %Y - %H:%M")
     return f"Algorithm initiated at: {formatted}\n\n"
 
 def find(que, col):
@@ -42,7 +42,7 @@ def init():
     i1 = "\n\nAVANT\n"
     i2 = "Random-data generating algorithm for experimental, Quake III machinima (post-) production" 
     i3 = "Created by Jordy Veenstra / A Pixelated Point of View"
-    i4 = "\nVersion 0.0.1\n\n"
+    i4 = "\nVersion 0.0.2\n\n"
     iterate(1, 0.025, *i1), iterate(0.4, 0.025, *i2), iterate(0.4, 0.025, *i3), iterate(0.6, 0.025, *i4), iterate(1.5, 0.025, *getTime())
 
 def connect():

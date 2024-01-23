@@ -6,7 +6,7 @@ Quake III Machinima (post-)production
 
 <br/>
 
-**Version: 0.0.1 - January 2024**
+**Version: 0.0.2 - 23 January 2024**
 <br/><br/>
 Created by Jordy Veenstra (A Pixelated Point of View)<br/>
 Licensed under MIT
@@ -23,7 +23,6 @@ Licensed under MIT
 * [Using Generated Data](#using-generated-data)
 * [Troubleshooting](#troubleshooting)
 * [Changelog](#changelog)
-* [To Do List](#to-do-list)
 * [License](#license)
 
 <br/>
@@ -103,17 +102,18 @@ The changelog is a list that keeps track of all the updates and improvements int
 <br/>
 
 ----
+**0.0.2** | Python Version Development | 23/01/2024 <br/>
+* Created avantlib
+* Started development on the Python version of avant
+* Linked MongoDB
+* Created various main- and helper functions
+----
 **0.0.1** | Initialization | 03/01/2024 <br/>
 * Project Initialization GitHub/BitBucket
 * Created Documentation
 ----
 
 <br>
-
-### To-Do List
-Ideas, features and bugfixes will be added to the to-do list once development is around halfway through.
-
-<br/>
 
 ### License
 PyPi version created in Python 3.11 *(Python Software Foundation)*<br>

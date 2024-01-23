@@ -6,7 +6,7 @@ Quake III Machinima (post-)production
 
 <br/>
 
-**Version: 0.0.1 - January 2024**
+**Version: 0.0.2 - 23 January 2024**
 <br/><br/>
 Created by Jordy Veenstra (A Pixelated Point of View)<br/>
 Licensed under MIT
@@ -59,12 +59,12 @@ Avant contains the following modes:
 
 **Free-map-mode, map-assist-mode or custom-map-mode**
 
-**Production-mode, post-mode, or workflow-mode** <br/>
+**Production-mode, post-mode, or workflow-mode**
 If `production-mode` is selected, avant will only output data relevant for the production process of Quake III Machinima, such as camera parameters, camera animation, framerate, film length and so forth. It will not create a post-production workflow. This mode comes in handy when you want to have your shots predetermined for you, but want to keep full control of your post-production pipeline.
 
 `Post-mode`, on the other hand, works on the other side of the spectrum. It assumes the user has already created footage ready to be used for post-production and asks the user for input data from their existing footage, such as amount of shots, shotlength and framerate, and generates a post-production workflow based on the shot input. This mode comes in handy when you want full control over your shots but want to randomize your post-production workflow.
 
-`Workflow-mode` combines both `production-mode` and `post-mode` by generating both the production and post-production data for the user; thus completely randomizing the project. 
+`Workflow-mode` combines both `production-mode` and `post-mode` by generating both the production and post-production data for the user. 
 
 
 <br/>
@@ -90,8 +90,10 @@ If `production-mode` is selected, avant will only output data relevant for the p
 <br/>
 
 ### Troubleshooting
-Please check the [Issues](https://github.com/jiyorude/avant/issues) tab inside of the GitHub Repository if your issue is not listed. Feel free to open a new issue if your problem has not been featured yet. Duplicate issues will be removed. 
+*Please check the [Issues](https://github.com/jiyorude/avant/issues) tab inside of the GitHub Repository if your issue is not listed in this list. Feel free to open a new issue if your problem has not been featured yet. Duplicate issues will be removed.*
 
+**Question** <br/>
+Answer
 <br/>
 
 ### Changelog
@@ -100,8 +102,13 @@ The changelog is a list that keeps track of all the updates and improvements int
 <br/>
 
 ----
+**0.0.2** | Python Version Development | 23/01/2024 <br/>
+* Created avantlib
+* Started development on the Python version of avant
+* Linked MongoDB
+* Created various main- and helper functions
+----
 **0.0.1** | Initialization | 03/01/2024 <br/>
-
 * Project Initialization GitHub/BitBucket
 * Created Documentation
 ----
