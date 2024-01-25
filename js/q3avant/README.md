@@ -6,7 +6,7 @@ Quake III Machinima (post-)production
 
 <br/>
 
-**Version: 0.0.2 - 23 January 2024**
+**Version: 0.1.0 - 25 January 2024**
 <br/><br/>
 Created by Jordy Veenstra (A Pixelated Point of View)<br/>
 Licensed under MIT
@@ -59,7 +59,17 @@ Avant contains the following modes:
 
 **Free-map-mode, map-assist-mode, custom-assist-mode or custom-map-mode**
 
-**Production-mode, post-mode, or workflow-mode**
+-----
+Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt facilis ullam laboriosam? Fugit impedit saepe voluptatum quibusdam mollitia quidem voluptates dignissimos commodi, odio esse harum eius, aliquid quis iure tempora.
+Officiis maiores, maxime obcaecati libero dolorum debitis numquam fugiat hic, aperiam minus et porro a excepturi! Rerum aperiam minima laborum? Earum distinctio voluptas voluptatibus tenetur sit adipisci praesentium beatae. Excepturi.
+Architecto aut modi consequatur. Nihil non ipsum, qui pariatur natus quod cumque libero unde vero eius saepe. Illum ab, cum tempore dolores maiores asperiores nobis velit explicabo, minus molestias quos.
+Autem doloremque odit laudantium dolorem quos dolore dignissimos veritatis voluptas eaque sapiente, necessitatibus, quod aut beatae vero quas officiis. Pariatur voluptatum natus aperiam odio fuga architecto nostrum nobis tempora hic?
+Nulla, doloremque. Ullam amet delectus nemo? Repellendus quos dolore animi reprehenderit sit voluptates est minus repellat! Ea earum rem cumque beatae, repudiandae, error, possimus aliquam tenetur ut officia voluptate nulla!
+<br/><br/>
+
+**Production-mode, post-mode, or workflow-mode** 
+
+-----
 If `production-mode` is selected, avant will only output data relevant for the production process of Quake III Machinima, such as camera parameters, camera animation, framerate, film length and so forth. It will not create a post-production workflow. This mode comes in handy when you want to have your shots predetermined for you, but want to keep full control of your post-production pipeline.
 
 `Post-mode`, on the other hand, works on the other side of the spectrum. It assumes the user has already created footage ready to be used for post-production and asks the user for input data from their existing footage, such as amount of shots, shotlength and framerate, and generates a post-production workflow based on the shot input. This mode comes in handy when you want full control over your shots but want to randomize your post-production workflow.
@@ -92,8 +102,10 @@ If `production-mode` is selected, avant will only output data relevant for the p
 ### Troubleshooting
 *Please check the [Issues](https://github.com/jiyorude/avant/issues) tab inside of the GitHub Repository if your issue is not listed in this list. Feel free to open a new issue if your problem has not been featured yet. Duplicate issues will be removed.*
 
-**Question** <br/>
-Answer
+Frequently asked questions can be found both underneath and in the `Help` section of the algorithm.
+
+**Terminal does not clear text properly after entering main menu/selecting submenu** <br/>
+The algorithm should work properly with standard terminal environments found in Windows, MacOS and Linux. If you are using a third-party terminal environment, please check your settings as most likely the software or a setting is interfering with avant or use the standard terminal environments found in your OS.
 <br/>
 
 ### Changelog
@@ -101,6 +113,12 @@ The changelog is a list that keeps track of all the updates and improvements int
 
 <br/>
 
+----
+**0.1.0** | Python Version Development | 25/01/2024 <br/>
+* Main Menu Completed
+* Exit Function Completed
+* Credits Section completed
+* Logic Updates
 ----
 **0.0.2** | Python Version Development | 23/01/2024 <br/>
 * Created avantlib

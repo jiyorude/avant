@@ -1,6 +1,6 @@
 {
   "name": "avant",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Random data-generating algorithm for experimental, depth-based Quake III machinima (post-)production",
   "main": "avant.js",
   "scripts": {
