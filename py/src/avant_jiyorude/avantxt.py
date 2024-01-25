@@ -1,0 +1,70 @@
+search_fail = "No results. Please try again."
+exit = "Exiting....\n"
+i1 = "\n\nAVANT\n"
+i2 = "Random-data generating algorithm for experimental Quake III machinima (post-) production" 
+i3 = "Created by Jordy Veenstra / A Pixelated Point of View"
+i4 = "\nVersion 0.1.0\n"
+sc = "Succesfully connected to avant database\n"
+se = "Could not connect to avant database"
+start_algorithm = "Start Algorithm"
+help = "Help"
+credits = "Credits"
+exit = "Exit"
+exit_two = "\n\nExiting....\n"
+cred = "\nAVANT\nRandom-data generating algorithm for experimental Quake III machinima (post-) production\nCreated by Jordy Veenstra / A Pixelated Point of View\n"
+cred_2 = "LINKS/REPOSITORIES:\nGitHub: https://github.com/jiyorude/avant\nIssues: https://github.com/jiyorude/avant/issues\nBitBucket: https://bitbucket.org/appov/avant/src/main/\nPyPi (Python Version): T.B.A\nNPM (JavaScript/Node Version): T.B.A\nFront-End: T.B.A."
+cred_3 = "\nSOFTWARE/MODULES - PYTHON VERSION:\nPython 3.11 (Python Software Foundation)\nPyMongo (MongoDB Python Team)\nInquirer (Miguel Ángel García)\nMatplotlib (John D. Hunter, Michael Droettboom)\nReportlab (Andy Robinson, Robin Becker)\nAvantlib (Jordy Veenstra)"
+cred_4 = "\nSOFTWARE/MODULES - JAVASCRIPT/NODE VERSION:\nNode 21.1.0 (OpenJS Foundation)\nMongoDB (MongoDB Node.js Team)\nAvantlib (Jordy Veenstra)\n\n"
+any = "Press ENTER\RETURN to return to the main menu...\n"
+any2 = "Press ENTER\RETURN to go back..."
+h1 = "Background"
+h2 = "Algorithm Modes"
+h3 = "How to Use"
+h4 = "Data Interpretation and Usage"
+h5 = "Troubleshooting"
+h6 = "Changelog"
+h7 = "License"
+h8 = "Return to main menu"
+bg_t = "\n\nBACKGROUND\n\n"
+bg = "Avant is a Python and JavaScript algorithm that outputs random-generated data for the purpose of experimental, depth-based and randomized Quake III Arena machinima production. The algorithm outputs a list of various elements that correspond to various machinima (post-)production processes and parameters found within Quake III movie-making mods. Both Quake III MovieMakers Edition and WolfcamQL are fully supported by avant and offer a native moviemaking experience. Technically speaking, avant is able to generate endless variations of potential experimental Quake III machinima films.\n\n"
+bg_2 = "The algorithm was named after the highly popular art movement avant-garde, as it outputs raw, randomized and unchecked data made for experimental productions. It is not until the actual production or post-production process that the user is able to see how the actual data is 'visualized'. The focus lies on film design and graphical representation, not on contents or story; thus staying in true avant-garde fashion."
+bg_3 = "\n\nAvant serves as the successor to the now defunct DOMINION algorithm and offers a number of quality of life improvements, such as:\n\n"
+bg_4 = "* Full integration of a custom `lvlworld` map database. Users can specify a map by stating either the lvlworld ID or the map's name. The database will be updated regularly in order to include the most recently released maps.\n"
+bg_5 = "* Avant is able to generate data for only the production process of experimental Quake III machinima, post-production, or even both through its `production-mode, post-mode or workflow-mode`.\n"
+bg_6 = "* The algorithm can generate keywords and potential theme mash-ups for the creation of custom maps, if you are planning to build and use these in your film through its `custom-mode`.\n"
+bg_7 = "* DepthMap generation can now be turned on or off during the initial wizard. The algorithm now contains a dedicated `depth-mode`.\n"
+bg_8 = "* Data will be automatically saved to a pre-stylized PDF instead of a notepad file.\n"
+bg_9 = "* You can now define whether you want to save all generated data to a PDF, or only the necessary info required for production/post-production through a so-called `full-mode and minimal-mode`.\n"
+bg_10 = "* Additional parameters for the project, such as name, framerate, game and intro/outro length can now be set freely.\n\n"
+bg_11 = "In short, Avant generates and outputs data for a number of elements found inside your Quake III Machinima project, such as:\n\n* Runtime: The total length of your film seconds and frames per second\n"
+bg_12 = "* Maps: A list of randomized lvlworld map ID's and corresponding map names\n"
+bg_13 = "* Custom Map Keywords: (Optional) - Only if you turned on custom-mode. Generates randomized input for inspirational purposes if you are planning to create custom maps for your project.\n"
+bg_14 = "* Post-Production Flow: Generates a full edit-list containing the required shots (in conjunction with depthmap profiles if depth-mode is turned on) and their runtime. The list contains an automatic function that deletes excess frames if the total output exceeds the runtime limit.\n"
+bg_15 = "* Shot Information: Provides information regarding the length of each of the selected shots, various parameters such as camera position, roll, yaw and field of view. In tandem, the algorithm also decides whether the shot contains camera animations, and if so, what the animation parameters are. The shots contained in this list will be used."
+bg_11 = "* Depth Information: If depth-mode is turned on, each shot provided in the shotlist will contain parameters for depthfocus and depthrange as well.\n\n"
+
+
+ascii = """
+      __      __       _   _  _______ 
+     /\\ \    / //\    | \ | ||__   __|
+    /  \\ \  / //  \   |  \| |   | |   
+   / /\ \\ \/ // /\ \  | . ` |   | |   
+  / ____ \\  // ____ \ | |\  |   | |   
+ /_/    \_\\//_/    \_\|_| \_|   |_|
+ """
+ascii_help = """
+  _    _  ______  _       _____  
+ | |  | ||  ____|| |     |  __ \ 
+ | |__| || |__   | |     | |__) |
+ |  __  ||  __|  | |     |  ___/ 
+ | |  | || |____ | |____ | |     
+ |_|  |_||______||______||_| 
+"""
+ascii_credits = """
+   _____  _____   ______  _____  _____  _______  _____ 
+  / ____||  __ \ |  ____||  __ \|_   _||__   __|/ ____|
+ | |     | |__) || |__   | |  | | | |     | |  | (___  
+ | |     |  _  / |  __|  | |  | | | |     | |   \___ \ 
+ | |____ | | \ \ | |____ | |__| |_| |_    | |   ____) |
+  \_____||_|  \_\|______||_____/|_____|   |_|  |_____/ 
+"""

@@ -2,6 +2,7 @@ import time
 import sys
 import os
 import inquirer
+import avantxt
 from datetime import datetime
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
@@ -15,6 +16,28 @@ uri = "mongodb+srv://user:wPrU3lO40KCN3YWN@avant.kp8vmpd.mongodb.net/"
 client = MongoClient(uri, server_api=ServerApi('1'))
 db = client['avant']
 map_data = db['map_data']
+
+def ex():
+    clear()
+    iterate(0.5, 0.025, *avantxt.exit_two)
+    wait(1.5)
+    clear()
+    wait(0.5)
+    sys.exit(0)
+
+def exception(err: any, x: int):
+    clear()
+    print()
+    iterate(0.4, 0.025, f"An error occurred: {err}.\n")
+    for y in range(x, -1, -1):
+        terminateAlt(y)
+        wait(1)
+    clear()
+    sys.exit(0)
+
+def print_ascii():
+    for line in avantxt.ascii.splitlines():
+        iterate(0.1, 0.010, *line)
 
 def wait(int: int):
     time.sleep(int)
@@ -33,7 +56,9 @@ def terminate(int: int):
     print(f"Avant cannot connect to the database. Terminating in {int} seconds", end='\r')
 
 def terminateAlt(int: int):
-    print(f"An error occurred. Avant will shut down in {int} seconds", end="\r")
+    tma = f"Avant will shut down in {int} seconds"
+    print("\033[K", end="")
+    print(f"{tma:<30}", end="\r")
 
 def terAlt():
     for x in range(4, -1, -1):
@@ -46,50 +71,48 @@ def getTime():
     return f"Algorithm initiated at: {formatted}\n\n"
 
 def find(que: str, col: str):
-    fail = "No results. Please try again."
     succ = f"Your search for {que} returned {int(len(col_find))} results:"
     col_find = col.find(que)
     if not col_find:
-        iterate(1, 0.025, *fail)
+        iterate(1, 0.025, *avantxt.search_fail)
     else:
         iterate(1, 0.025, *succ)
         for data in col_find:
-            iterate(0.5, 0.025, data)
+            iterate(0.1, 0.025, data)
 
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-def ex():
-    clear()
-    line = "\n\nExiting...\n"
-    iterate(1, 0.025, *line)
-    wait(1.5)
-    sys.exit()
+def reformat(txt: str, mll: int) -> str:
+    words = txt.split()
+    formatted = ""
+    cll = 0
+    for word in words:
+        if cll + len(word) <= mll:
+            formatted += word + " "
+            cll += len(word) + 1 
+        else:
+            formatted = formatted.rstrip() + "\n" + word + " "
+            cll = len(word) + 1 
+    return formatted.strip()
 
 def double_print():
-    print()
-    print()
+    return print(), print()
         
 def init():
-    i1 = "\n\nAVANT\n"
-    i2 = "Random-data generating algorithm for experimental, Quake III machinima (post-) production" 
-    i3 = "Created by Jordy Veenstra / A Pixelated Point of View"
-    i4 = "\nVersion 0.1.0\n"
-    iterate(1, 0.025, *i1), iterate(0.4, 0.025, *i2), iterate(0.4, 0.025, *i3), iterate(0.6, 0.025, *i4), iterate(1.5, 0.025, *getTime())
+    return print_ascii(), print(), iterate(0.4, 0.025, *avantxt.i2), iterate(0.4, 0.025, *avantxt.i3), iterate(0.6, 0.025, *avantxt.i4), iterate(1.5, 0.025, *getTime())
 
 def connect():
-    sc = "Succesfully connected to avant database\n"
-    e = "Could not connect to avant database"
     try:
         client.admin.command('ping')
         for x in range(0, 101, 1):
             progress(x)
             wait(0.025)
-        iterate(0.8, 0.025, *sc)
+        iterate(0.8, 0.025, *avantxt.sc)
         wait(2)
         clear()
     except Exception as err:
-        iterate(0.8, 0.025, *e)
+        iterate(0.8, 0.025, *avantxt.se)
         wait(0.5)
         print(f"{err}\n")
         wait(0.5)
@@ -97,52 +120,100 @@ def connect():
             terminate(x)
             wait(1)
         print()
-        sys.exit()
+        clear()
+        sys.exit(0)
 
 def mame():
-    wait(0.4)
-    double_print()
-    mame = [inquirer.List('choice',
-    message='MAIN MENU',
-    choices=[
-        "Start Algorithm",
-        "Help",
-        "Credits",
-        "Exit"
-    ])]
-    ini_mame = inquirer.prompt(mame)
-    sel_mame = ini_mame['choice']
-    ch = 1 if sel_mame == "Start Algorithm" else 2 if sel_mame == "Help" else 3 if sel_mame == "Credits" else 4 if sel_mame == "Exit" else 5
-    return ch
+    try:
+        wait(0.7)
+        print(avantxt.ascii)
+        print()
+        mame = [inquirer.List('choice',
+        message='MAIN MENU',
+        choices=[
+            avantxt.start_algorithm,
+            avantxt.help,
+            avantxt.credits,
+            avantxt.exit
+        ])]
+        ini_mame = inquirer.prompt(mame)
+        if ini_mame is None:
+            return None
+        sel_mame = ini_mame['choice']
+        ch = 1 if sel_mame == "Start Algorithm" else 2 if sel_mame == "Help" else 3 if sel_mame == "Credits" else 4 if sel_mame == "Exit" else 5
+        return ch
+    except Exception as err:
+        print(f"An error occurred: {err}")
+        return None
 
 def cre():
     clear()
-    double_print()
-    cred = "AVANT\nRandom-data generating algorithm for experimental, Quake III machinima (post-) production\nCreated by Jordy Veenstra / A Pixelated Point of View\n\n"
-    cred_2 = "GitHub: https://github.com/jiyorude/avant\nIssues: https://github.com/jiyorude/avant/issues\nBitBucket: https://bitbucket.org/appov/avant/src/main/\n\nPyPi: T.B.A\nNPM: T.B.A\nFront-End: T.B.A.\n"
-    cred_3 = "Acknowledgements:\nPython 3.11 (Python Software Foundation)\nPyMongo (MongoDB Python Team)\nInquirer (Miguel Ángel García)\nMatplotlib (John D. Hunter, Michael Droettboom)\nReportlab (Andy Robinson, Robin Becker)\nAvantlib (Jordy Veenstra)\n\n"
-    iterate(1.5, 0.025, *cred)
-    iterate(1, 0.025, *cred_2)
-    iterate(1, 0.025, *cred_3)
+    wait(0.7)
+    print()
+    print(avantxt.ascii_credits)
+    iterate(0.5, 0.025, *avantxt.cred)
+    iterate(0.7, 0.025, *avantxt.cred_2)
+    iterate(0.7, 0.025, *avantxt.cred_3)
+    iterate(0.7, 0.025, *avantxt.cred_4)
     wait(0.4)
-    ret_mame = inquirer.prompt([
-        inquirer.Confirm('return_to_menu', message='Return to main menu?', default=True)
-    ])
-    if ret_mame['return_to_menu']:
-        clear()
+    input(avantxt.any)
+    clear()
+    wait(0.5)
+    return True
+
+# HERE. Adjust enters in the reformatting.
+def show_bg():
+    print(reformat(avantxt.bg_t, 50) + "\n\n", reformat(avantxt.bg, 50), reformat(avantxt.bg_2, 50), reformat(avantxt.bg_3, 50), reformat(avantxt.bg_4, 50), reformat(avantxt.bg_5, 50), reformat(avantxt.bg_6, 50), reformat(avantxt.bg_7, 50), reformat(avantxt.bg_8, 50))
+    print(reformat(avantxt.bg_9, 50), reformat(avantxt.bg_10, 50), reformat(avantxt.bg_11, 50), reformat(avantxt.bg_12, 50), reformat(avantxt.bg_13, 50), reformat(avantxt.bg_14, 50), reformat(avantxt.bg_15, 50))
+    wait(5)
+    input(avantxt.any2)
+    clear()
+    wait(0.7)
+    print(avantxt.ascii_help)
+
+def htu():
+    clear()
+    wait(0.7)
+    print()
+    print(avantxt.ascii_help)
+    opt = [
+        avantxt.h1, avantxt.h2, avantxt.h3, avantxt.h4, avantxt.h5, avantxt.h6, avantxt.h7, avantxt.h8
+    ]
+    while True:
+        iterate(0.5, 0.025, *"Select a topic for more information\n")
         wait(0.5)
-        return True
-    return False
-
-
-
-
-
-
-# These serve for destructuring purposes later in the setup function
-sc = None #software choice (mme or wolfcam)
-mc = None #map choice (freemap, map assist or custom map or custom assist)
-pc = None #production choice (production, post, workflow)
-cc = None #custom choice (true false)
-dc = None #depth choice (true or false)
-pc = None #print choice (full or minimal)
+        selected_option = inquirer.prompt([
+            inquirer.List('topic', choices=opt)
+        ])['topic']
+        if selected_option == avantxt.h1:
+            clear()
+            wait(0.7)
+            show_bg()
+        elif selected_option == avantxt.h2:
+            clear()
+            wait(0.7)
+            show_modes()
+        elif selected_option == avantxt.h3:
+            clear()
+            wait(0.7)
+            show_htu()
+        elif selected_option == avantxt.h4:
+            clear()
+            wait(0.7)        
+            show_intpr()
+        elif selected_option == avantxt.h5:
+            clear()
+            wait(0.7)
+            show_trbs()
+        elif selected_option == avantxt.h6:
+            clear()
+            wait(0.7)
+            show_log()
+        elif selected_option == avantxt.h7:
+            clear()
+            wait(0.7)
+            show_lcn()
+        elif selected_option == avantxt.h8:
+            clear()
+            wait(0.7)
+            break

@@ -1,5 +1,4 @@
-import matplotlib as plt
-from avantlib import init, connect, mame, terAlt, cre, ex
+from avantlib import init, connect, exception, mame, cre, ex, htu
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 
@@ -8,22 +7,26 @@ client = MongoClient(uri, server_api=ServerApi('1'))
 db = client['avant']
 map_data = db['map_data']
 
-init()
-connect()
-
-while True:
-    ch = mame()
-    if ch == 1:
-        start()
-    elif ch == 2:
-        htu()
-    elif ch == 3:
-        if cre():
-            continue
+try:
+    init()
+    connect()
+    while True:
+        ch = mame()
+        if ch == 1:
+            start()
+        elif ch == 2:
+            htu()
+        elif ch == 3:
+            if cre():
+                continue
+            else:
+                break
+        elif ch == 4:
+            ex()
         else:
+            ex()
             break
-    elif ch == 4:
-        ex()
-    else:
-        terAlt()
-        break
+except KeyboardInterrupt:
+    ex()
+except Exception as err:
+    exception(err, 10)
