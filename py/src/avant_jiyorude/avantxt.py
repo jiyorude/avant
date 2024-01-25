@@ -13,8 +13,8 @@ exit = "Exit"
 exit_two = "\n\nExiting....\n"
 cred = "\nAVANT\nRandom-data generating algorithm for experimental Quake III machinima (post-) production\nCreated by Jordy Veenstra / A Pixelated Point of View\n"
 cred_2 = "LINKS/REPOSITORIES:\nGitHub: https://github.com/jiyorude/avant\nIssues: https://github.com/jiyorude/avant/issues\nBitBucket: https://bitbucket.org/appov/avant/src/main/\nPyPi (Python Version): T.B.A\nNPM (JavaScript/Node Version): T.B.A\nFront-End: T.B.A."
-cred_3 = "\nSOFTWARE/MODULES - PYTHON VERSION:\nPython 3.11 (Python Software Foundation)\nPyMongo (MongoDB Python Team)\nInquirer (Miguel Ángel García)\nMatplotlib (John D. Hunter, Michael Droettboom)\nReportlab (Andy Robinson, Robin Becker)\nAvantlib (Jordy Veenstra)"
-cred_4 = "\nSOFTWARE/MODULES - JAVASCRIPT/NODE VERSION:\nNode 21.1.0 (OpenJS Foundation)\nMongoDB (MongoDB Node.js Team)\nAvantlib (Jordy Veenstra)\n\n"
+cred_3 = "\nSOFTWARE/MODULES - PYTHON VERSION:\nPython 3.11 (Python Software Foundation)\nPyMongo (MongoDB Python Team)\nInquirer (Miguel Ángel García)\nMatplotlib (John D. Hunter, Michael Droettboom)\nReportlab (Andy Robinson, Robin Becker)\nASCII Art Generator (patorjk)\nAvantlib (Jordy Veenstra)"
+cred_4 = "\nSOFTWARE/MODULES - JAVASCRIPT/NODE VERSION:\nNode 21.1.0 (OpenJS Foundation)\nMongoDB (MongoDB Node.js Team)\nASCII Art Generator (patorjk)\nAvantlib (Jordy Veenstra)\n\n"
 any = "Press ENTER\RETURN to return to the main menu...\n"
 any2 = "Press ENTER\RETURN to go back..."
 h1 = "Background"
@@ -43,7 +43,6 @@ bg_14 = "* Post-Production Flow: Generates a full edit-list containing the requi
 bg_15 = "* Shot Information: Provides information regarding the length of each of the selected shots, various parameters such as camera position, roll, yaw and field of view. In tandem, the algorithm also decides whether the shot contains camera animations, and if so, what the animation parameters are. The shots contained in this list will be used."
 bg_11 = "* Depth Information: If depth-mode is turned on, each shot provided in the shotlist will contain parameters for depthfocus and depthrange as well.\n\n"
 
-
 ascii = """
       __      __       _   _  _______ 
      /\\ \    / //\    | \ | ||__   __|
@@ -52,6 +51,7 @@ ascii = """
   / ____ \\  // ____ \ | |\  |   | |   
  /_/    \_\\//_/    \_\|_| \_|   |_|
  """
+
 ascii_help = """
   _    _  ______  _       _____  
  | |  | ||  ____|| |     |  __ \ 
@@ -60,6 +60,7 @@ ascii_help = """
  | |  | || |____ | |____ | |     
  |_|  |_||______||______||_| 
 """
+
 ascii_credits = """
    _____  _____   ______  _____  _____  _______  _____ 
   / ____||  __ \ |  ____||  __ \|_   _||__   __|/ ____|
@@ -67,4 +68,88 @@ ascii_credits = """
  | |     |  _  / |  __|  | |  | | | |     | |   \___ \ 
  | |____ | | \ \ | |____ | |__| |_| |_    | |   ____) |
   \_____||_|  \_\|______||_____/|_____|   |_|  |_____/ 
+"""
+
+ascii_bye = """
+   _____ __     __        _ 
+  / ____|\ \   / / /\    | |
+ | |      \ \_/ / /  \   | |
+ | |       \   / / /\ \  | |
+ | |____    | | / ____ \ |_|
+  \_____|   |_|/_/    \_\(_)
+"""
+
+ascii_background = """
+  ____            _____  _  __ _____  _____    ____   _    _  _   _  _____  
+ |  _ \    /\    / ____|| |/ // ____||  __ \  / __ \ | |  | || \ | ||  __ \ 
+ | |_) |  /  \  | |     | ' /| |  __ | |__) || |  | || |  | ||  \| || |  | |
+ |  _ <  / /\ \ | |     |  < | | |_ ||  _  / | |  | || |  | || . ` || |  | |
+ | |_) |/ ____ \| |____ | . \| |__| || | \ \ | |__| || |__| || |\  || |__| |
+ |____//_/    \_\\_____||_|\_\\_____||_|  \_\ \____/  \____/ |_| \_||_____/ 
+"""
+
+ascii_algorithm_modes = """
+            _       _____   ____   _____   _____  _______  _    _  __  __ 
+     /\    | |     / ____| / __ \ |  __ \ |_   _||__   __|| |  | ||  \/  |
+    /  \   | |    | |  __ | |  | || |__) |  | |     | |   | |__| || \  / |
+   / /\ \  | |    | | |_ || |  | ||  _  /   | |     | |   |  __  || |\/| |
+  / ____ \ | |____| |__| || |__| || | \ \  _| |_    | |   | |  | || |  | |
+ /_/    \_\|______|\_____| \____/ |_|  \_\|_____|   |_|   |_|  |_||_|  |_|
+  __  __   ____   _____   ______   _____                                  
+ |  \/  | / __ \ |  __ \ |  ____| / ____|
+ | \  / || |  | || |  | || |__   | (___  
+ | |\/| || |  | || |  | ||  __|   \___ \ 
+ | |  | || |__| || |__| || |____  ____) |
+ |_|  |_| \____/ |_____/ |______||_____/ 
+"""
+
+ascii_howtouse = """
+  _    _   ____ __          __  _______  ____    _    _   _____  ______ 
+ | |  | | / __ \\ \        / / |__   __|/ __ \  | |  | | / ____||  ____|
+ | |__| || |  | |\ \  /\  / /     | |  | |  | | | |  | || (___  | |__   
+ |  __  || |  | | \ \/  \/ /      | |  | |  | | | |  | | \___ \ |  __|  
+ | |  | || |__| |  \  /\  /       | |  | |__| | | |__| | ____) || |____ 
+ |_|  |_| \____/    \/  \/        |_|   \____/   \____/ |_____/ |______|
+"""
+
+ascii_usage = """
+  _____         _______          _    _   _____           _____  ______ 
+ |  __ \    /\ |__   __| /\     | |  | | / ____|   /\    / ____||  ____|
+ | |  | |  /  \   | |   /  \    | |  | || (___    /  \  | |  __ | |__   
+ | |  | | / /\ \  | |  / /\ \   | |  | | \___ \  / /\ \ | | |_ ||  __|  
+ | |__| |/ ____ \ | | / ____ \  | |__| | ____) |/ ____ \| |__| || |____ 
+ |_____//_/    \_\|_|/_/    \_\  \____/ |_____//_/    \_\\_____||______|
+"""
+
+ascii_troubleshooting = """
+  _______  _____    ____   _    _  ____   _       ______  
+ |__   __||  __ \  / __ \ | |  | ||  _ \ | |     |  ____|
+    | |   | |__) || |  | || |  | || |_) || |     | |__   
+    | |   |  _  / | |  | || |  | ||  _ < | |     |  __|  
+    | |   | | \ \ | |__| || |__| || |_) || |____ | |____
+    |_|   |_|  \_\ \____/  \____/ |____/ |______||______|
+   _____  _    _   ____    ____  _______  _____  _   _   _____ 
+  / ____|| |  | | / __ \  / __ \|__   __||_   _|| \ | | / ____|
+ | (___  | |__| || |  | || |  | |  | |     | |  |  \| || |  __ 
+  \___ \ |  __  || |  | || |  | |  | |     | |  | . ` || | |_ |
+  ____) || |  | || |__| || |__| |  | |    _| |_ | |\  || |__| |
+ |_____/ |_|  |_| \____/  \____/   |_|   |_____||_| \_| \_____|
+"""
+
+ascii_changelog = """
+   _____  _    _            _   _   _____  ______  _       ____    _____ 
+  / ____|| |  | |    /\    | \ | | / ____||  ____|| |     / __ \  / ____|
+ | |     | |__| |   /  \   |  \| || |  __ | |__   | |    | |  | || |  __ 
+ | |     |  __  |  / /\ \  | . ` || | |_ ||  __|  | |    | |  | || | |_ |
+ | |____ | |  | | / ____ \ | |\  || |__| || |____ | |____| |__| || |__| |
+  \_____||_|  |_|/_/    \_\|_| \_| \_____||______||______|\____/  \_____|
+"""
+
+ascii_license = """
+  _       _____  _____  ______  _   _   _____  ______ 
+ | |     |_   _|/ ____||  ____|| \ | | / ____||  ____|
+ | |       | | | |     | |__   |  \| || (___  | |__   
+ | |       | | | |     |  __|  | . ` | \___ \ |  __|  
+ | |____  _| |_| |____ | |____ | |\  | ____) || |____ 
+ |______||_____|\_____||______||_| \_||_____/ |______|
 """
