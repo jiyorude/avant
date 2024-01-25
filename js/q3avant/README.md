@@ -28,7 +28,7 @@ Licensed under MIT
 <br/>
 
 ### Background
-*Avant* is a Python and JavaScript algorithm that outputs random-generated data for the purpose of experimental, depth-based and randomized Quake III Arena machinima production. The algorithm outputs a list of various elements that correspond to various machinima (post-)production processes and parameters found within Quake III movie-making mods. Both `Quake III MovieMakers Edition` and `WolfcamQL` are fully supported by avant and offer a native moviemaking experience. Technically speaking, avant is able to generate endless variations of potential experimental Quake III machinima films
+*Avant* is a Python and JavaScript algorithm that outputs random-generated data for the purpose of experimental, depth-based and randomized Quake III Arena machinima production. The algorithm outputs a list of various elements that correspond to various machinima (post-)production processes and parameters found within Quake III movie-making mods. Both `Quake III MovieMakers Edition` and `WolfcamQL` are fully supported by avant and offer a native moviemaking experience. Technically speaking, avant is able to generate endless variations of potential experimental Quake III machinima films.
 
 The algorithm was named after the highly popular art movement *'avant-garde'*, as it outputs raw, randomized and unchecked data made for experimental productions. It is not until the actual production or post-production process that the user is able to see how the actual data is 'visualized'. The focus lies on film design and graphical representation, not on contents or story; thus staying in true *avant-garde* fashion.
 
@@ -57,7 +57,7 @@ The avant algorithm contains a multitude of modes that can be switched on or off
 
 Avant contains the following modes:
 
-**Free-map-mode, map-assist-mode or custom-map-mode**
+**Free-map-mode, map-assist-mode, custom-assist-mode or custom-map-mode**
 
 **Production-mode, post-mode, or workflow-mode**
 If `production-mode` is selected, avant will only output data relevant for the production process of Quake III Machinima, such as camera parameters, camera animation, framerate, film length and so forth. It will not create a post-production workflow. This mode comes in handy when you want to have your shots predetermined for you, but want to keep full control of your post-production pipeline.
