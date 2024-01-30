@@ -92,7 +92,7 @@ def reformat(txt: str, mll: int) -> str:
             formatted += word + " "
             cll += len(word) + 1 
         else:
-            formatted = formatted.rstrip() + "\n" + word + " "
+            formatted = formatted.rstrip() + "\n\n" + word + " "
             cll = len(word) + 1 
     return formatted.strip()
 
