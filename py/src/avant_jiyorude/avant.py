@@ -29,4 +29,4 @@ try:
 except KeyboardInterrupt:
     ex()
 except Exception as err:
-    exception(err, 10)
+    exception(err, 5)

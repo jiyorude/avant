@@ -83,19 +83,6 @@ def find(que: str, col: str):
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-def reformat(txt: str, mll: int) -> str:
-    words = txt.split()
-    formatted = ""
-    cll = 0
-    for word in words:
-        if cll + len(word) <= mll:
-            formatted += word + " "
-            cll += len(word) + 1 
-        else:
-            formatted = formatted.rstrip() + "\n\n" + word + " "
-            cll = len(word) + 1 
-    return formatted.strip()
-
 def double_print():
     return print(), print()
         
@@ -161,11 +148,11 @@ def cre():
     wait(0.5)
     return True
 
-# HERE. Adjust enters in the reformatting.
 def show_bg():
-    print(reformat(avantxt.bg_t, 50) + "\n\n", reformat(avantxt.bg, 50), reformat(avantxt.bg_2, 50), reformat(avantxt.bg_3, 50), reformat(avantxt.bg_4, 50), reformat(avantxt.bg_5, 50), reformat(avantxt.bg_6, 50), reformat(avantxt.bg_7, 50), reformat(avantxt.bg_8, 50))
-    print(reformat(avantxt.bg_9, 50), reformat(avantxt.bg_10, 50), reformat(avantxt.bg_11, 50), reformat(avantxt.bg_12, 50), reformat(avantxt.bg_13, 50), reformat(avantxt.bg_14, 50), reformat(avantxt.bg_15, 50))
+    print(avantxt.bg_t + avantxt.bg + avantxt.bg_2 + avantxt.bg_3 + avantxt.bg_4 + avantxt.bg_5 + avantxt.bg_6 + avantxt.bg_7 + avantxt.bg_8 +
+          avantxt.bg_9 + avantxt.bg_10 + avantxt.bg_11 + avantxt.bg_12 + avantxt.bg_13 + avantxt.bg_14 + avantxt.bg_15 + avantxt.bg_16)
     wait(5)
+    print()
     input(avantxt.any2)
     clear()
     wait(0.7)
@@ -176,9 +163,7 @@ def htu():
     wait(0.7)
     print()
     print(avantxt.ascii_help)
-    opt = [
-        avantxt.h1, avantxt.h2, avantxt.h3, avantxt.h4, avantxt.h5, avantxt.h6, avantxt.h7, avantxt.h8
-    ]
+    opt = [avantxt.h1, avantxt.h2, avantxt.h3, avantxt.h4, avantxt.h5, avantxt.h6, avantxt.h7, avantxt.h8]
     while True:
         iterate(0.5, 0.025, *"Select a topic for more information\n")
         wait(0.5)
