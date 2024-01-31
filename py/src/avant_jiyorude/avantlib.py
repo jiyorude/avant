@@ -158,6 +158,24 @@ def show_bg():
     wait(0.7)
     print(avantxt.ascii_help)
 
+def show_modes():
+    return sys.exit(0)
+
+def show_htu():
+    return sys.exit(0)
+
+def show_intpr():
+    return sys.exit(0)
+
+def show_trbs():
+    return sys.exit(0)
+
+def show_log():
+    return sys.exit(0)
+
+def show_lcn():
+    return sys.exit(0)
+
 def htu():
     clear()
     wait(0.7)
