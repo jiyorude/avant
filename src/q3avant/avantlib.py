@@ -19,6 +19,9 @@ map_data = db['map_data']
 
 def ex():
     clear()
+    wait(0.5)
+    print(avantxt.ascii_bye)
+    print()
     iterate(0.5, 0.025, *avantxt.exit_two)
     wait(1.5)
     clear()
@@ -136,8 +139,9 @@ def mame():
 def cre():
     clear()
     wait(0.7)
-    print()
     print(avantxt.ascii_credits)
+    print()
+    wait(0.2)
     iterate(0.5, 0.025, *avantxt.cred)
     iterate(0.7, 0.025, *avantxt.cred_2)
     iterate(0.7, 0.025, *avantxt.cred_3)

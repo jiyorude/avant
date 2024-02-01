@@ -19,4 +19,5 @@ classifiers = [
 [project.urls]
 GitHub = "https://github.com/jiyorude/avant"
 Issues = "https://github.com/jiyorude/avant/issues"
+PyPi = "#"
 Bitbucket = "https://bitbucket.org/appov/avant/src/main/"
