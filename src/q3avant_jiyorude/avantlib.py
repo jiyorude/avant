@@ -141,7 +141,6 @@ def cre():
     iterate(0.5, 0.025, *avantxt.cred)
     iterate(0.7, 0.025, *avantxt.cred_2)
     iterate(0.7, 0.025, *avantxt.cred_3)
-    iterate(0.7, 0.025, *avantxt.cred_4)
     wait(0.4)
     input(avantxt.any)
     clear()

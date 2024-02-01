@@ -28,7 +28,7 @@ Licensed under MIT
 <br/>
 
 ### Background
-*Avant* is a Python and JavaScript algorithm that outputs random-generated data for the purpose of experimental, depth-based and randomized Quake III Arena machinima production. The algorithm outputs a list of various elements that correspond to various machinima (post-)production processes and parameters found within Quake III movie-making mods. Both `Quake III MovieMakers Edition` and `WolfcamQL` are fully supported by avant and offer a native moviemaking experience. Technically speaking, avant is able to generate endless variations of potential experimental Quake III machinima films.
+*Avant* is a Python algorithm that outputs random-generated data for the purpose of experimental, depth-based and randomized Quake III Arena machinima production. The algorithm outputs a list of various elements that correspond to various machinima (post-)production processes and parameters found within `Quake III MovieMaker's Edition`. Technically speaking, avant is able to generate endless variations of potential experimental Quake III machinima films.
 
 The algorithm was named after the highly popular art movement *'avant-garde'*, as it outputs raw, randomized and unchecked data made for experimental productions. It is not until the actual production or post-production process that the user is able to see how the actual data is 'visualized'. The focus lies on film design and graphical representation, not on contents or story; thus staying in true *avant-garde* fashion.
 
@@ -114,15 +114,15 @@ The changelog is a list that keeps track of all the updates and improvements int
 <br/>
 
 ----
-**0.1.0** | Python Version Development | 25/01/2024 <br/>
+**0.1.0** | Development | 25/01/2024 <br/>
 * Main Menu Completed
 * Exit Function Completed
 * Credits Section completed
 * Logic Updates
 ----
-**0.0.2** | Python Version Development | 23/01/2024 <br/>
+**0.0.2** | Development | 23/01/2024 <br/>
 * Created avantlib
-* Started development on the Python version of avant
+* Started development on avant
 * Linked MongoDB
 * Created various main- and helper functions
 ----
@@ -134,8 +134,6 @@ The changelog is a list that keeps track of all the updates and improvements int
 <br/>
 
 ### License
-PyPi version created in Python 3.11 *(Python Software Foundation)*<br>
-NPM version created in Node 21.1.0 *(OpenJS Foundation)*<br/><br/>
 The avant algorithm is licensed under a MIT-license. Please refer to `License.txt` for information regarding the usage and modification of the algorithm.
 
 &copy; Jordy Veenstra 2024 <br>
