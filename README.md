@@ -16,22 +16,18 @@ Licensed under MIT
 ### Table of Contents
 
 * [Background](#background)
-* [Algorithm Modes](#algorithm-modes)
+* [Documentation](#documentation)
 * [Installation](#installation)
 * [How to Use](#how-to-use)
-* [Interpreting Generated Data](#interpreting-generated-data)
 * [Using Generated Data](#using-generated-data)
-* [Troubleshooting](#troubleshooting)
-* [Roadmap](#roadmap)
-* [Changelog](#changelog)
 * [License](#license)
 
 <br/>
 
 ### Background
-*Avant* is a Python algorithm that outputs random-generated data for the purpose of experimental, depth-based and randomized Quake III Arena machinima production. The algorithm outputs a list of various elements that correspond to various machinima (post-)production processes and parameters found within `Quake III MovieMaker's Edition`. Technically speaking, avant is able to generate endless variations of potential experimental Quake III machinima films.
+*Avant* is a Python algorithm that outputs random-generated film data for the purpose of creating automated, experimental and randomized Quake III Arena machinima productions. The algorithm outputs a list of various elements that correspond to various machinima (post-)production processes and parameters found within `Quake III MovieMaker's Edition`, alongside all the required files necessary for the entire production- and post-production process. The only manual 'labor' required from the user is to click the `render.bat` file once data/file generation has been concluded. 
 
-The algorithm was named after the highly popular art movement *'avant-garde'*, as it outputs raw, randomized and unchecked data made for experimental productions. It is not until the actual production or post-production process that the user is able to see how the actual data is 'visualized'. The focus lies on film design and graphical representation, not on contents or story; thus staying in true *avant-garde* fashion.
+Avant was named after the highly popular art movement *'avant-garde'*, as it outputs raw, randomized and basically unchecked film data. It's primary purpose is to create experimental Quake III machinima based on raw, randomized and basically unverified film data. Technically speaking, the algorithm is able to generate unlimited variations of potential experimental Quake III machinima films. It is not until the actual production or post-production process that the user is able to see how the actual data is 'visualized'. The focus lies on film design and graphical representation, not on contents or story; thus staying in true *avant-garde* fashion.
 
 Avant serves as the successor to the now defunct `DOMINION` algorithm and offers a number of quality of life improvements, such as:
 

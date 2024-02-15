@@ -1,4 +1,4 @@
-from avantlib import init, connect, exception, mame, cre, ex, htu
+from avantlib import init, connect, exception, mame, cre, ex, htu, start
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 
@@ -19,10 +19,6 @@ try:
         elif ch == 3:
             if cre():
                 continue
-            else:
-                break
-        elif ch == 4:
-            ex()
         else:
             ex()
             break

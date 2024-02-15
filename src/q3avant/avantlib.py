@@ -130,7 +130,7 @@ def mame():
         if ini_mame is None:
             return None
         sel_mame = ini_mame['choice']
-        ch = 1 if sel_mame == "Start Algorithm" else 2 if sel_mame == "Help" else 3 if sel_mame == "Credits" else 4 if sel_mame == "Exit" else 5
+        ch = 1 if sel_mame == "Start Algorithm" else 2 if sel_mame == "Help" else 3 if sel_mame == "Credits" else 4
         return ch
     except Exception as err:
         print(f"An error occurred: {err}")
@@ -139,9 +139,6 @@ def mame():
 def cre():
     clear()
     wait(0.7)
-    print(avantxt.ascii_credits)
-    print()
-    wait(0.2)
     iterate(0.5, 0.025, *avantxt.cred)
     iterate(0.7, 0.025, *avantxt.cred_2)
     iterate(0.7, 0.025, *avantxt.cred_3)
@@ -151,75 +148,20 @@ def cre():
     wait(0.5)
     return True
 
-def show_bg():
-    print(avantxt.bg_t + avantxt.bg + avantxt.bg_2 + avantxt.bg_3 + avantxt.bg_4 + avantxt.bg_5 + avantxt.bg_6 + avantxt.bg_7 + avantxt.bg_8 +
-          avantxt.bg_9 + avantxt.bg_10 + avantxt.bg_11 + avantxt.bg_12 + avantxt.bg_13 + avantxt.bg_14 + avantxt.bg_15 + avantxt.bg_16)
-    wait(5)
-    print()
-    input(avantxt.any2)
-    clear()
-    wait(0.7)
-    print(avantxt.ascii_help)
-
-def show_modes():
-    return sys.exit(0)
-
-def show_htu():
-    return sys.exit(0)
-
-def show_intpr():
-    return sys.exit(0)
-
-def show_trbs():
-    return sys.exit(0)
-
-def show_log():
-    return sys.exit(0)
-
-def show_lcn():
-    return sys.exit(0)
-
 def htu():
     clear()
     wait(0.7)
     print()
     print(avantxt.ascii_help)
-    opt = [avantxt.h1, avantxt.h2, avantxt.h3, avantxt.h4, avantxt.h5, avantxt.h6, avantxt.h7, avantxt.h8]
     while True:
         iterate(0.5, 0.025, *"Select a topic for more information\n")
-        wait(0.5)
-        selected_option = inquirer.prompt([
-            inquirer.List('topic', choices=opt)
-        ])['topic']
-        if selected_option == avantxt.h1:
-            clear()
-            wait(0.7)
-            show_bg()
-        elif selected_option == avantxt.h2:
-            clear()
-            wait(0.7)
-            show_modes()
-        elif selected_option == avantxt.h3:
-            clear()
-            wait(0.7)
-            show_htu()
-        elif selected_option == avantxt.h4:
-            clear()
-            wait(0.7)        
-            show_intpr()
-        elif selected_option == avantxt.h5:
-            clear()
-            wait(0.7)
-            show_trbs()
-        elif selected_option == avantxt.h6:
-            clear()
-            wait(0.7)
-            show_log()
-        elif selected_option == avantxt.h7:
-            clear()
-            wait(0.7)
-            show_lcn()
-        elif selected_option == avantxt.h8:
-            clear()
-            wait(0.7)
-            break
+
+def start():
+    clear()
+    wait()
+    iterate(0.5, 0.025, *"The algorithm will show up here")
+    wait(0.4)
+    input(avantxt.any)
+    clear()
+    wait(0.5)
+    return True
