@@ -12,6 +12,7 @@ setup(
     project_urls={
         "GitHub": "https://www.github.com/jiyorude/avant",
         "BitBucket": "https://bitbucket.org/appov/avant/src/main/",
+        "Documentation": "https://avant-docs.vercel.app/",
         "Issues": "https://github.com/jiyorude/avant/issues",
         "PyPi": "#"
     },

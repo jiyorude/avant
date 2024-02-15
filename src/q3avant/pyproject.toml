@@ -17,7 +17,8 @@ classifiers = [
 ]
 
 [project.urls]
+PyPi = "#"
 GitHub = "https://github.com/jiyorude/avant"
 Issues = "https://github.com/jiyorude/avant/issues"
-PyPi = "#"
+Documentation = "https://avant-docs.vercel.app/"
 Bitbucket = "https://bitbucket.org/appov/avant/src/main/"
