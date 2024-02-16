@@ -20,7 +20,6 @@ map_data = db['map_data']
 def ex():
     clear()
     wait(0.5)
-    print(avantxt.ascii_bye)
     print()
     iterate(0.5, 0.025, *avantxt.exit_two)
     wait(1.5)

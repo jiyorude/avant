@@ -59,17 +59,32 @@ If you encounter a problem that has not been documented yet, feel free to open a
 <br/>
 
 ### Installation
-Avant can be installed and/or used in two different ways. The user can run it as a standalone application (`.exe` - Windows / `.app` - MacOS), or install avant as a `PyPi` package and run it from the command line. The end result will be the same across both ways.
+Avant can be installed and/or used in three different ways. The user can run it as a standalone application (`.exe` - Windows / `.app` - MacOS), clone the repository and run the algorithm with `python avant.py` or install avant as a `PyPi` package and run it from the command line. The end result will be the same across both ways.
 
-Running avant as a standalone application is the easiest and fastest way for most users as it does not require any additional setup or downloads. Running from the command line is 
+##### Running avant as a standalone application
+Running avant as a standalone application is the easiest and fastest way for most users as it does not require any additional setup or downloads. Download the latest executable from the `release` section and open the file.
 
-If you decide to run the algorithm from the command line inside of a Python project, please ensure that you are at least running `Python 3.8` and that Python has been set up correctly. Please follow the following steps underneath first before installing avant.
+##### Checklist before
+If you decide to run the algorithm from the command line with either the PyPi build or by cloning the repository, please ensure that you are at least running `Python 3.8`, have `pip` installed and that Python has been set up correctly. Please follow the following steps underneath before cloning the repository or installing the PyPi package.
 
-##### Checklist
-- Open a new terminal window and type `python` followed by a ENTER/RETURN. The command line should return your current Python version. If `python` does not work, try `python3` (sometimes works for MacOS users), otherwise check if Python is running correctly and consult the Python documentation.
-- If it returns `Python 3.8` or higher and if you have installed Python from the [Official Python Website](https://www.python.org/downloads/), `pip` will be automatically installed as well. If your Python version is lower, you will need to update your version of Python first.
-- Check if you have `pip` installed by typing `pip --version` in your terminal window. If it returns a version number, you are good to go. If you don't have `pip` installed, that means you have downloaded Python from elsewhere and you must follow [this installation guide](https://pip.pypa.io/en/stable/installation/) from the official pip website.
+- Open a new terminal window and type `python` followed by a ENTER/RETURN. The command line should return your current Python version. If `python` does not work, try `python3` (sometimes works for MacOS users) or check your System variables and paths (Windows), otherwise consult the Python documentation if you are experiencing issues.
+- If it returns `Python 3.8` or higher and if you have installed Python from the [Official Python Website](https://www.python.org/downloads/), `pip` will be automatically installed as well. If your Python version is lower, you will need to update your version of Python first by downloading a more recent version from the Python foundation website.
+- Check if you have `pip` installed by typing `pip --version` in your terminal window. If it returns a version number, you are good to go. If you don't have `pip` installed, that means you have downloaded Python from elsewhere and you must follow [this installation guide](https://pip.pypa.io/en/stable/installation/) from the official pip website in order to get it up and running.
+- If you don't have any version of Python on your machine, make sure to download it from the [Official Python Website](https://www.python.org/downloads) as it installs `pip` automatically as well.
+- Proceed with one of the two options down below.
 
+##### Running avant by cloning the repository
+- Open a new terminal window, navigate to your folder of choice. Clone the repository with `git clone https://github.com/jiyorude/avant.git`
+- Install the following dependencies:
+    - `pip install pymongo`
+    - `pip install inquirer`
+    - `pip install reportlab`
+- Enter the folder which you used to install avant and navigate to the `src > q3avant` folder.
+- Run the algorithm with `python avant.py`
+
+##### Running avant as a PyPi package:
+- Install avant with `pip install q3avant`
+- Open a new terminal window and run the algorithm with `q3avant_run`
 
 <br/>
 
