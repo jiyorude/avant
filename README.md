@@ -19,157 +19,64 @@ Licensed under MIT
 * [Documentation](#documentation)
 * [Installation](#installation)
 * [How to Use](#how-to-use)
-* [Using Generated Data](#using-generated-data)
+* [Using Generated Data/Files](#using-generated-data-files)
 * [License](#license)
 
 <br/>
 
 ### Background
-*Avant* is a Python algorithm that outputs random-generated film data for the purpose of creating automated, experimental and randomized Quake III Arena machinima productions. The algorithm outputs a list of various elements that correspond to various machinima (post-)production processes and parameters found within `Quake III MovieMaker's Edition`, alongside all the required files necessary for the entire production- and post-production process. The only manual 'labor' required from the user is to click the `render.bat` file once data/file generation has been concluded. 
+*Avant* is a Python algorithm that outputs random-generated film data for the purpose of creating automated, experimental and randomized Quake III Arena machinima productions. The algorithm outputs a list of various elements that correspond to various machinima (post-)production processes and parameters found within `Quake III MovieMaker's Edition`, alongside all the required files necessary for the entire production- and post-production process, and if desired, is able to instantaneously start the batch-capturing process inside Q3MME and export XML-data for your NLE; thus fully automating the capturing process.
 
-Avant was named after the highly popular art movement *'avant-garde'*, as it outputs raw, randomized and basically unchecked film data. It's primary purpose is to create experimental Quake III machinima based on raw, randomized and basically unverified film data. Technically speaking, the algorithm is able to generate unlimited variations of potential experimental Quake III machinima films. It is not until the actual production or post-production process that the user is able to see how the actual data is 'visualized'. The focus lies on film design and graphical representation, not on contents or story; thus staying in true *avant-garde* fashion.
+Avant was named after the highly popular art movement *'avant-garde'*, as it outputs raw, randomized and basically unchecked film data for the primary purpose of creating innovative, experimental and unconventional Quake III machinima films. It is not until the actual post-production process that the user is able to see how the generated data is visualized and captured. The films generated with avant focus on design, graphical representation, artistic expression and the idea of challenging traditional norms and practices found within Quake III movie production, and not necessarily on their contents nor story; thus staying in true *'avant-garde* fashion. 
+
+Technically speaking, Avant allows for the generation of practically unlimited variations of potential experimental Quake III machinima films. 
 
 Avant serves as the successor to the now defunct `DOMINION` algorithm and offers a number of quality of life improvements, such as:
 
-* Full integration of a custom lvlworld map database. Users can specify a map by stating either the lvlworld ID or the map's name. The database will be updated regularly in order to include the most recently released maps.
-* Avant is able to generate data for only the production process of experimental Quake III machinima, post-production, or both.
-* DepthMap generation can now be turned on or off during the initial wizard. 
-* Data will be automatically saved to a pre-stylized PDF instead of a notepad file.
-* You can now define whether you want to save all generated data to a PDF, or only the necessary info required for production and/or post-production.
-* Additional parameters for the project, such as name, framerate, game and intro/outro length can now be set freely.
+* Full integration of a custom, regularly updated lvlworld map database built in MongoDB that was meticulously crafted by hand;
 
-In short, Avant generates and outputs data for a number of elements for your Quake III machinima project, such as:
-* **Runtime:** The total length of your film in seconds and frames per second
-* **Maps:** A list of randomized lvlworld map id's and corresponding map names
-* **Post-Production Flow:** Generates a full edit list containing the required shots (if `depth-mode` is turned on, their depthmap profile as well) and length. The list contains an automatic function that deletes excess frames if the total output exceeds the runtime limit.
-* **Shot Information:** Provides information regarding the length of each of the selected shots, various parameters such as camera position, roll, yaw and field of view. In tandem, the algorithm also decides whether the shot contains camera animations, and if so, what the animation parameters are. The shots contained in this list will be used.
-* **Depth Information:** If `depth-mode` is turned on, each shot provided in the shotlist will contain parameters for depthfocus en depthrange as well.
+* Different algorithm modes that allow for total control and creative freedom as to how the user wishes to create their machinima production;
+
+* Project parameters, such as name, framerate and length can now be set freely during the initialization wizard;
+
+* Automatic generation- and/or download of all required data and files, such as XML/EDL files for the users' NLE, Q3MME project files, dm.68 demo files, and the `offscreen_render.bat` file required to start the auto-capturing process;
+
+* Generated data will be automatically saved to a pre-stylized PDF instead of a simple notepad file.
 
 <br/>
 
-### Algorithm Modes
-The avant algorithm contains a multitude of modes that can be switched on or off during the project setup wizard. The amount of data that is generated by avant depends on which modes you intend to use for your project. 
+... and much more! Check out the [documentation](https://avant-docs.vercel.app/) for an extensive overview of features found in avant.
 
-Avant's different modes, alongside what they do, are listed in chronological order underneath:
+<br/>
 
-**Free-map-mode or map-assist-mode**
+### Documentation
+The documentation contains extensive information regarding the many features, modes, changelogs, additional information regarding algorithm usage and answers to frequently asked questions/troubleshoots. The documentation website for avant was created with Next.js, Tailwind and TypeScript. 
 
------
-Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt facilis ullam laboriosam? Fugit impedit saepe voluptatum quibusdam mollitia quidem voluptates dignissimos commodi, odio esse harum eius, aliquid quis iure tempora.
-Officiis maiores, maxime obcaecati libero dolorum debitis numquam fugiat hic, aperiam minus et porro a excepturi! Rerum aperiam minima laborum? Earum distinctio voluptas voluptatibus tenetur sit adipisci praesentium beatae. Excepturi.
-Architecto aut modi consequatur. Nihil non ipsum, qui pariatur natus quod cumque libero unde vero eius saepe. Illum ab, cum tempore dolores maiores asperiores nobis velit explicabo, minus molestias quos.
-Autem doloremque odit laudantium dolorem quos dolore dignissimos veritatis voluptas eaque sapiente, necessitatibus, quod aut beatae vero quas officiis. Pariatur voluptatum natus aperiam odio fuga architecto nostrum nobis tempora hic?
-Nulla, doloremque. Ullam amet delectus nemo? Repellendus quos dolore animi reprehenderit sit voluptates est minus repellat! Ea earum rem cumque beatae, repudiandae, error, possimus aliquam tenetur ut officia voluptate nulla!
-<br/><br/>
+Check it out [here.](https://avant-docs.vercel.app)
 
-**Production-mode, post-mode, or workflow-mode** 
+If you encounter a problem that has not been documented yet, feel free to open an Issue on [GitHub.](https://github.com/jiyorude/avant/issues)
 
------
-If `production-mode` is selected, avant will only output data relevant for the production process of Quake III Machinima, such as camera parameters, camera animation, framerate, film length and so forth. It will not create a post-production workflow. This mode comes in handy when you want to have your shots predetermined for you, but want to keep full control of your post-production pipeline.
-
-`Post-mode`, on the other hand, works on the other side of the spectrum. It assumes the user has already created footage ready to be used for post-production and asks the user for input data from their existing footage, such as amount of shots, shotlength and framerate, and generates a post-production workflow based on the shot input. This mode comes in handy when you want full control over your shots but want to randomize your post-production workflow.
-
-`Workflow-mode` combines both `production-mode` and `post-mode` by generating both the production and post-production data for the user. 
-<br/><br/>
-
-**Depth-mode**
-
------
-Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt facilis ullam laboriosam? Fugit impedit saepe voluptatum quibusdam mollitia quidem voluptates dignissimos commodi, odio esse harum eius, aliquid quis iure tempora.
-Officiis maiores, maxime obcaecati libero dolorum debitis numquam fugiat hic, aperiam minus et porro a excepturi! Rerum aperiam minima laborum? Earum distinctio voluptas voluptatibus tenetur sit adipisci praesentium beatae. Excepturi.
-Architecto aut modi consequatur. Nihil non ipsum, qui pariatur natus quod cumque libero unde vero eius saepe. Illum ab, cum tempore dolores maiores asperiores nobis velit explicabo, minus molestias quos.
-Autem doloremque odit laudantium dolorem quos dolore dignissimos veritatis voluptas eaque sapiente, necessitatibus, quod aut beatae vero quas officiis. Pariatur voluptatum natus aperiam odio fuga architecto nostrum nobis tempora hic?
-Nulla, doloremque. Ullam amet delectus nemo? Repellendus quos dolore animi reprehenderit sit voluptates est minus repellat! Ea earum rem cumque beatae, repudiandae, error, possimus aliquam tenetur ut officia voluptate nulla!
-<br/><br/>
-
-**Depth-mode**
-
------
-Lorem ipsum dolor sit, amet consectetur adipisicing elit. Deserunt facilis ullam laboriosam? Fugit impedit saepe voluptatum quibusdam mollitia quidem voluptates dignissimos commodi, odio esse harum eius, aliquid quis iure tempora.
-Officiis maiores, maxime obcaecati libero dolorum debitis numquam fugiat hic, aperiam minus et porro a excepturi! Rerum aperiam minima laborum? Earum distinctio voluptas voluptatibus tenetur sit adipisci praesentium beatae. Excepturi.
-Architecto aut modi consequatur. Nihil non ipsum, qui pariatur natus quod cumque libero unde vero eius saepe. Illum ab, cum tempore dolores maiores asperiores nobis velit explicabo, minus molestias quos.
-Autem doloremque odit laudantium dolorem quos dolore dignissimos veritatis voluptas eaque sapiente, necessitatibus, quod aut beatae vero quas officiis. Pariatur voluptatum natus aperiam odio fuga architecto nostrum nobis tempora hic?
-Nulla, doloremque. Ullam amet delectus nemo? Repellendus quos dolore animi reprehenderit sit voluptates est minus repellat! Ea earum rem cumque beatae, repudiandae, error, possimus aliquam tenetur ut officia voluptate nulla!
-<br/><br/>
+<br/>
 
 ### Installation
-...
+Avant can be installed and/or used in two different ways. The user can run it as a standalone application (`.exe` - Windows / `.app` - MacOS), or install avant as a `PyPi` package and run it from the command line. The end result will be the same across both ways.
 
-<br/>
+Running avant as a standalone application is the easiest and fastest way for most users as it does not require any additional setup or downloads. Running from the command line is 
 
-### How to Use
-...
+If you decide to run the algorithm from the command line inside of a Python project, please ensure that you are at least running `Python 3.8` and that Python has been set up correctly. Please follow the following steps underneath first before installing avant.
 
-<br/>
+##### Checklist
+- Open a new terminal window and type `python` followed by a ENTER/RETURN. The command line should return your current Python version. If `python` does not work, try `python3` (sometimes works for MacOS users), otherwise check if Python is running correctly and consult the Python documentation.
+- If it returns `Python 3.8` or higher and if you have installed Python from the [Official Python Website](https://www.python.org/downloads/), `pip` will be automatically installed as well. If your Python version is lower, you will need to update your version of Python first.
+- Check if you have `pip` installed by typing `pip --version` in your terminal window. If it returns a version number, you are good to go. If you don't have `pip` installed, that means you have downloaded Python from elsewhere and you must follow [this installation guide](https://pip.pypa.io/en/stable/installation/) from the official pip website.
 
-### Interpreting Generated Data
-...
-
-<br/>
-
-### Using Generated Data
-...
-
-<br/>
-
-### Troubleshooting
-*Please check the [Issues](https://github.com/jiyorude/avant/issues) tab inside of the GitHub Repository if your issue is not listed in this list. Feel free to open a new issue if your problem has not been featured yet. Duplicate issues will be removed.*
-
-Frequently asked questions can be found both underneath and in the `Help` section of the algorithm.
-
-**Terminal does not clear text properly after entering main menu/selecting submenu** <br/>
-The algorithm should work properly with standard terminal environments found in Windows, MacOS and Linux. If you are using a third-party terminal environment, please check your settings as most likely the software or a setting is interfering with avant or use the standard terminal environments found in your OS.
-
-<br/>
-
-### Roadmap
-
-| Work                       | Status |
-| :------------------------- | :-----:|
-| Map Database               | 1%     |
-| Documentation              | 30%    |
-| Map Coordinates            | 0%     |
-| Map Images                 | 0%     |
-| Depth Info                 | 0%     |
-| Algorithm: Algorithm       | 0%     |
-| Algorithm: Help            | 10%    |
-| Testing and Debugging      | TBA    |
-| Packaging and Distribution | TBA    |
-
-| Completed       |
-| :-------------- |
-| Credits Section |
-| Exit Function   |
-
-<br/>
-
-### Changelog
-The changelog is a list that keeps track of all the updates and improvements introduced to avant, alongside an overview of all the different versions of the algorithm.
-
-<br/>
-
-----
-**0.1.0** | Development | 25/01/2024 <br/>
-* Main Menu Completed
-* Exit Function Completed
-* Credits Section completed
-* Logic Updates
-----
-**0.0.2** | Development | 23/01/2024 <br/>
-* Created avantlib
-* Started development on avant
-* Linked MongoDB
-* Created various main- and helper functions
-----
-**0.0.1** | Initialization | 03/01/2024 <br/>
-* Project Initialization GitHub/BitBucket
-* Created Documentation
-----
 
 <br/>
 
 ### License
-The avant algorithm is licensed under a MIT-license. Please refer to `License.txt` for information regarding the usage and modification of the algorithm.
+Avant, avantlib and its database are licensed under a MIT-license. Please refer to `License.txt` for information regarding the usage and modification of the algorithm.
+
+Please head over to the `release` section of the repository (GitHub only) if you wish to download a dump of the avant map database.
 
 &copy; Jordy Veenstra 2024 <br>
 &copy; A Pixelated Point of View 2024
