@@ -129,7 +129,7 @@ def mame():
         if ini_mame is None:
             return None
         sel_mame = ini_mame['choice']
-        ch = 1 if sel_mame == "Start Algorithm" else 2 if sel_mame == "Help" else 3 if sel_mame == "Credits" else 4
+        ch = 1 if sel_mame == "Start Algorithm" else 2 if sel_mame == "Documentation" else 3 if sel_mame == "Credits" else 4
         return ch
     except Exception as err:
         print(f"An error occurred: {err}")
@@ -138,6 +138,7 @@ def mame():
 def cre():
     clear()
     wait(0.7)
+    print()
     iterate(0.5, 0.025, *avantxt.cred)
     iterate(0.7, 0.025, *avantxt.cred_2)
     iterate(0.7, 0.025, *avantxt.cred_3)
@@ -151,13 +152,20 @@ def htu():
     clear()
     wait(0.7)
     print()
-    print(avantxt.ascii_help)
-    while True:
-        iterate(0.5, 0.025, *"Select a topic for more information\n")
+    iterate(0.5, 0.025, *avantxt.help_1)
+    print()
+    iterate(0.5, 0.025, *avantxt.help_2)
+    print()
+    wait(0.4)
+    input(avantxt.any)
+    clear()
+    wait(0.5)
+    return True
 
 def start():
     clear()
-    wait()
+    wait(0.5)
+    print()
     iterate(0.5, 0.025, *"The algorithm will show up here")
     wait(0.4)
     input(avantxt.any)

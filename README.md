@@ -6,7 +6,7 @@ Quake III Machinima (post-)production
 
 <br/>
 
-**Version: 0.1.0 - 25 January 2024**
+**Version: 0.2.0 - 21 February 2024**
 <br/><br/>
 Created by Jordy Veenstra (A Pixelated Point of View)<br/>
 Licensed under MIT
@@ -19,7 +19,6 @@ Licensed under MIT
 * [Documentation](#documentation)
 * [Installation](#installation)
 * [How to Use](#how-to-use)
-* [Using Generated Data/Files](#using-generated-data-files)
 * [License](#license)
 
 <br/>
@@ -85,6 +84,21 @@ If you decide to run the algorithm from the command line with either the PyPi bu
 ##### Running avant as a PyPi package:
 - Install avant with `pip install q3avant`
 - Open a new terminal window and run the algorithm with `q3avant_run`
+
+<br/>
+
+### How To use
+Underneath contains a short overview of how the algorithm works and what results are to be expected across the various modes found inside avant.
+* Run the algorithm through your method of choice (Clone/PyPi/Executable). 
+* Navigate through the main menu with the arrow keys on your keyboard and hit the enter/return key to confirm your choice. The `documentation` menu contains a hyperlink redirecting towards the documentation website. The `credits` menu presents an overview of all languages and modules used for avant alongside hyperlinks leading to the source code. And, of course, the `exit` function gracefully exits out of the program.
+* Select `start algorithm` to start avant. The algorithm was designed to run like a 'software wizard'. It will keep asking for input or a selection from the user and starts data and/or file generation whenever it has received enough input to do so. 
+* Avant will ask the user for information regarding their project, such as projectname and framerate. Avant will use this input later on during data generation. Once finished, the user must choose from *three* different modes
+  * `Production Mode` - This mode assumes that the user only wants to produce shots and keep their creative freedom during post-production. If avant is in production mode, it will only generate files and/or data that are relevant to experimental Quake III machinima production, such as camera and shot data, depth data, mme project files and files for offscreen capturing. In production mode, the user is free to define whether they want to let avant decide which maps will be selected, select their own maps from the database or choose a combination of the two. Avant will automatically copy over the required files required for capturing into a new folder. The user only needs to start the offscreen capturing process and is able to use the rendered footage right away as they see fit.
+  * `Post Mode` - This mode assumes that the user has already captured their own footage in the same framerate specified during the initial setup and wants avant to generate post-production data/files. Just to confirm with the user, avant will ask them to reconfirm the framerate that was initially set or change it to a new one. Afterwards, it will ask for the amount of shots that are to be used for the project, alongside with their location. For each shot, the exact shotname (name of the file) and their respective lengths should be specified next to the maximum length of what the user wants the film to be. Lastly, avant asks if timeframes at the beginning and end of the film should be reserved for credits and opening titles, and if so, how long these sections should be. If avant is set to post-mode, it will generate a xml/edl file for use in your NLE of choice. The user only would need to import the footage and the XML/EDL sequence into their NLE of choice, and the film is ready to be viewed/exported.
+  * `Full Service Mode` - This mode is selected by default. Full service mode is a combination of both modes in which avant will take care of everything from beginning to end. It will generate production data for q3mme, create and select the required files, create a file for offscreen capturing, generate both a shotlist and an edit list and presents the user with a XML/EDL for use in their NLE of choice. The only thing left for the user to do is to run the offscreen capture file, and to import both the footage and XML/EDL into their NLE when capturing has finished.
+* Once a mode has been selected, avant will ask for further input that is required for that particular mode, and once done, generate the required data and files. The user will be kept updated through print statements inside the terminal window.
+* When done, the user will be notified inside the terminal alongside a location where the files can be found. The user can return to the main menu by pressing the enter/return key.
+* If, at all times, the user wishes to terminate the algorithm, they can do so with `Control (Windows)/Command (MacOS) + C` or `Control (Windows)/Command (MacOS) + D`. The exit function will be called instantly and the program will close gracefully.
 
 <br/>
 
