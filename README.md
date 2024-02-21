@@ -63,7 +63,7 @@ Avant can be installed and/or used in three different ways. The user can run it 
 ##### Running avant as a standalone application
 Running avant as a standalone application is the easiest and fastest way for most users as it does not require any additional setup or downloads. Download the latest executable from the `release` section and open the file.
 
-##### Checklist before
+##### Checklist before Cloning or PyPi
 If you decide to run the algorithm from the command line with either the PyPi build or by cloning the repository, please ensure that you are at least running `Python 3.8`, have `pip` installed and that Python has been set up correctly. Please follow the following steps underneath before cloning the repository or installing the PyPi package.
 
 - Open a new terminal window and type `python` followed by a ENTER/RETURN. The command line should return your current Python version. If `python` does not work, try `python3` (sometimes works for MacOS users) or check your System variables and paths (Windows), otherwise consult the Python documentation if you are experiencing issues.
