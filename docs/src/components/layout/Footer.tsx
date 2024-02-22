@@ -4,15 +4,15 @@ const Footer: React.FC = () => {
     const now = new Date().getFullYear();
     
     return (
-    <footer className="w-full bg-avaBlack fixed bottom-0 left-0 right-0 shadow-inner h-8 flex items-center">
-        <section className='flex mx-auto container h-full justify-center flex-row pb-0.5'>
-        <div className='flex items-center px-4 text-avaWhite font-avaSemiBold text-[10px] lg:text-xs'>
+    <footer className="w-full absolute bottom-0 left-0 right-0 h-8 flex items-center select-none">
+        <section className='flex mx-auto opacity-30 container h-full justify-center flex-row pb-0.5'>
+        <div className='flex items-center px-4 text-avaBlack font-avaSemiBold text-[10px] lg:text-xs'>
                 <p>&copy; Jordy Veenstra {now}</p>
             </div>
-            <div className='flex items-center px-4 text-avaWhite font-avaLight text-[10px] lg:text-xs'>
+            <div className='flex items-center px-4 text-avaBlack font-avaLight text-[10px] lg:text-xs'>
                 <p>V0.2.0</p>
             </div>
-            <div className='flex items-center px-4 text-avaWhite font-avaLight text-[10px] lg:text-xs'>
+            <div className='flex items-center px-4 text-avaBlack font-avaLight text-[10px] lg:text-xs'>
                 <p>Licensed under MIT</p>
             </div>
         </section>
