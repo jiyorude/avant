@@ -43,3 +43,11 @@
   font-style: normal;
   font-weight: 700;
 }
+
+.mxFlexCenter {
+  @apply flex items-center justify-center;
+}
+
+.mxFlexRight {
+  @apply flex items-center justify-end;
+}

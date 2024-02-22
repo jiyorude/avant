@@ -12,6 +12,8 @@ const config: Config = {
         'avaBlack': '#131313',
         'avaRed': '#990404',
         'avaWhite': '#f5f5f0',
+        'avaTeal': '#006D77',
+        'avaGrey': '#9E9E8F'
       },
       fontFamily: {
         'avaValorant': 'Valorant',
