@@ -74,14 +74,12 @@ If you decide to run the algorithm from the command line with either the PyPi bu
 
 ##### Running avant by cloning the repository
 - Open a new terminal window, navigate to your folder of choice. Clone the repository with `git clone https://github.com/jiyorude/avant.git`
-- Install the following dependencies:
-    - `pip install pymongo`
-    - `pip install inquirer`
-    - `pip install reportlab`
+- Install project dependencies with `pip install -r requirements.txt`
 - Enter the folder which you used to install avant and navigate to the `src > q3avant` folder.
 - Run the algorithm with `python avant.py`
 
 ##### Running avant as a PyPi package:
+- Create a new environment or select a environment of choice with `venv`
 - Install avant with `pip install q3avant`
 - Open a new terminal window and run the algorithm with `q3avant_run`
 
