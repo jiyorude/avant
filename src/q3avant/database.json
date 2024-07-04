@@ -1,7 +1,7 @@
 [
     {
         "id": 1,
-        "map_name": "FULL MAP NAME",
+        "map_name": "The Final Hour",
         "file_name": "PK3/BSP SHORT MAP NAME",
         "author": ["AUTHOR NAME", "SECOND AUTHOR NAME"], 
         "url": "https://lvlworld.com/review/id:1",
@@ -12,6 +12,7 @@
         "max_y": "MAX Y COORDINATES OF MAP",
         "min_z": "MIN Z COORDINATES OF MAP",
         "max_z": "MAX Z COORDINATES OF MAP",
+        "total_spawnpoints": 2,
         "spawnpoints": [
             {
                 "spawnpoint": 1,
@@ -23,10 +24,6 @@
                 "upward": 1,
                 "downward": 1
             }
-        ],
-        "min_df": "MINIMUM DEPTH FOCUS VALUE",
-        "max_df": "MAXIMUM DEPTH FOCUS VALUE",
-        "min_dr": "MINIMUM DEPTH RANGE VALUE",
-        "max_dr": "MAXIMUM DEPTH RANGE VALUE"
+        ]
     }
 ]

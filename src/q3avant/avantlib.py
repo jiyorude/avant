@@ -1,120 +1,131 @@
 import time
 import sys
+import requests
 import os
 import inquirer
 import avantxt
+import avantutils
 from datetime import datetime
-from pymongo.mongo_client import MongoClient
-from pymongo.server_api import ServerApi
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Paragraph
 from reportlab.lib.styles import getSampleStyleSheet
 
-uri = "mongodb+srv://user:wPrU3lO40KCN3YWN@avant.kp8vmpd.mongodb.net/"
-client = MongoClient(uri, server_api=ServerApi('1'))
-db = client['avant']
-map_data = db['map_data']
+global projectname
+global framerate
+global algselect
 
-def ex():
-    clear()
-    wait(0.5)
+# Algorithm Functions
+def projname():
+    projectname = None
+    avantutils.iterate(0.5, 0.025, *avantxt.setup_1)
     print()
-    iterate(0.5, 0.025, *avantxt.exit_two)
-    wait(1.5)
-    clear()
-    wait(0.5)
-    sys.exit(0)
+    projectname = input()
+    while len(projectname) > 30:
+        avantutils.iterate(0.5, 0.025, *avantxt.setup_2)
+        print()
+        projectname = input()
+    avantutils.double_print()
 
-def exception(err: any, x: int):
-    clear()
-    print()
-    iterate(0.4, 0.025, f"An error occurred: {err}.\n")
-    for y in range(x, -1, -1):
-        terminateAlt(y)
-        wait(1)
-    clear()
-    sys.exit(0)
+def fps():
+    framerate = None
+    avantutils.iterate(0.5, 0.025, *avantxt.setup_3)
+    framerate = input()
+    while framerate is not float(framerate) or framerate is not int(framerate):
+        avantutils.iterate(0.5, 0.025, *avantxt.setup_4)
+        print()
+        framerate = input()
+    avantutils.double_print()
 
-def print_ascii():
-    for line in avantxt.ascii.splitlines():
-        iterate(0.1, 0.010, *line)
+def algomode():
+    avantutils.iterate(0.5, 0.025, *avantxt.setup_5)
+    almo = [inquirer.List('algchoice',
+        choices=[
+            avantxt.mode_one,
+            avantxt.mode_two,
+            avantxt.mode_three,
+        ])]
+    almo_ch = inquirer.prompt(almo)
+    if almo_ch is None:
+        return None
+    selected_mode = almo_ch['algchoice']
+    match(selected_mode):
+        case "Production Mode (Production data and capturing files)":
+            algselect = "Production Mode"
+            avantutils.wait(0.5)
+            avantutils.clear()
+            confirm(algselect)
+        case "Post Mode (Editing data only)":
+            algselect = "Post Mode"
+            avantutils.wait(0.5)
+            avantutils.clear()
+            confirm(algselect)
+            
+def confirm(mode: str):
+    confirm_bool = bool(None)
+    avantutils.iterate(0.8, 0.025, *avantxt.confirm_one)
+    avantutils.iterate(0.8, 0.025, *f"Project name: {projectname}")
+    avantutils.iterate(0.8, 0.025, *f"Framerate: {framerate} frames per second")
+    avantutils.iterate(0.8, 0.025, *f"Selected algorithm mode: {algselect}")
+    avantutils.iterate(0.8, 0.025, *avantxt.confirm_two)
+    while True:
+        choice = input()
+        if choice is "y".casefold() or choice is "n".casefold():
+            if choice is "y".casefold():
+                confirm_bool = True
+            else:
+                confirm_bool = False
+        break
+    
 
-def wait(int: int):
-    time.sleep(int)
 
-def iterate(bdel: int, tdel: float, *str: any):
-    wait(bdel)
-    for char in str:
-        print(char, end='', flush=True)
-        wait(tdel)
-    print()
 
-def progress(int: int):
-    print(f"{int}%", end='\r')
 
-def terminate(int: int):
-    print(f"Avant cannot connect to the database. Terminating in {int} seconds", end='\r')
-
-def terminateAlt(int: int):
-    tma = f"Avant will shut down in {int} seconds"
-    print("\033[K", end="")
-    print(f"{tma:<30}", end="\r")
-
-def terAlt():
-    for x in range(4, -1, -1):
-        terminateAlt(x)
-        wait(1)
-
-def getTime():
-    now = datetime.now()
-    formatted = now.strftime("%A %d %B %Y - %H:%M")
-    return f"Algorithm initiated at: {formatted}\n\n"
-
-def find(que: str, col: str):
-    succ = f"Your search for {que} returned {int(len(col_find))} results:"
-    col_find = col.find(que)
-    if not col_find:
-        iterate(1, 0.025, *avantxt.search_fail)
-    else:
-        iterate(1, 0.025, *succ)
-        for data in col_find:
-            iterate(0.1, 0.025, data)
-
-def clear():
-    os.system('cls' if os.name == 'nt' else 'clear')
-
-def double_print():
-    return print(), print()
-        
+# Main Functions
 def init():
-    return print_ascii(), print(), iterate(0.4, 0.025, *avantxt.i2), iterate(0.4, 0.025, *avantxt.i3), iterate(0.6, 0.025, *avantxt.i4), iterate(1.5, 0.025, *getTime())
+    return avantutils.print_ascii(), print(), avantutils.iterate(0.4, 0.025, *avantxt.i2), avantutils.iterate(0.4, 0.025, *avantxt.i3), avantutils.iterate(0.6, 0.025, *avantxt.i4), avantutils.iterate(1.5, 0.025, *avantutils.getTime())
 
 def connect():
+    avantutils.iterate(0.8, 0.025, *avantxt.sd)
+    local_filename = './database.json'
     try:
-        client.admin.command('ping')
-        for x in range(0, 101, 1):
-            progress(x)
-            wait(0.025)
-        iterate(0.8, 0.025, *avantxt.sc)
-        wait(2)
-        clear()
+        if os.path.isfile(local_filename):
+            for x in range(0, 101, 1):
+                avantutils.progress(x)
+                avantutils.wait(0.025)
+            avantutils.iterate(0.8, 0.025, *avantxt.sc)
+            avantutils.wait(2)
+            avantutils.clear()
+        else:
+            avantutils.iterate(0.8, 0.025, *avantxt.nf)
+            url = "http://example.com/path/to/your/file.json" # CHANGE URL HERE WHEN DB IS READY
+            try:
+                with requests.get(url) as response:
+                    avantutils.iterate(0.8, 0.025, *avantxt.ad)
+                    response.raise_for_status()
+                    with open(local_filename, 'wb') as file:
+                        file.write(response.content)
+                    avantutils.iterate(0.8, 0.025, *avantxt.sdd)
+            except Exception as err:
+                print(f"{err}\n")
+                avantutils.clear()
+                sys.exit(0)
     except Exception as err:
-        iterate(0.8, 0.025, *avantxt.se)
-        wait(0.5)
+        avantutils.iterate(0.8, 0.025, *avantxt.se)
+        avantutils.wait(0.5)
         print(f"{err}\n")
-        wait(0.5)
+        avantutils.wait(0.5)
         for x in range(4, -1, -1):
-            terminate(x)
-            wait(1)
+            avantutils.terminate(x)
+            avantutils.wait(1)
         print()
-        clear()
+        avantutils.clear()
         sys.exit(0)
-
+        
 def mame():
     try:
-        wait(0.7)
+        avantutils.wait(0.7)
         print(avantxt.ascii)
         print()
         mame = [inquirer.List('choice',
@@ -136,39 +147,39 @@ def mame():
         return None
 
 def cre():
-    clear()
-    wait(0.7)
+    avantutils.clear()
+    avantutils.wait(0.7)
     print()
-    iterate(0.5, 0.025, *avantxt.cred)
-    iterate(0.7, 0.025, *avantxt.cred_2)
-    iterate(0.7, 0.025, *avantxt.cred_3)
-    wait(0.4)
-    input(avantxt.any)
-    clear()
-    wait(0.5)
+    avantutils.iterate(0.5, 0.025, *avantxt.cred)
+    avantutils.iterate(0.7, 0.025, *avantxt.cred_2)
+    avantutils.iterate(0.7, 0.025, *avantxt.cred_3)
+    avantutils.wait(0.4)
+    avantutils.input(avantxt.any)
+    avantutils.clear()
+    avantutils.wait(0.5)
     return True
 
 def htu():
-    clear()
-    wait(0.7)
+    avantutils.clear()
+    avantutils.wait(0.7)
     print()
-    iterate(0.5, 0.025, *avantxt.help_1)
+    avantutils.iterate(0.5, 0.025, *avantxt.help_1)
     print()
-    iterate(0.5, 0.025, *avantxt.help_2)
+    avantutils.iterate(0.5, 0.025, *avantxt.help_2)
     print()
-    wait(0.4)
+    avantutils.wait(0.4)
     input(avantxt.any)
-    clear()
-    wait(0.5)
+    avantutils.clear()
+    avantutils.wait(0.5)
     return True
 
 def start():
-    clear()
-    wait(0.5)
+    avantutils.clear()
+    avantutils.wait(0.5)
     print()
-    iterate(0.5, 0.025, *"The algorithm will show up here")
-    wait(0.4)
-    input(avantxt.any)
-    clear()
-    wait(0.5)
+    projname()
+    
+
+    avantutils.clear()
+    avantutils.wait(0.5)
     return True
