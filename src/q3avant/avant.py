@@ -1,4 +1,5 @@
-from avantlib import init, connect, exception, mame, cre, ex, htu, start
+from avantlib import init, connect, mame, cre,  htu, start
+from avantutils import exception, ex
 
 def exec():
     try:

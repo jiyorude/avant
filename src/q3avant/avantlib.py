@@ -15,30 +15,36 @@ from reportlab.lib.styles import getSampleStyleSheet
 global projectname
 global framerate
 global algselect
+global algbool
 
 # Algorithm Functions
 def projname():
-    projectname = None
+    global projectname
     avantutils.iterate(0.5, 0.025, *avantxt.setup_1)
-    print()
     projectname = input()
     while len(projectname) > 30:
         avantutils.iterate(0.5, 0.025, *avantxt.setup_2)
-        print()
         projectname = input()
     avantutils.double_print()
 
 def fps():
-    framerate = None
+    global framerate
     avantutils.iterate(0.5, 0.025, *avantxt.setup_3)
     framerate = input()
-    while framerate is not float(framerate) or framerate is not int(framerate):
+    framerate = float(framerate)
+    while framerate is not float(framerate):
         avantutils.iterate(0.5, 0.025, *avantxt.setup_4)
         print()
         framerate = input()
+        framerate = float(framerate)
+    if framerate.is_integer():
+        framerate = int(framerate)
+    else:
+        framerate = float(framerate)
     avantutils.double_print()
 
 def algomode():
+    global algselect
     avantutils.iterate(0.5, 0.025, *avantxt.setup_5)
     almo = [inquirer.List('algchoice',
         choices=[
@@ -55,32 +61,44 @@ def algomode():
             algselect = "Production Mode"
             avantutils.wait(0.5)
             avantutils.clear()
-            confirm(algselect)
+            confirm()
         case "Post Mode (Editing data only)":
             algselect = "Post Mode"
             avantutils.wait(0.5)
             avantutils.clear()
-            confirm(algselect)
+            confirm()
+        case "Full Service mode (Production- and Post Mode combined)":
+            algselect = "Full Service Mode"
+            avantutils.wait(0.5)
+            avantutils.clear()
+            confirm()
             
-def confirm(mode: str):
-    confirm_bool = bool(None)
+def confirm():
+    global algbool
+    algbool = False
+    avantutils.wait(0.5)
     avantutils.iterate(0.8, 0.025, *avantxt.confirm_one)
     avantutils.iterate(0.8, 0.025, *f"Project name: {projectname}")
     avantutils.iterate(0.8, 0.025, *f"Framerate: {framerate} frames per second")
     avantutils.iterate(0.8, 0.025, *f"Selected algorithm mode: {algselect}")
     avantutils.iterate(0.8, 0.025, *avantxt.confirm_two)
     while True:
-        choice = input()
-        if choice is "y".casefold() or choice is "n".casefold():
-            if choice is "y".casefold():
-                confirm_bool = True
+        choice = input().casefold()
+        if choice == "y" or choice == "n":
+            if choice == "y":
+                algbool = True
             else:
-                confirm_bool = False
+                algbool = False
         break
-    
 
+def prod_mode():
+    print("production mode started")
 
+def post_mode():
+    print("post mode has started")
 
+def full_mode():
+    print("full service mode has started")
 
 # Main Functions
 def init():
@@ -154,7 +172,7 @@ def cre():
     avantutils.iterate(0.7, 0.025, *avantxt.cred_2)
     avantutils.iterate(0.7, 0.025, *avantxt.cred_3)
     avantutils.wait(0.4)
-    avantutils.input(avantxt.any)
+    input(avantxt.any)
     avantutils.clear()
     avantutils.wait(0.5)
     return True
@@ -174,12 +192,59 @@ def htu():
     return True
 
 def start():
+    global algbool
     avantutils.clear()
     avantutils.wait(0.5)
     print()
     projname()
-    
-
+    avantutils.wait(1)
+    fps()
+    avantutils.wait(1)
+    algomode()
+    if algbool:
+        match(algselect):
+            case "Production Mode":
+                prod_mode()
+            case "Post Mode":
+                post_mode()
+            case "Full Service Mode":
+                full_mode()
+            case _:
+                pass
+    if not algbool:
+        cach = [inquirer.List('cancelchoice',
+        message= 'RETURN TO MAIN MENU, START OVER, OR RECONFIRM CHOICES?',
+        choices=[
+            avantxt.cancel_one,
+            avantxt.cancel_two,
+            avantxt.cancel_three
+        ])]
+        cancel_choice = inquirer.prompt(cach)
+        selected_choice = cancel_choice['cancelchoice']
+        if selected_choice is None:
+            return None
+        selected_choice = 1 if cancel_choice['cancelchoice'] == avantxt.cancel_one else 2 if cancel_choice['cancelchoice'] == avantxt.cancel_two else 3
+        match (selected_choice):
+            case 1:
+                pass
+            case 2:
+                avantutils.clear()
+                avantutils.wait(1)
+                projname()
+                fps()
+                algomode()
+            case 3:
+                algbool = True
+                if algbool:
+                    match(algselect):
+                        case "Production Mode":
+                            prod_mode()
+                        case "Post Mode":
+                            post_mode()
+                        case "Full Service Mode":
+                            full_mode()
+                        case _:
+                            pass
     avantutils.clear()
-    avantutils.wait(0.5)
+    avantutils.wait(1)
     return True
