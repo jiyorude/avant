@@ -20,8 +20,8 @@ setup(
     packages=find_packages(where='src'),
     install_requires=[
         "inquirer>=3.2.3",
-        "pymongo>=4.6.1",
-        "reportlab>=4.0.9"
+        "reportlab>=4.0.9",
+        "platformdirs>=4.2.2"
     ],
     classifiers=[
         'Programming Language :: Python :: 3',
@@ -31,7 +31,7 @@ setup(
     python_requires='>=3.8',
     entry_points={
         'console_scripts': [
-            'q3avant_run = avant.avant:exec',
+            'q3avant_run = avant.avant:run_avant',
         ],
     },
 )

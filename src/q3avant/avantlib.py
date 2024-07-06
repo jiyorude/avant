@@ -5,6 +5,9 @@ import os
 import inquirer
 import avantxt
 import avantutils
+import platformdirs
+import webbrowser
+from pathlib import Path
 from datetime import datetime
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
@@ -30,17 +33,13 @@ def projname():
 def fps():
     global framerate
     avantutils.iterate(0.5, 0.025, *avantxt.setup_3)
-    framerate = input()
-    framerate = float(framerate)
+    framerate = float(input())
     while framerate is not float(framerate):
         avantutils.iterate(0.5, 0.025, *avantxt.setup_4)
         print()
-        framerate = input()
-        framerate = float(framerate)
+        framerate = float(input())
     if framerate.is_integer():
         framerate = int(framerate)
-    else:
-        framerate = float(framerate)
     avantutils.double_print()
 
 def algomode():
@@ -59,18 +58,15 @@ def algomode():
     match(selected_mode):
         case "Production Mode (Production data and capturing files)":
             algselect = "Production Mode"
-            avantutils.wait(0.5)
-            avantutils.clear()
+            avantutils.wait_and_clear(0.5)
             confirm()
         case "Post Mode (Editing data only)":
             algselect = "Post Mode"
-            avantutils.wait(0.5)
-            avantutils.clear()
+            avantutils.wait_and_clear(0.5)
             confirm()
         case "Full Service mode (Production- and Post Mode combined)":
             algselect = "Full Service Mode"
-            avantutils.wait(0.5)
-            avantutils.clear()
+            avantutils.wait_and_clear(0.5)
             confirm()
             
 def confirm():
@@ -95,7 +91,28 @@ def prod_mode():
     print("production mode started")
 
 def post_mode():
-    print("post mode has started")
+    avantutils.clear()
+    avantutils.wait(1)
+    doc_path = platformdirs.user_documents_dir
+    project_dir = os.path.join(doc_path, "Avant", {projectname})
+    try:
+        os.makedirs(project_dir, exist_ok=True)
+        for subdir in ["Footage", "Image Sequences", "XML", "EDL", "PDF", "Readme"]:
+            subdir_path = os.path.join(project_dir, subdir)
+            os.makedirs(subdir_path, exist_ok=True)
+        avantutils.iterate(0.8, 0.025, *avantxt.post_one)
+        avantutils.iterate(0.8, 0.025, *avantxt.post_two)
+        avantutils.wait(2)
+        if os.path.isdir(doc_path):
+            webbrowser.open(f"file://{doc_path}")
+        avantutils.wait(1)
+        input("Press a random key on your keyboard whenever you are ready to analyze your footage.")
+
+
+
+    except OSError as e:
+        print(f"Error: {e}")
+        sys.exit(0)
 
 def full_mode():
     print("full service mode has started")
@@ -113,8 +130,7 @@ def connect():
                 avantutils.progress(x)
                 avantutils.wait(0.025)
             avantutils.iterate(0.8, 0.025, *avantxt.sc)
-            avantutils.wait(2)
-            avantutils.clear()
+            avantutils.wait_and_clear(2)
         else:
             avantutils.iterate(0.8, 0.025, *avantxt.nf)
             url = "http://example.com/path/to/your/file.json" # CHANGE URL HERE WHEN DB IS READY
@@ -165,21 +181,18 @@ def mame():
         return None
 
 def cre():
-    avantutils.clear()
-    avantutils.wait(0.7)
+    avantutils.wait_and_clear(0.7)
     print()
     avantutils.iterate(0.5, 0.025, *avantxt.cred)
     avantutils.iterate(0.7, 0.025, *avantxt.cred_2)
     avantutils.iterate(0.7, 0.025, *avantxt.cred_3)
     avantutils.wait(0.4)
     input(avantxt.any)
-    avantutils.clear()
-    avantutils.wait(0.5)
+    avantutils.wait_and_clear(0.5)
     return True
 
 def htu():
-    avantutils.clear()
-    avantutils.wait(0.7)
+    avantutils.wait_and_clear(0.7)
     print()
     avantutils.iterate(0.5, 0.025, *avantxt.help_1)
     print()
@@ -193,8 +206,7 @@ def htu():
 
 def start():
     global algbool
-    avantutils.clear()
-    avantutils.wait(0.5)
+    avantutils.wait_and_clear(0.5)
     print()
     projname()
     avantutils.wait(1)
@@ -245,6 +257,5 @@ def start():
                             full_mode()
                         case _:
                             pass
-    avantutils.clear()
-    avantutils.wait(1)
+    avantutils.wait_and_clear(1)
     return True

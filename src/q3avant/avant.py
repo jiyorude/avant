@@ -1,7 +1,7 @@
-from avantlib import init, connect, mame, cre,  htu, start
+from avantlib import init, connect, mame, cre, htu, start
 from avantutils import exception, ex
 
-def exec():
+def run_avant():
     try:
         init()
         connect()
@@ -23,4 +23,4 @@ def exec():
         ex()
     except Exception as err:
         exception(err, 5)
-exec()
+run_avant()

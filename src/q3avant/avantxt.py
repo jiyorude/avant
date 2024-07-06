@@ -36,6 +36,8 @@ cred_3 = "\nSOFTWARE/MODULES:\nPython 3.11 (Python Software Foundation)\nPyMongo
 any = "Press ENTER\RETURN to return to the main menu...\n"
 any2 = "SCROLL to read. Press ENTER\RETURN to go back..."
 start_1 = "The algorithm starts here..."
+post_one = "Succesfully created folder structure in your DOCUMENTS folder."
+post_two = "Avant will automatically open your Documents folder in a few seconds. Open the Avant folder, followed by your project folder. Please insert your raw footage into the 'FOOTAGE' folder. If you have any image sequences, place them in the 'IMAGE SEQUENCES FOLDER' and press a random key in the terminal window once you are ready."
 ascii = """
       __      __       _   _  _______ 
      /\\ \    / //\    | \ | ||__   __|

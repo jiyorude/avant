@@ -64,3 +64,7 @@ def ex():
     clear()
     wait(0.5)
     sys.exit(0)
+
+def wait_and_clear(x: int):
+    wait(x)
+    clear()
