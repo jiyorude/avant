@@ -20,6 +20,8 @@ global framerate
 global algselect
 global algbool
 
+now = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
+
 # Algorithm Functions
 def projname():
     global projectname
@@ -33,13 +35,15 @@ def projname():
 def fps():
     global framerate
     avantutils.iterate(0.5, 0.025, *avantxt.setup_3)
-    framerate = float(input())
-    while framerate is not float(framerate):
+    while True:
+        try:
+            framerate = float(input())
+            if framerate.is_integer():
+                framerate = int(framerate)
+            break
+        except ValueError:
+            pass
         avantutils.iterate(0.5, 0.025, *avantxt.setup_4)
-        print()
-        framerate = float(input())
-    if framerate.is_integer():
-        framerate = int(framerate)
     avantutils.double_print()
 
 def algomode():
@@ -80,12 +84,14 @@ def confirm():
     avantutils.iterate(0.8, 0.025, *avantxt.confirm_two)
     while True:
         choice = input().casefold()
-        if choice == "y" or choice == "n":
-            if choice == "y":
+        if choice == "y" or choice == "n" or choice == "yes" or choice == "no":
+            if choice == "y" or choice == "yes":
                 algbool = True
-            else:
+                break
+            elif choice == "n" or choice == "no":
                 algbool = False
-        break
+                break
+        print("Please answer with 'y' for Yes, or 'n' for No.")
 
 def prod_mode():
     print("production mode started")
@@ -93,8 +99,9 @@ def prod_mode():
 def post_mode():
     avantutils.clear()
     avantutils.wait(1)
-    doc_path = platformdirs.user_documents_dir
-    project_dir = os.path.join(doc_path, "Avant", {projectname})
+    now = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
+    doc_path = platformdirs.user_documents_dir()
+    project_dir = os.path.join(doc_path, "Avant", f"POST | {projectname} | ({framerate} fps) | {now}")
     try:
         os.makedirs(project_dir, exist_ok=True)
         for subdir in ["Footage", "Image Sequences", "XML", "EDL", "PDF", "Readme"]:
@@ -106,10 +113,7 @@ def post_mode():
         if os.path.isdir(doc_path):
             webbrowser.open(f"file://{doc_path}")
         avantutils.wait(1)
-        input("Press a random key on your keyboard whenever you are ready to analyze your footage.")
-
-
-
+        input("Press the ENTER/RETURN key on your keyboard whenever you are ready to analyze your footage.")
     except OSError as e:
         print(f"Error: {e}")
         sys.exit(0)
