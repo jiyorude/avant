@@ -2,11 +2,13 @@ import time
 import sys
 import requests
 import os
+import glob
 import inquirer
 import avantxt
 import avantutils
 import platformdirs
 import webbrowser
+from moviepy.editor import VideoFileClip
 from pathlib import Path
 from datetime import datetime
 from reportlab.lib.pagesizes import letter
@@ -15,12 +17,20 @@ from reportlab.lib import colors
 from reportlab.platypus import SimpleDocTemplate, Paragraph
 from reportlab.lib.styles import getSampleStyleSheet
 
+# Globals for algorithm
 global projectname
 global framerate
 global algselect
 global algbool
 
-now = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
+# Globals for moviepy
+global containers
+global filenames
+global codecs
+global framerates
+global widths
+global heights
+global duration
 
 # Algorithm Functions
 def projname():
@@ -93,6 +103,40 @@ def confirm():
                 break
         print("Please answer with 'y' for Yes, or 'n' for No.")
 
+def count_items(vr: int, va: int, ir: int, ia: int):
+    match(va, vr):
+        case (0, 0):
+            avantutils.iterate(0.8, 0.025, *f"VIDEO: No (usable) videofiles found in Video folder. Skipped.")
+        case (va, vr) if va == vr:
+            avantutils.iterate(0.8, 0.025, *f"VIDEO: All {va} videofiles in the Video folder can be analyzed.")
+        case _:
+            avantutils.iterate(0.8, 0.025, *f"VIDEO: Out of the {va} videofiles found, {vr} files can be analyzed.")
+    match(ia, ir):
+        case (0, 0):
+            avantutils.iterate(0.8, 0.025, *f"IMG SEQUENCES: No (usable) image sequences found in Image Sequence folder. Skipped.")
+        case (ia, ir) if ia == ir:
+            avantutils.iterate(0.8, 0.025, *f"IMG SEQUENCES: All {va} image sequences in the Image Sequence folder can be analyzed.")
+        case _:
+            avantutils.iterate(0.8, 0.025, *f"IMG SEQUENCES: Out of the {va} image sequences found, {vr} sequences can be analyzed.")
+    if all(x == 0 for x in [vr, va, ia, ir]):
+        avantutils.iterate(0.8, 0.925, *avantxt.no_files)
+        avantutils.wait_and_clear(3)
+        sys.exit(0)
+
+
+def analyze_footage(vpa: str, ipa: str): #video path, image path
+    v_r_count = 0 # Video real count
+    v_a_count = 0 # Video all count
+    i_r_count = 0 # Image real count
+    i_a_count = 0 # Image all count
+    v_items = os.listdir(vpa) # video items
+    i_items = os.listdir(ipa) # image items
+    v_a_count = sum(1 for item in v_items if os.path.isfile(os.path.join(vpa, item)))
+    for extension in ['*.mp4', '*.avi', '*.mov', '*.flv', '*.mkv', '*.wmv', '*.webm', '*.mpg']:
+        if glob.glob(os.path.join(vpa, extension)):
+            v_r_count += 1
+    count_items(v_r_count, v_a_count, i_r_count, i_a_count)
+
 def prod_mode():
     print("production mode started")
 
@@ -101,7 +145,9 @@ def post_mode():
     avantutils.wait(1)
     now = datetime.now().strftime("%Y-%m-%d %H-%M-%S")
     doc_path = platformdirs.user_documents_dir()
-    project_dir = os.path.join(doc_path, "Avant", f"POST | {projectname} | ({framerate} fps) | {now}")
+    project_dir = os.path.join(doc_path, "Avant", f"POST | {projectname} - {framerate} fps | {now}")
+    video_path = os.path.join(project_dir, "Footage")
+    img_path = os.path.join(project_dir, "Image Sequences")
     try:
         os.makedirs(project_dir, exist_ok=True)
         for subdir in ["Footage", "Image Sequences", "XML", "EDL", "PDF", "Readme"]:
@@ -114,6 +160,7 @@ def post_mode():
             webbrowser.open(f"file://{doc_path}")
         avantutils.wait(1)
         input("Press the ENTER/RETURN key on your keyboard whenever you are ready to analyze your footage.")
+        analyze_footage(video_path, img_path)
     except OSError as e:
         print(f"Error: {e}")
         sys.exit(0)
