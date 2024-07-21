@@ -30,7 +30,7 @@ global codecs
 global framerates
 global widths
 global heights
-global duration
+global durations
 
 # Algorithm Functions
 def projname():
@@ -120,22 +120,61 @@ def count_items(vr: int, va: int, ir: int, ia: int):
             avantutils.iterate(0.8, 0.025, *f"IMG SEQUENCES: Out of the {va} image sequences found, {vr} sequences can be analyzed.")
     if all(x == 0 for x in [vr, va, ia, ir]):
         avantutils.iterate(0.8, 0.925, *avantxt.no_files)
-        avantutils.wait_and_clear(3)
-        sys.exit(0)
+        avantutils.wait_and_clear(1)
+        avantutils.ex()
 
-
-def analyze_footage(vpa: str, ipa: str): #video path, image path
-    v_r_count = 0 # Video real count
-    v_a_count = 0 # Video all count
-    i_r_count = 0 # Image real count
-    i_a_count = 0 # Image all count
+def analyze_footage(vpa: str, ipa: str): # video path, image path
+    global containers
+    global filenames
+    global codecs
+    global framerates
+    global widths
+    global heights
+    global durations
+    
+    v_r_count = 0
+    v_a_count = 0 
+    i_r_count = 0 
+    i_a_count = 0 
+    
+    containers = []
+    filenames = []
+    codecs = []
+    framerates = []
+    widths = []
+    heights = []
+    durations = []
+    
     v_items = os.listdir(vpa) # video items
     i_items = os.listdir(ipa) # image items
+    
     v_a_count = sum(1 for item in v_items if os.path.isfile(os.path.join(vpa, item)))
-    for extension in ['*.mp4', '*.avi', '*.mov', '*.flv', '*.mkv', '*.wmv', '*.webm', '*.mpg']:
-        if glob.glob(os.path.join(vpa, extension)):
-            v_r_count += 1
+    
+    video_extensions = ['*.mp4', '*.avi', '*.mxf', '*.mov', '*.m4v', '*.m2v', '*.flv', '*.mkv', '*.wmv', '*.webm', '*.mpg']
+    for extension in video_extensions:
+        for video_file in glob.glob(os.path.join(vpa, extension)):
+            try:
+                clip = VideoFileClip(video_file)
+                containers.append(video_file.split('.')[-1])
+                filenames.append(os.path.basename(video_file))
+                codecs.append(clip.reader.codec)
+                framerates.append(clip.fps)
+                widths.append(clip.size[0])
+                heights.append(clip.size[1])
+                durations.append(clip.duration)
+                v_r_count += 1
+            except Exception as e:
+                print(f"ERROR while processing {video_file}: {e}")
     count_items(v_r_count, v_a_count, i_r_count, i_a_count)
+    
+    for x, clip in enumerate(filenames):
+        print(x, containers[x])
+        print(x, filenames[x])
+        print(x, codecs[x])
+        print(x, framerates[x])
+        print(x, widths[x])
+        print(x, heights[x])
+        print(x, durations[x])
 
 def prod_mode():
     print("production mode started")
