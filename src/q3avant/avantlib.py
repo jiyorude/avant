@@ -8,6 +8,7 @@ import avantxt
 import avantutils
 import platformdirs
 import webbrowser
+import ffmpeg
 from moviepy.editor import VideoFileClip
 from pathlib import Path
 from datetime import datetime
@@ -18,21 +19,40 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph
 from reportlab.lib.styles import getSampleStyleSheet
 
 # Globals for algorithm
-global projectname
-global framerate
-global algselect
-global algbool
+global projectname # Projectname
+global framerate # Selected framerate for the project
+global algselect # Selected algorithm mode
+global algbool # Checker to verify projectdata
 
-# Globals for moviepy
-global containers
-global filenames
-global codecs
-global framerates
-global widths
-global heights
-global durations
+# Globals for filedata
+global containers # Source material container, such as mp4, mpeg, mov.
+global filenames # File name
+global codecs # Source material codec, such as h264, hevc, apr4444xq
+global framerates # Source material frames per second 
+global widths # Width resolution
+global heights # Height resolution
+global durations # Original length of clip
+global newlength # New length of clip after being conformed to the right fps
+global frames # Total length of CLIP in frames
+
+# Globals for final project
+global projwidth # Project width in pixels, based on the largest found file
+global projheight # Project height in pixels, based on the largest found file
+global projframes # Total length of PROJECT in frames
 
 # Algorithm Functions
+def get_codec_name(video_file):
+    try:
+        probe = ffmpeg.probe(video_file, v='error', show_entries='stream=codec_name', format='json')
+        for stream in probe['streams']:
+            codec_name = stream.get('codec_name')
+            if codec_name:
+                return codec_name
+        return "UNKNOWN CODEC"
+    except ffmpeg.Error as e:
+        print(f"An error occurred: {e.stderr.decode()}")
+        return []
+
 def projname():
     global projectname
     avantutils.iterate(0.5, 0.025, *avantxt.setup_1)
@@ -123,6 +143,8 @@ def count_items(vr: int, va: int, ir: int, ia: int):
         avantutils.wait_and_clear(1)
         avantutils.ex()
 
+# WORK IN PROGRESS: NEED TO FIND WAYS TO ANALYZE IMAGE SEQUENCES AS WELL!
+# VIDEO WORKS RN
 def analyze_footage(vpa: str, ipa: str): # video path, image path
     global containers
     global filenames
@@ -131,12 +153,16 @@ def analyze_footage(vpa: str, ipa: str): # video path, image path
     global widths
     global heights
     global durations
-    
+    global newlength
+    global frames
+    global projwidth
+    global projheight
     v_r_count = 0
     v_a_count = 0 
     i_r_count = 0 
     i_a_count = 0 
-    
+    projwidth = 0
+    projheight = 0
     containers = []
     filenames = []
     codecs = []
@@ -144,12 +170,11 @@ def analyze_footage(vpa: str, ipa: str): # video path, image path
     widths = []
     heights = []
     durations = []
-    
+    newlength = []
+    frames = []
     v_items = os.listdir(vpa) # video items
     i_items = os.listdir(ipa) # image items
-    
     v_a_count = sum(1 for item in v_items if os.path.isfile(os.path.join(vpa, item)))
-    
     video_extensions = ['*.mp4', '*.avi', '*.mxf', '*.mov', '*.m4v', '*.m2v', '*.flv', '*.mkv', '*.wmv', '*.webm', '*.mpg']
     for extension in video_extensions:
         for video_file in glob.glob(os.path.join(vpa, extension)):
@@ -157,25 +182,51 @@ def analyze_footage(vpa: str, ipa: str): # video path, image path
                 clip = VideoFileClip(video_file)
                 containers.append(video_file.split('.')[-1])
                 filenames.append(os.path.basename(video_file))
-                codecs.append(clip.reader.codec)
+                codecs.append(get_codec_name(video_file))
                 framerates.append(clip.fps)
                 widths.append(clip.size[0])
                 heights.append(clip.size[1])
                 durations.append(clip.duration)
                 v_r_count += 1
+                if clip.size[0] > projwidth:
+                    projwidth = clip.size[0]
+                if clip.size[1] > projheight:
+                    projheight = clip.size[1]
             except Exception as e:
                 print(f"ERROR while processing {video_file}: {e}")
     count_items(v_r_count, v_a_count, i_r_count, i_a_count)
-    
-    for x, clip in enumerate(filenames):
-        print(x, containers[x])
-        print(x, filenames[x])
-        print(x, codecs[x])
-        print(x, framerates[x])
-        print(x, widths[x])
-        print(x, heights[x])
-        print(x, durations[x])
+    avantutils.iterate(0.8, 0.025, *"Converting obtained data to fit project's framerate...")
+    for clip, x in enumerate(containers, filenames, codecs, framerates, widths, heights, durations):
+        if (float(framerates[x]) == framerate):
+            newlength.append("Same Framerate as project")
+            frames.append(int(framerates[x] * durations[x]))
+        if (float(framerates[x]) != framerate):
+            orig = int(framerates[x] * durations[x])
+            new_dur = float(orig / framerate)
+            newlength.append(new_dur)
+            frames.append(int(new_dur * framerate))
+    avantutils.iterate(0.8, 0.025, *"Conversion completed.")
+    avantutils.iterate(0.8, 0.025, *f"Avant will assume videoproject dimensions based on the videofile with the highest resolution found.")
+    avantutils.iterate(0.8, 0.025, *f"In this case, your project will be using a resolution of {projwidth} x {projheight} pixels. You can manually change this later inside your NLE.")
 
+def lengthselector():
+    global projframes
+    projframes = 0
+    avantutils.wait_and_clear(1)
+    avantutils.iterate(0.8, 0.025, *"Please input your preferred length of your video in full minutes. (f.e. 2.30, 3.01, 0.45 or 110.45)")
+    avantutils.iterate(0.8, 0.025, *f'If you are fine with Avant randomizing the length of your film, type "r", followed by your preferred MAXIMUM amount of minutes, f.e. r45, r110, r1, r25')
+    while True:
+        user_input = input("")
+        if "," in user_input:
+            print()
+            print("")
+        if user_input[0] is not "r" or user_input[0] is not "R":
+            if float(user_input):
+                minutes, seconds = user_input.split(".")
+                
+       
+
+ 
 def prod_mode():
     print("production mode started")
 
