@@ -9,6 +9,7 @@ import avantutils
 import platformdirs
 import webbrowser
 import ffmpeg
+import random
 from moviepy.editor import VideoFileClip
 from pathlib import Path
 from datetime import datetime
@@ -213,16 +214,47 @@ def lengthselector():
     global projframes
     projframes = 0
     avantutils.wait_and_clear(1)
-    avantutils.iterate(0.8, 0.025, *"Please input your preferred length of your video in full minutes. (f.e. 2.30, 3.01, 0.45 or 110.45)")
+    avantutils.iterate(0.8, 0.025, *"Please input your preferred length of your video in full minutes. (f.e. 2.30, 3.01, 0.45, 4.00 or 110.45)")
     avantutils.iterate(0.8, 0.025, *f'If you are fine with Avant randomizing the length of your film, type "r", followed by your preferred MAXIMUM amount of minutes, f.e. r45, r110, r1, r25')
     while True:
         user_input = input("")
+        # If user input cannot be converted to float
+        if user_input is not float(user_input):
+            print()
+            avantutils.iterate(0.8, 0.025, *"Your input cannot convert to a float. Please try again.")
+            continue
+        # If user input is incorrectly formatted
         if "," in user_input:
             print()
-            print("")
-        if user_input[0] is not "r" or user_input[0] is not "R":
+            avantutils.iterate(0.8, 0.025, *"You did not define a proper length. (Did you use a comma instead of a period?)")
+            continue
+        # If user specifies 'R' mode.
+        if str(user_input[0].upper()) is "R":
+            if "," in user_input or "." in user_input:
+                print()
+                avantutils.iterate(0.8, 0.025, *"Since you are using the randomizer, you can only define FULL minutes, such as 'r23' or 'R2. Float entries such as R2.34 or R11.44 are not supported.")
+                continue
+            if int(user_input[1]) == 0:
+                print()
+                avantutils.iterate(0.8, 0.025, *"You did not properly declare the randomized max length. You cannot use '0' as the first integer.")
+                continue
+            if len(user_input.upper().split("R")) > 3:
+                print()
+                avantutils.iterate(0.8, 0.25, *"You tried to declare a length longer than 999 minutes. Please try again")
+                continue
+            random_minutes = random.randint(1, )
+            break
+        # Else, if user wants to specify their own exact length
+        else:
             if float(user_input):
                 minutes, seconds = user_input.split(".")
+                if len(minutes.split("") <= 3):
+                    minutesList = []
+                    for digit in minutes:
+                        minutesList.append(digit)
+                    if int(minutesList[0]) == 0 and int(minutesList[1]) >= 0:
+                        avantutils.iterate(0.8, 0.025, *"If the first integer is zero, there can not be a second integer. Combinations such as 02.45, 08.22 are not supported. They must be declared as 2.45 and 8.22.")
+                        continue
                 
        
 
