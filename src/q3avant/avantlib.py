@@ -10,6 +10,7 @@ import platformdirs
 import webbrowser
 import ffmpeg
 import random
+import math
 from moviepy.editor import VideoFileClip
 from pathlib import Path
 from datetime import datetime
@@ -35,11 +36,14 @@ global heights # Height resolution
 global durations # Original length of clip
 global newlength # New length of clip after being conformed to the right fps
 global frames # Total length of CLIP in frames
+global v_r_count # Total amount of video files that are usable
+global i_r_count # Total amount of image sequences that are usable
 
 # Globals for final project
 global projwidth # Project width in pixels, based on the largest found file
 global projheight # Project height in pixels, based on the largest found file
 global projframes # Total length of PROJECT in frames
+global projduration # Total length of PROJECt in seconds
 
 # Algorithm Functions
 def get_codec_name(video_file):
@@ -158,6 +162,8 @@ def analyze_footage(vpa: str, ipa: str): # video path, image path
     global frames
     global projwidth
     global projheight
+    global v_r_count
+    global i_r_count
     v_r_count = 0
     v_a_count = 0 
     i_r_count = 0 
@@ -210,8 +216,10 @@ def analyze_footage(vpa: str, ipa: str): # video path, image path
     avantutils.iterate(0.8, 0.025, *f"Avant will assume videoproject dimensions based on the videofile with the highest resolution found.")
     avantutils.iterate(0.8, 0.025, *f"In this case, your project will be using a resolution of {projwidth} x {projheight} pixels. You can manually change this later inside your NLE.")
 
-def lengthselector():
+def length_selector():
     global projframes
+    global projduration
+    projduration = 0
     projframes = 0
     avantutils.wait_and_clear(1)
     avantutils.iterate(0.8, 0.025, *"Please input your preferred length of your video in full minutes. (f.e. 2.30, 3.01, 0.45, 4.00 or 110.45)")
@@ -242,7 +250,10 @@ def lengthselector():
                 print()
                 avantutils.iterate(0.8, 0.25, *"You tried to declare a length longer than 999 minutes. Please try again")
                 continue
-            random_minutes = random.randint(1, )
+            random_minutes = random.randint(0, (int(user_input.upper().split("R")) - 1))
+            random_seconds = random.randint(0, 59)
+            projframes = int(((random_minutes * 60) + random_seconds) * framerate)
+            projduration = round(float(projframes / framerate), 2)
             break
         # Else, if user wants to specify their own exact length
         else:
@@ -250,15 +261,29 @@ def lengthselector():
                 minutes, seconds = user_input.split(".")
                 if len(minutes.split("") <= 3):
                     minutesList = []
-                    for digit in minutes:
-                        minutesList.append(digit)
                     if int(minutesList[0]) == 0 and int(minutesList[1]) >= 0:
                         avantutils.iterate(0.8, 0.025, *"If the first integer is zero, there can not be a second integer. Combinations such as 02.45, 08.22 are not supported. They must be declared as 2.45 and 8.22.")
                         continue
-                
-       
+                    for digit in minutes:
+                        minutesList.append(digit)
+                    calc_minute = int(minutes) * 60
+                if len(seconds.split("") <= 2):
+                    secondsList = []
+                    if len(seconds.split("")) > 2:
+                        print()
+                        avantutils.iterate(0.8, 0.025, *"Seconds can only contain two digits at best. Please try again")
+                        continue
+                    for digit in seconds:
+                        secondsList.append(digit)
+                    if int(secondsList[0]) == 0:
+                        calc_seconds = int(secondsList[1])
+                    else:
+                        calc_seconds = int(seconds)
+                    projframes = int((calc_minute + calc_seconds) * framerate)
+                    projduration = round(float(projframes / framerate), 2)
+                break
+            continue     
 
- 
 def prod_mode():
     print("production mode started")
 
@@ -283,6 +308,8 @@ def post_mode():
         avantutils.wait(1)
         input("Press the ENTER/RETURN key on your keyboard whenever you are ready to analyze your footage.")
         analyze_footage(video_path, img_path)
+        length_selector()
+        # Calculate data for each shot, append data to list, create reportlab, xml, edl
     except OSError as e:
         print(f"Error: {e}")
         sys.exit(0)
