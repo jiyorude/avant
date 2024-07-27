@@ -23,4 +23,5 @@ def run_avant():
         ex()
     except Exception as err:
         exception(err, 5)
+
 run_avant()

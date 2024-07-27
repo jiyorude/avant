@@ -1,24 +1,25 @@
-import time
-import sys
-import requests
-import os
-import glob
-import inquirer
-import avantxt
-import avantutils
-import platformdirs
-import webbrowser
-import ffmpeg
-import random
-import math
-from moviepy.editor import VideoFileClip
-from pathlib import Path
-from datetime import datetime
-from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
-from reportlab.lib import colors
-from reportlab.platypus import SimpleDocTemplate, Paragraph
-from reportlab.lib.styles import getSampleStyleSheet
+try:
+    import sys
+    import requests
+    import os
+    import glob
+    import inquirer
+    import avantxt
+    import avantutils
+    import platformdirs
+    import webbrowser
+    import ffmpeg
+    import random
+    from moviepy.editor import VideoFileClip
+    from pathlib import Path
+    from datetime import datetime
+    from reportlab.lib.pagesizes import letter
+    from reportlab.pdfgen import canvas
+    from reportlab.lib import colors
+    from reportlab.platypus import SimpleDocTemplate, Paragraph
+    from reportlab.lib.styles import getSampleStyleSheet
+except ImportError:
+    print("ERROR AVANTLIB: Avant is unable to start due to missing dependencies. Install all required packages with 'pip install -r requirements.txt'")
 
 # Globals for algorithm
 global projectname # Projectname
@@ -38,6 +39,8 @@ global newlength # New length of clip after being conformed to the right fps
 global frames # Total length of CLIP in frames
 global v_r_count # Total amount of video files that are usable
 global i_r_count # Total amount of image sequences that are usable
+global introframes
+global outroframes
 
 # Globals for final project
 global projwidth # Project width in pixels, based on the largest found file
@@ -46,18 +49,6 @@ global projframes # Total length of PROJECT in frames
 global projduration # Total length of PROJECt in seconds
 
 # Algorithm Functions
-def get_codec_name(video_file):
-    try:
-        probe = ffmpeg.probe(video_file, v='error', show_entries='stream=codec_name', format='json')
-        for stream in probe['streams']:
-            codec_name = stream.get('codec_name')
-            if codec_name:
-                return codec_name
-        return "UNKNOWN CODEC"
-    except ffmpeg.Error as e:
-        print(f"An error occurred: {e.stderr.decode()}")
-        return []
-
 def projname():
     global projectname
     avantutils.iterate(0.5, 0.025, *avantxt.setup_1)
@@ -127,6 +118,18 @@ def confirm():
                 algbool = False
                 break
         print("Please answer with 'y' for Yes, or 'n' for No.")
+
+def get_codec_name(video_file):
+    try:
+        probe = ffmpeg.probe(video_file, v='error', show_entries='stream=codec_name', format='json')
+        for stream in probe['streams']:
+            codec_name = stream.get('codec_name')
+            if codec_name:
+                return codec_name
+        return "UNKNOWN CODEC"
+    except ffmpeg.Error as e:
+        print(f"An error occurred: {e.stderr.decode()}")
+        return []
 
 def count_items(vr: int, va: int, ir: int, ia: int):
     match(va, vr):
@@ -219,6 +222,10 @@ def analyze_footage(vpa: str, ipa: str): # video path, image path
 def length_selector():
     global projframes
     global projduration
+    global introframes
+    global outroframes
+    introframes = 0
+    outroframes = 0
     projduration = 0
     projframes = 0
     avantutils.wait_and_clear(1)
@@ -226,8 +233,8 @@ def length_selector():
     avantutils.iterate(0.8, 0.025, *f'If you are fine with Avant randomizing the length of your film, type "r", followed by your preferred MAXIMUM amount of minutes, f.e. r45, r110, r1, r25')
     while True:
         user_input = input("")
-        # If user input cannot be converted to float
-        if user_input is not float(user_input):
+        # If user input cannot be converted to float.
+        if user_input is not float(user_input) or user_input[1:-1] is not float:
             print()
             avantutils.iterate(0.8, 0.025, *"Your input cannot convert to a float. Please try again.")
             continue
@@ -282,7 +289,55 @@ def length_selector():
                     projframes = int((calc_minute + calc_seconds) * framerate)
                     projduration = round(float(projframes / framerate), 2)
                 break
-            continue     
+            continue  
+    avantutils.wait_and_clear(2)
+    avantutils.iterate(0.8, 0.025, *"Would you like the algorithm to include additional time for intro- and outro titles? (Y/N)")
+    while True:
+        choice = input("")
+        if choice.upper() == "Y":
+            print()
+            avantutils.iterate(0.8, 0.025, *"Type the time in seconds you want to allow for intro- and outro titles (MAX 120 seconds)")
+            avantutils.iterate(0.8, 0.025, *"For example '2 10', or '120 36' or '3 5' where the first integer represents the intro titles, and the second integer represents the length of the outro titles.")
+            while True:
+                title_input = input("")
+                # Initial Checks
+                if len(title_input.split(" ")) > 2 or len(title_input.split(" ") < 2):
+                    print()
+                    avantutils.iterate(0.8, 0.025, *"You did not declare the frames correctly. You can only declare full seconds and you must declare both at the same time seperated with a space. f.e. '10 6' or '2 3' which means, 2 seconds for the intro, 3 seconds for the outro.")
+                    print()
+                    continue
+                if "," in title_input or "." in title_input:
+                    print()
+                    avantutils.iterate(0.8, 0.025, *"Please do not use comma's or periods. Declare your intro and outro length with a single SPACE and in FULL seconds.")
+                    print()
+                    continue
+                if " " not in title_input:
+                    print()
+                    avantutils.iterate(0.8, 0.025, *"You forgot to add a single SPACE between the two integers. f.e. 2 10 for 2 seconds intro titles and 10 seconds outro titles.")
+                    print()
+                    continue
+                # Continue if output can at least be splitted properly
+                splitted = title_input.split(" ")
+                if int(splitted[0]) < 0 or int(splitted[1]) < 0:
+                    print()
+                    avantutils.iterate(0.8, 0.025, *"Nice try. Negative numbers are not supported. Please try again.")
+                    print()
+                    continue
+                if int(splitted[0]) > 120 or int(splitted[1]) > 120:
+                    print()
+                    avantutils.iterate(0.8, 0.025, *"At this time a maximum of 120 seconds can be used")
+                    #HERE
+
+        if choice.upper() == "N":
+            introframes = 0
+            outroframes = 0
+            break
+        print()
+        avantutils.iterate(0.8, 0.025, *"Please specify 'y' for Yes and 'n' for No.")
+
+def data_calc():
+    print()
+
 
 def prod_mode():
     print("production mode started")
