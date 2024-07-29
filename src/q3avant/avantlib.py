@@ -39,14 +39,15 @@ global newlength # New length of clip after being conformed to the right fps
 global frames # Total length of CLIP in frames
 global v_r_count # Total amount of video files that are usable
 global i_r_count # Total amount of image sequences that are usable
-global introframes
-global outroframes
+global introframes # Total amount of intro frames
+global outroframes # Total amount of outro frames
 
 # Globals for final project
 global projwidth # Project width in pixels, based on the largest found file
 global projheight # Project height in pixels, based on the largest found file
 global projframes # Total length of PROJECT in frames
 global projduration # Total length of PROJECt in seconds
+global post_data_list # List that contains data used for xml/edl files in post mode
 
 # Algorithm Functions
 def projname():
@@ -325,9 +326,16 @@ def length_selector():
                     continue
                 if int(splitted[0]) > 120 or int(splitted[1]) > 120:
                     print()
-                    avantutils.iterate(0.8, 0.025, *"At this time a maximum of 120 seconds can be used")
-                    #HERE
-
+                    avantutils.iterate(0.8, 0.025, *"At this time a maximum of 120 seconds can be used. Please use a lower amount of seconds.")
+                    print()
+                    continue
+                else:
+                    introframes = int(splitted[0] * framerate)
+                    outroframes = int(splitted[1] * framerate)
+                    print()
+                    avantutils.iterate(0.8, 0.025, *"Intro- and outroframes succesfully added")
+                    print()
+                    break
         if choice.upper() == "N":
             introframes = 0
             outroframes = 0
@@ -335,9 +343,41 @@ def length_selector():
         print()
         avantutils.iterate(0.8, 0.025, *"Please specify 'y' for Yes and 'n' for No.")
 
-def data_calc():
-    print()
+def data_calc_post():
+    global post_data_list
+    global usedframes_post
+    global projframes
+    usedframes_post = 0
+    diff = 0
+    post_data_list = []
+    avantutils.wait_and_clear(2)
+    if introframes > 0:
+        post_data_list.append({"video_name": "INTRO", "start_frame": 0, "end_frame": introframes, "total_frames": (0 + introframes)})
+        projframes -= introframes
+        usedframes_post += introframes
+    original_frames = projframes - introframes - outroframes
+    while usedframes_post < (projframes - outroframes):
+        clip_select = filenames[random.randint(0, len(filenames) - 1)]
+        min_clip_start = random.randint(0, frames[clip_select])
+        max_clip_length = random.randint(min_clip_start + 1, frames[clip_select])
+        clip_length = max_clip_length - min_clip_start
+        if (usedframes_post + clip_length) >= original_frames:
+            diff = original_frames - usedframes_post
+            clip_length = diff
+            if diff == 0:
+                post_data_list.append({"video_name": "OUTRO", "start_frame": 0, "end_frame": outroframes, "total_frames": (usedframes_post + outroframes)})
+                usedframes_post += outroframes
+                break
+            post_data_list.append({"video_name": clip_select, "start_frame": min_clip_start, "end_frame": min_clip_start + diff, "total_frames": (usedframes_post + clip_length)})
+            usedframes_post += clip_length
+            usedframes_post += outroframes
+            post_data_list.append({"video_name": "OUTRO", "start_frame": 0, "end_frame": outroframes, "total_frames": (usedframes_post + outroframes)})
+            break
+        post_data_list.append({"video_name": clip_select, "start_frame": min_clip_start, "end_frame": max_clip_length, "total_frames": (usedframes_post + clip_length)})
+        usedframes_post += clip_length
 
+def generate_post_files():
+    print("GENERATING POST FILES")
 
 def prod_mode():
     print("production mode started")
@@ -364,7 +404,9 @@ def post_mode():
         input("Press the ENTER/RETURN key on your keyboard whenever you are ready to analyze your footage.")
         analyze_footage(video_path, img_path)
         length_selector()
-        # Calculate data for each shot, append data to list, create reportlab, xml, edl
+        data_calc_post()
+        generate_post_files()
+        # create reportlab, xml, edl
     except OSError as e:
         print(f"Error: {e}")
         sys.exit(0)
