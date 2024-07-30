@@ -1,3 +1,8 @@
+# WIP:
+# Post mode does not work with image sequences yet
+# When post mode loop breaks, the last iteration is not properly added. Instead, only the outro frames are added but some kind of frames are added between the last entry and the outroframes..
+# When above works, generate README, PDF with raw data, xml and edl
+
 try:
     import sys
     import requests
@@ -152,9 +157,7 @@ def count_items(vr: int, va: int, ir: int, ia: int):
         avantutils.wait_and_clear(1)
         avantutils.ex()
 
-# WORK IN PROGRESS: NEED TO FIND WAYS TO ANALYZE IMAGE SEQUENCES AS WELL!
-# VIDEO WORKS RN
-def analyze_footage(vpa: str, ipa: str): # video path, image path
+def analyze_footage(vpa: str, ipa: str): 
     global containers
     global filenames
     global codecs
@@ -207,11 +210,11 @@ def analyze_footage(vpa: str, ipa: str): # video path, image path
                 print(f"ERROR while processing {video_file}: {e}")
     count_items(v_r_count, v_a_count, i_r_count, i_a_count)
     avantutils.iterate(0.8, 0.025, *"Converting obtained data to fit project's framerate...")
-    for clip, x in enumerate(containers, filenames, codecs, framerates, widths, heights, durations):
+    for x in range(len(filenames)):
         if (float(framerates[x]) == framerate):
             newlength.append("Same Framerate as project")
             frames.append(int(framerates[x] * durations[x]))
-        if (float(framerates[x]) != framerate):
+        else:
             orig = int(framerates[x] * durations[x])
             new_dur = float(orig / framerate)
             newlength.append(new_dur)
@@ -233,67 +236,58 @@ def length_selector():
     avantutils.iterate(0.8, 0.025, *"Please input your preferred length of your video in full minutes. (f.e. 2.30, 3.01, 0.45, 4.00 or 110.45)")
     avantutils.iterate(0.8, 0.025, *f'If you are fine with Avant randomizing the length of your film, type "r", followed by your preferred MAXIMUM amount of minutes, f.e. r45, r110, r1, r25')
     while True:
-        user_input = input("")
-        # If user input cannot be converted to float.
-        if user_input is not float(user_input) or user_input[1:-1] is not float:
-            print()
-            avantutils.iterate(0.8, 0.025, *"Your input cannot convert to a float. Please try again.")
-            continue
+        user_input = input("").strip()
+        # If user specifies 'R' mode.
+        if user_input.upper().startswith("R"):
+            if "," in user_input or "." in user_input:
+                print()
+                avantutils.iterate(0.8, 0.025, *"Since you are using the randomizer, you can only define FULL minutes, such as 'r23' or 'R2'. Float entries such as R2.34 or R11.44 are not supported.")
+                continue
+            try:
+                max_minutes = int(user_input[1:])
+                if max_minutes == 0:
+                    print()
+                    avantutils.iterate(0.8, 0.025, *"You did not properly declare the randomized max length. You cannot use '0' as the first integer.")
+                    continue
+                random_minutes = random.randint(0, max_minutes - 1)
+                random_seconds = random.randint(0, 59)
+                projframes = int(((random_minutes * 60) + random_seconds) * framerate)
+                projduration = round(float(projframes / framerate), 2)
+                break
+            except ValueError:
+                print()
+                avantutils.iterate(0.8, 0.25, *"You tried to declare a length longer than 999 minutes or provided invalid input. Please try again.")
+                continue
         # If user input is incorrectly formatted
-        if "," in user_input:
+        if "," in user_input or "." not in user_input:
             print()
             avantutils.iterate(0.8, 0.025, *"You did not define a proper length. (Did you use a comma instead of a period?)")
             continue
-        # If user specifies 'R' mode.
-        if str(user_input[0].upper()) is "R":
-            if "," in user_input or "." in user_input:
-                print()
-                avantutils.iterate(0.8, 0.025, *"Since you are using the randomizer, you can only define FULL minutes, such as 'r23' or 'R2. Float entries such as R2.34 or R11.44 are not supported.")
-                continue
-            if int(user_input[1]) == 0:
-                print()
-                avantutils.iterate(0.8, 0.025, *"You did not properly declare the randomized max length. You cannot use '0' as the first integer.")
-                continue
-            if len(user_input.upper().split("R")) > 3:
-                print()
-                avantutils.iterate(0.8, 0.25, *"You tried to declare a length longer than 999 minutes. Please try again")
-                continue
-            random_minutes = random.randint(0, (int(user_input.upper().split("R")) - 1))
-            random_seconds = random.randint(0, 59)
-            projframes = int(((random_minutes * 60) + random_seconds) * framerate)
-            projduration = round(float(projframes / framerate), 2)
-            break
         # Else, if user wants to specify their own exact length
         else:
-            if float(user_input):
+            try:
                 minutes, seconds = user_input.split(".")
-                if len(minutes.split("") <= 3):
-                    minutesList = []
-                    if int(minutesList[0]) == 0 and int(minutesList[1]) >= 0:
-                        avantutils.iterate(0.8, 0.025, *"If the first integer is zero, there can not be a second integer. Combinations such as 02.45, 08.22 are not supported. They must be declared as 2.45 and 8.22.")
-                        continue
-                    for digit in minutes:
-                        minutesList.append(digit)
-                    calc_minute = int(minutes) * 60
-                if len(seconds.split("") <= 2):
-                    secondsList = []
-                    if len(seconds.split("")) > 2:
-                        print()
-                        avantutils.iterate(0.8, 0.025, *"Seconds can only contain two digits at best. Please try again")
-                        continue
-                    for digit in seconds:
-                        secondsList.append(digit)
-                    if int(secondsList[0]) == 0:
-                        calc_seconds = int(secondsList[1])
-                    else:
-                        calc_seconds = int(seconds)
-                    projframes = int((calc_minute + calc_seconds) * framerate)
-                    projduration = round(float(projframes / framerate), 2)
+                minutes = int(minutes)
+                seconds = int(seconds)
+                if minutes < 0 or seconds < 0 or seconds >= 60:
+                    print()
+                    avantutils.iterate(0.8, 0.025, *"Invalid minutes or seconds value. Minutes must be non-negative and seconds must be between 0 and 59.")
+                    continue
+                if minutes >= 1000:
+                    print()
+                    avantutils.iterate(0.8, 0.025, *"You tried to declare a length longer than 999 minutes. Please try again.")
+                    continue
+                projframes = int((minutes * 60 + seconds) * framerate)
+                projduration = round(float(projframes / framerate), 2)
                 break
-            continue  
+            except ValueError:
+                print()
+                avantutils.iterate(0.8, 0.025, *"Invalid input format. Please enter the length in the format 'minutes.seconds' such as 2.30, 3.01, etc.")
+                continue
     avantutils.wait_and_clear(2)
-    avantutils.iterate(0.8, 0.025, *"Would you like the algorithm to include additional time for intro- and outro titles? (Y/N)")
     while True:
+        avantutils.iterate(0.8, 0.025, *"Would you like Avant to add additional time for intro- and outro titles? Y/N")
+        print()
         choice = input("")
         if choice.upper() == "Y":
             print()
@@ -302,46 +296,55 @@ def length_selector():
             while True:
                 title_input = input("")
                 # Initial Checks
-                if len(title_input.split(" ")) > 2 or len(title_input.split(" ") < 2):
+                splitted = title_input.split(" ")
+                if len(splitted) != 2:
                     print()
-                    avantutils.iterate(0.8, 0.025, *"You did not declare the frames correctly. You can only declare full seconds and you must declare both at the same time seperated with a space. f.e. '10 6' or '2 3' which means, 2 seconds for the intro, 3 seconds for the outro.")
+                    avantutils.iterate(0.8, 0.025, *"You did not declare the frames correctly. You can only declare full seconds and you must declare both at the same time separated with a space. e.g., '10 6' or '2 3' which means, 2 seconds for the intro, 3 seconds for the outro.")
                     print()
                     continue
                 if "," in title_input or "." in title_input:
                     print()
-                    avantutils.iterate(0.8, 0.025, *"Please do not use comma's or periods. Declare your intro and outro length with a single SPACE and in FULL seconds.")
+                    avantutils.iterate(0.8, 0.025, *"Please do not use commas or periods. Declare your intro and outro length with a single SPACE and in FULL seconds.")
                     print()
                     continue
                 if " " not in title_input:
                     print()
-                    avantutils.iterate(0.8, 0.025, *"You forgot to add a single SPACE between the two integers. f.e. 2 10 for 2 seconds intro titles and 10 seconds outro titles.")
+                    avantutils.iterate(0.8, 0.025, *"You forgot to add a single SPACE between the two integers. e.g., 2 10 for 2 seconds intro titles and 10 seconds outro titles.")
                     print()
                     continue
-                # Continue if output can at least be splitted properly
-                splitted = title_input.split(" ")
-                if int(splitted[0]) < 0 or int(splitted[1]) < 0:
+                # Continue if output can at least be split properly
+                try:
+                    intro_time = int(splitted[0])
+                    outro_time = int(splitted[1])
+                except ValueError:
+                    print()
+                    avantutils.iterate(0.8, 0.025, *"You did not format the numbers correctly. Please try again. Remember, you can only declare TWO integers separated by a single space.")
+                    print()
+                    continue
+                if intro_time < 0 or outro_time < 0:
                     print()
                     avantutils.iterate(0.8, 0.025, *"Nice try. Negative numbers are not supported. Please try again.")
                     print()
                     continue
-                if int(splitted[0]) > 120 or int(splitted[1]) > 120:
+                if intro_time > 120 or outro_time > 120:
                     print()
                     avantutils.iterate(0.8, 0.025, *"At this time a maximum of 120 seconds can be used. Please use a lower amount of seconds.")
                     print()
                     continue
-                else:
-                    introframes = int(splitted[0] * framerate)
-                    outroframes = int(splitted[1] * framerate)
-                    print()
-                    avantutils.iterate(0.8, 0.025, *"Intro- and outroframes succesfully added")
-                    print()
-                    break
-        if choice.upper() == "N":
+                introframes = int(intro_time * framerate)
+                outroframes = int(outro_time * framerate)
+                print()
+                avantutils.iterate(0.8, 0.025, *"Intro- and outro frames successfully added")
+                print()
+                break
+            break
+        elif choice.upper() == "N":
             introframes = 0
             outroframes = 0
             break
-        print()
-        avantutils.iterate(0.8, 0.025, *"Please specify 'y' for Yes and 'n' for No.")
+        else:
+            print()
+            avantutils.iterate(0.8, 0.025, *"Please specify 'Y' for Yes and 'N' for No.")
 
 def data_calc_post():
     global post_data_list
@@ -350,34 +353,43 @@ def data_calc_post():
     usedframes_post = 0
     diff = 0
     post_data_list = []
-    avantutils.wait_and_clear(2)
-    if introframes > 0:
-        post_data_list.append({"video_name": "INTRO", "start_frame": 0, "end_frame": introframes, "total_frames": (0 + introframes)})
-        projframes -= introframes
-        usedframes_post += introframes
-    original_frames = projframes - introframes - outroframes
-    while usedframes_post < (projframes - outroframes):
-        clip_select = filenames[random.randint(0, len(filenames) - 1)]
-        min_clip_start = random.randint(0, frames[clip_select])
-        max_clip_length = random.randint(min_clip_start + 1, frames[clip_select])
-        clip_length = max_clip_length - min_clip_start
-        if (usedframes_post + clip_length) >= original_frames:
-            diff = original_frames - usedframes_post
-            clip_length = diff
-            if diff == 0:
-                post_data_list.append({"video_name": "OUTRO", "start_frame": 0, "end_frame": outroframes, "total_frames": (usedframes_post + outroframes)})
+    try:
+        avantutils.wait_and_clear(2)
+        if introframes > 0:
+            post_data_list.append({"video_name": "INTRO", "start_frame": 0, "end_frame": introframes, "total_frames": (0 + introframes)})
+            projframes -= introframes
+            usedframes_post += introframes
+        original_frames = projframes - introframes - outroframes
+        while usedframes_post < (projframes - outroframes):
+            clip_select_index = random.randint(0, len(filenames) - 1)
+            clip_select = filenames[clip_select_index]
+            min_clip_start = random.randint(0, frames[clip_select_index] - 1)
+            max_clip_length = random.randint(min_clip_start + 1, frames[clip_select_index])
+            clip_length = max_clip_length - min_clip_start
+            if (usedframes_post + clip_length) >= original_frames:
+                diff = original_frames - usedframes_post
+                clip_length = diff
+                if diff == 0:
+                    post_data_list.append({"video_name": "OUTRO", "start_frame": 0, "end_frame": outroframes, "total_frames": (usedframes_post + outroframes)})
+                    usedframes_post += outroframes
+                    break
+                post_data_list.append({"video_name": clip_select, "start_frame": min_clip_start, "end_frame": min_clip_start + diff, "total_frames": (usedframes_post + clip_length)})
+                usedframes_post += clip_length
                 usedframes_post += outroframes
+                post_data_list.append({"video_name": "OUTRO", "start_frame": 0, "end_frame": outroframes, "total_frames": (usedframes_post + outroframes)})
                 break
-            post_data_list.append({"video_name": clip_select, "start_frame": min_clip_start, "end_frame": min_clip_start + diff, "total_frames": (usedframes_post + clip_length)})
+            post_data_list.append({"video_name": clip_select, "start_frame": min_clip_start, "end_frame": max_clip_length, "total_frames": (usedframes_post + clip_length)})
             usedframes_post += clip_length
-            usedframes_post += outroframes
-            post_data_list.append({"video_name": "OUTRO", "start_frame": 0, "end_frame": outroframes, "total_frames": (usedframes_post + outroframes)})
-            break
-        post_data_list.append({"video_name": clip_select, "start_frame": min_clip_start, "end_frame": max_clip_length, "total_frames": (usedframes_post + clip_length)})
-        usedframes_post += clip_length
+        avantutils.iterate(0.8, 0.025, *"Projectdata succesfully generated.")
+    except Exception as e:
+        print(f"ERROR: {e}")
+    for entry in post_data_list:
+        print(entry['video_name'], entry['start_frame'], entry['end_frame'], entry['total_frames'])
+    avantutils.wait(99)
 
 def generate_post_files():
-    print("GENERATING POST FILES")
+    print("YOU MADE IT TO GENERATE POST FILES. CONGRATS.")
+    avantutils.wait(5)
 
 def prod_mode():
     print("production mode started")
