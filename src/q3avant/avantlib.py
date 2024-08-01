@@ -1,7 +1,7 @@
 # WIP:
-# Post mode does not work with image sequences yet
-# When post mode loop breaks, the last iteration is not properly added. Instead, only the outro frames are added but some kind of frames are added between the last entry and the outroframes..
-# When above works, generate README, PDF with raw data, xml and edl
+# Post mode needs img sequence support
+# Ggenerate README, PDF with raw data, xml and edl
+# Adjust the text iteration more gracefully when algorithm starts
 
 try:
     import sys
@@ -212,11 +212,11 @@ def analyze_footage(vpa: str, ipa: str):
     avantutils.iterate(0.8, 0.025, *"Converting obtained data to fit project's framerate...")
     for x in range(len(filenames)):
         if (float(framerates[x]) == framerate):
-            newlength.append("Same Framerate as project")
+            newlength.append("NA")
             frames.append(int(framerates[x] * durations[x]))
         else:
             orig = int(framerates[x] * durations[x])
-            new_dur = float(orig / framerate)
+            new_dur = round(float(orig / framerate), 2)
             newlength.append(new_dur)
             frames.append(int(new_dur * framerate))
     avantutils.iterate(0.8, 0.025, *"Conversion completed.")
@@ -351,40 +351,35 @@ def data_calc_post():
     global usedframes_post
     global projframes
     usedframes_post = 0
-    diff = 0
     post_data_list = []
     try:
         avantutils.wait_and_clear(2)
         if introframes > 0:
-            post_data_list.append({"video_name": "INTRO", "start_frame": 0, "end_frame": introframes, "total_frames": (0 + introframes)})
-            projframes -= introframes
             usedframes_post += introframes
-        original_frames = projframes - introframes - outroframes
-        while usedframes_post < (projframes - outroframes):
-            clip_select_index = random.randint(0, len(filenames) - 1)
-            clip_select = filenames[clip_select_index]
-            min_clip_start = random.randint(0, frames[clip_select_index] - 1)
-            max_clip_length = random.randint(min_clip_start + 1, frames[clip_select_index])
-            clip_length = max_clip_length - min_clip_start
-            if (usedframes_post + clip_length) >= original_frames:
-                diff = original_frames - usedframes_post
-                clip_length = diff
-                if diff == 0:
-                    post_data_list.append({"video_name": "OUTRO", "start_frame": 0, "end_frame": outroframes, "total_frames": (usedframes_post + outroframes)})
-                    usedframes_post += outroframes
-                    break
-                post_data_list.append({"video_name": clip_select, "start_frame": min_clip_start, "end_frame": min_clip_start + diff, "total_frames": (usedframes_post + clip_length)})
+            post_data_list.append({"video_name": "INTRO", "start_frame": 0, "end_frame": introframes, "length": introframes, "total_frames": usedframes_post})
+            projframes -= introframes
+        while usedframes_post < projframes:
+            clip_index = random.randint(0, len(filenames) - 1)
+            clip_select = filenames[clip_index]
+            start_clip = random.randint(0, frames[clip_index] - 1) 
+            end_clip = random.randint(start_clip + 1, frames[clip_index] - 1)
+            clip_length = end_clip - start_clip  
+            if usedframes_post + clip_length > projframes:
+                clip_length = projframes - usedframes_post
+                end_clip = start_clip + clip_length
+            if clip_length > 0:
                 usedframes_post += clip_length
-                usedframes_post += outroframes
-                post_data_list.append({"video_name": "OUTRO", "start_frame": 0, "end_frame": outroframes, "total_frames": (usedframes_post + outroframes)})
+                post_data_list.append({"video_name": clip_select, "start_frame": start_clip, "end_frame": end_clip, "length": clip_length, "total_frames": usedframes_post})
+            if usedframes_post == projframes:
                 break
-            post_data_list.append({"video_name": clip_select, "start_frame": min_clip_start, "end_frame": max_clip_length, "total_frames": (usedframes_post + clip_length)})
-            usedframes_post += clip_length
-        avantutils.iterate(0.8, 0.025, *"Projectdata succesfully generated.")
-    except Exception as e:
+        if outroframes > 0:
+            post_data_list.append({"video_name": "OUTRO", "start_frame": 0, "end_frame": outroframes, "length": outroframes, "total_frames": usedframes_post + outroframes})
+            usedframes_post += outroframes
+        avantutils.iterate(0.8, 0.025, *"Projectdata successfully generated.")
+    except Exception as e: 
         print(f"ERROR: {e}")
     for entry in post_data_list:
-        print(entry['video_name'], entry['start_frame'], entry['end_frame'], entry['total_frames'])
+        print(entry['video_name'], entry['start_frame'], entry['end_frame'], entry['length'], entry['total_frames'])
     avantutils.wait(99)
 
 def generate_post_files():
@@ -554,6 +549,16 @@ def start():
                 projname()
                 fps()
                 algomode()
+                if algbool:
+                    match(algselect):
+                        case "Production Mode":
+                            prod_mode()
+                        case "Post Mode":
+                            post_mode()
+                        case "Full Service Mode":
+                            full_mode()
+                        case _:
+                            pass
             case 3:
                 algbool = True
                 if algbool:
