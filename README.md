@@ -6,7 +6,7 @@ Quake III Machinima (post-)production
 
 <br/>
 
-**Version: 0.2.0 - 21 February 2024**
+**Version: 0.0.0**
 <br/><br/>
 Created by Jordy Veenstra (A Pixelated Point of View)<br/>
 Licensed under MIT
@@ -58,13 +58,9 @@ If you encounter a problem that has not been documented yet, feel free to open a
 <br/>
 
 ### Installation
-Avant can be installed and/or used in three different ways. The user can run it as a standalone application (`.exe` - Windows / `.app` - MacOS), clone the repository and run the algorithm with `python avant.py` or install avant as a `PyPi` package and run it from the command line. The end result will be the same across both ways.
+Avant can be installed and/or used in two different ways. The user can install avant as a `PyPi` package and run it from the command line, or clone the repository and run the algorithm with `python avant.py`. The end result will be the same across both ways.
 
-##### Running avant as a standalone application
-Running avant as a standalone application is the easiest and fastest way for most users as it does not require any additional setup or downloads. Download the latest executable from the `release` section and open the file.
-
-##### Checklist before Cloning or PyPi
-If you decide to run the algorithm from the command line with either the PyPi build or by cloning the repository, please ensure that you are at least running `Python 3.8`, have `pip` installed and that Python has been set up correctly. Please follow the following steps underneath before cloning the repository or installing the PyPi package.
+Please ensure that you are at least running `Python 3.8`, have `pip` installed and that Python has been set up correctly. Please follow the following steps underneath before cloning the repository or installing the PyPi package.
 
 - Open a new terminal window and type `python` followed by a ENTER/RETURN. The command line should return your current Python version. If `python` does not work, try `python3` (sometimes works for MacOS users) or check your System variables and paths (Windows), otherwise consult the Python documentation if you are experiencing issues.
 - If it returns `Python 3.8` or higher and if you have installed Python from the [Official Python Website](https://www.python.org/downloads/), `pip` will be automatically installed as well. If your Python version is lower, you will need to update your version of Python first by downloading a more recent version from the Python foundation website.
@@ -72,22 +68,22 @@ If you decide to run the algorithm from the command line with either the PyPi bu
 - If you don't have any version of Python on your machine, make sure to download it from the [Official Python Website](https://www.python.org/downloads) as it installs `pip` automatically as well.
 - Proceed with one of the two options down below.
 
+##### Running avant as a PyPi package:
+- *(Optional)* Create a new environment or select a environment of choice with `venv`
+- Install avant with `pip install q3avant`
+- Open a new terminal window and run the algorithm with `q3avant_run`
+
 ##### Running avant by cloning the repository
 - Open a new terminal window, navigate to your folder of choice. Clone the repository with `git clone https://github.com/jiyorude/avant.git`
 - Install project dependencies with `pip install -r requirements.txt`
 - Enter the folder which you used to install avant and navigate to the `src > q3avant` folder.
 - Run the algorithm with `python avant.py`
 
-##### Running avant as a PyPi package:
-- Create a new environment or select a environment of choice with `venv`
-- Install avant with `pip install q3avant`
-- Open a new terminal window and run the algorithm with `q3avant_run`
-
 <br/>
 
 ### How To use
 Underneath contains a short overview of how the algorithm works and what results are to be expected across the various modes found inside avant.
-* Run the algorithm through your method of choice (Clone/PyPi/Executable). 
+* Run the algorithm through your method of choice. 
 * Navigate through the main menu with the arrow keys on your keyboard and hit the enter/return key to confirm your choice. The `documentation` menu contains a hyperlink redirecting towards the documentation website. The `credits` menu presents an overview of all languages and modules used for avant alongside hyperlinks leading to the source code. And, of course, the `exit` function gracefully exits out of the program.
 * Select `start algorithm` to start avant. The algorithm was designed to run like a 'software wizard'. It will keep asking for input or a selection from the user and starts data and/or file generation whenever it has received enough input to do so. 
 * Avant will ask the user for information regarding their project, such as projectname and framerate. Avant will use this input later on during data generation. Once finished, the user must choose from *three* different modes
@@ -101,9 +97,7 @@ Underneath contains a short overview of how the algorithm works and what results
 <br/>
 
 ### License
-Avant, avantlib and its database are licensed under a MIT-license. Please refer to `License.txt` for information regarding the usage and modification of the algorithm.
-
-Please head over to the `release` section of the repository (GitHub only) if you wish to download a dump of the avant map database.
+Avant, avantlib, its database and vertice are licensed under a MIT-license. Please refer to `License.txt` for information regarding the usage and modification of the algorithm.
 
 &copy; Jordy Veenstra 2024 <br>
 &copy; A Pixelated Point of View 2024
