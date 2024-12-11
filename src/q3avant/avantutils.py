@@ -1,8 +1,6 @@
-import os
-import time
-import sys
+import os, time, sys, avantxt
 from datetime import datetime
-import avantxt
+
 
 def print_ascii():
     for line in avantxt.ascii.splitlines():

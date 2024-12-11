@@ -1,21 +1,6 @@
-# WIP:
-# Post mode needs img sequence support
-# Ggenerate README, PDF with raw data, xml and edl
-# Adjust the text iteration more gracefully when algorithm starts
-
 try:
-    import sys
-    import requests
-    import os
-    import glob
-    import inquirer
-    import avantxt
-    import avantutils
-    import platformdirs
-    import webbrowser
-    import ffmpeg
-    import random
-    from moviepy.editor import VideoFileClip
+    import sys, requests, os, glob, inquirer, avantxt, avantutils, platformdirs, webbrowser, ffmpeg, random
+    from moviepy.video.io.VideoFileClip import VideoFileClip
     from pathlib import Path
     from datetime import datetime
     from reportlab.lib.pagesizes import letter
@@ -26,33 +11,9 @@ try:
 except ImportError:
     print("ERROR AVANTLIB: Avant is unable to start due to missing dependencies. Install all required packages with 'pip install -r requirements.txt'")
 
-# Globals for algorithm
-global projectname # Projectname
-global framerate # Selected framerate for the project
-global algselect # Selected algorithm mode
-global algbool # Checker to verify projectdata
+variables = ([None] * 22)
+(projectname, framerate, algselect, algbool, containers, filenames, codecs, framerates, widths, heights, durations, newlength, frames, v_r_count, i_r_count, introframes, outroframes, projwidth, projheight, projframes, projduration, post_data_list) = variables
 
-# Globals for filedata
-global containers # Source material container, such as mp4, mpeg, mov.
-global filenames # File name
-global codecs # Source material codec, such as h264, hevc, apr4444xq
-global framerates # Source material frames per second 
-global widths # Width resolution
-global heights # Height resolution
-global durations # Original length of clip
-global newlength # New length of clip after being conformed to the right fps
-global frames # Total length of CLIP in frames
-global v_r_count # Total amount of video files that are usable
-global i_r_count # Total amount of image sequences that are usable
-global introframes # Total amount of intro frames
-global outroframes # Total amount of outro frames
-
-# Globals for final project
-global projwidth # Project width in pixels, based on the largest found file
-global projheight # Project height in pixels, based on the largest found file
-global projframes # Total length of PROJECT in frames
-global projduration # Total length of PROJECt in seconds
-global post_data_list # List that contains data used for xml/edl files in post mode
 
 # Algorithm Functions
 def projname():
@@ -158,34 +119,9 @@ def count_items(vr: int, va: int, ir: int, ia: int):
         avantutils.ex()
 
 def analyze_footage(vpa: str, ipa: str): 
-    global containers
-    global filenames
-    global codecs
-    global framerates
-    global widths
-    global heights
-    global durations
-    global newlength
-    global frames
-    global projwidth
-    global projheight
-    global v_r_count
-    global i_r_count
-    v_r_count = 0
-    v_a_count = 0 
-    i_r_count = 0 
-    i_a_count = 0 
-    projwidth = 0
-    projheight = 0
-    containers = []
-    filenames = []
-    codecs = []
-    framerates = []
-    widths = []
-    heights = []
-    durations = []
-    newlength = []
-    frames = []
+    global containers, filenames, codecs, framerates, widths, heights, durations, newlength, frames, projwidth, projheight, v_r_count, i_r_count
+    v_r_count, v_a_count, i_r_count, i_a_count, projwidth, projheight = 0
+    containers, filenames, codecs, framerates, widths, heights, durations, newlength, frames = []
     v_items = os.listdir(vpa) # video items
     i_items = os.listdir(ipa) # image items
     v_a_count = sum(1 for item in v_items if os.path.isfile(os.path.join(vpa, item)))
