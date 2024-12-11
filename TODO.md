@@ -17,5 +17,6 @@ An overview can be found underneath containing the current software roadmap for 
 | 0.0.54 | Generators: XML | Function that generates a XML file during POST mode | 0% |
 | 0.0.55 | Test/Checkups | Check the current functionality of POST mode | 0% |
 | 0.1.0 | Post Completed | Post mode completed | 0% |
+| 0.2.0 | Documentation | Documentation up until POST mode, incl assets. CSS/Functionality fixes | 0%|
 | 0.1.01 | Start Production | Start PRODUCTION mode | 0%
 
