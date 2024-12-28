@@ -1,27 +1,28 @@
-from avantlib import init, connect, mame, cre, htu, start
-from avantutils import exception, ex
+from utils.system import System
 
-def run_avant():
+def main():
     try:
-        init()
-        connect()
+        AVANT = System()
+        AVANT.init()
         while True:
-            ch = mame()
-            if ch == 1:
-                if start():
-                    continue
-            elif ch == 2:
-                if htu():
-                    continue
-            elif ch == 3:
-                if cre():
-                    continue
-            else:
-                ex()
-                break
+            choice = AVANT.main_menu()
+            match(choice):
+                case 1:
+                    AVANT.gen_map_data()
+                case 2:
+                    AVANT.gen_demo_files()
+                case 3:
+                    AVANT.gen_mme_projs()
+                case 4:
+                    AVANT.gen_nle_data()
+                case 5:
+                    AVANT.how_to_use()
+                case 6:
+                    AVANT.credits()
+                case 7:
+                    AVANT.exit_avant()
     except KeyboardInterrupt:
-        ex()
-    except Exception as err:
-        exception(err, 5)
+        AVANT.exit_avant()
 
-run_avant()
+if __name__ == "__main__":
+    main()
