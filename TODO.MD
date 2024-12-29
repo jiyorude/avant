@@ -1,6 +1,6 @@
 ### Avant Road Map
 
-*Current Version: 0.1.1*
+*Current Version: 0.2.1.*
 
 An overview can be found underneath containing the current software roadmap for the Avant Algorithm. <br><br>
 
@@ -9,9 +9,9 @@ An overview can be found underneath containing the current software roadmap for 
 | **0.0.1** | Project Structure | General File and Folder Structures. | 100% |
 | **0.1.0** | Boot Screen / Menu | Boot screen and main menu have been completed | 100% |
 | **0.1.1** | Exit | Exit Function works properly | 100% |
-| 0.1.2 | Pseudo-Functions | All required functions for each library have been created in pseudo-code | 20% |
-| 0.2.0 | Credits | Credits Function works properly, has been tested, and properly reverts back to main menu | 0% |
-| 0.2.1 | Setup and Utility Tests | Setup.py functions work properly. Utility functions have all been tested | 0% |
+| **0.1.2** | Pseudo-Functions | All required functions for each library have been created in pseudo-code | 100% |
+| **0.2.0** | Credits | Credits Function works properly, has been tested, and properly reverts back to main menu | 25% |
+| **0.2.1** | Setup and Utility Tests | Setup.py functions work properly. Utility functions have all been tested | 100% |
 | 0.2.2 | About | About Function works properly, has been tested, and properly reverts back to main menu | 0% |
 | 0.2.3 | Background | Background section in README.md finished | 0% |
 | 0.2.4 | Documentation | Documentation section in README.md updated and finished | 0%|

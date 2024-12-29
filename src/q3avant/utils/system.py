@@ -1,11 +1,14 @@
 # Main System functions such as main menu etc.
 
-import inquirer, pyfiglet
-from utils.utilities import Utilities
-from utils.mapgen import MapGen
-from utils.demogen import DemoGen
-from utils.mmeprojgen import MMEProjGen
-from utils.editorgen import NLEGen
+try:
+    import inquirer, pyfiglet, sys
+    from utils.utilities import Utilities
+    from utils.mapgen import MapGen
+    from utils.demogen import DemoGen
+    from utils.mmeprojgen import MMEProjGen
+    from utils.editorgen import NLEGen
+except ImportError as err:
+    sys.exit(f"ERR004: SYSTEM unable to reach critical libraries => => {err}")
 
 class System:
     UTILITIES, MAPGEN, DEMOGEN, MMEPROJGEN, NLEGEN = Utilities(), MapGen(), DemoGen(), MMEProjGen(), NLEGen()
@@ -51,23 +54,46 @@ class System:
             case "Exit":
                 return 7
 
-
     def gen_map_data(self):
+        self.UTILITIES.clear()
+        print("GENERATE MAP DATA")
+        self.UTILITIES.wait(2)
+        self.UTILITIES.clear()
         return True
 
     def gen_demo_files(self):
+        self.UTILITIES.clear()
+        print("GENERATE DEMO DATA")
+        self.UTILITIES.wait(2)
+        self.UTILITIES.clear()
         return True
 
     def gen_mme_projs(self):
+        self.UTILITIES.clear()
+        print("GENERATE MME PROJECTS")
+        self.UTILITIES.wait(2)
+        self.UTILITIES.clear()
         return True
 
     def gen_nle_data(self):
+        self.UTILITIES.clear()
+        print("GENERATE NLE DATA")
+        self.UTILITIES.wait(2)
+        self.UTILITIES.clear()
         return True
 
     def show_credits(self):
+        self.UTILITIES.clear()
+        print("SHOW CREDITS")
+        self.UTILITIES.wait(2)
+        self.UTILITIES.clear()
         return True
 
     def how_to_use(self):
+        self.UTILITIES.clear()
+        print("ABOUT/HTU")
+        self.UTILITIES.wait(2)
+        self.UTILITIES.clear()
         return True
 
     def exit_avant(self):
