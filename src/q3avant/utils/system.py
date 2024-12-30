@@ -1,7 +1,6 @@
-# Main System functions such as main menu etc.
-
 try:
-    import inquirer, pyfiglet, sys
+    import inquirer, pyfiglet, sys, textwrap
+    import utils.texts as avantxt
     from utils.utilities import Utilities
     from utils.mapgen import MapGen
     from utils.demogen import DemoGen
@@ -17,41 +16,42 @@ class System:
         figlet_text = pyfiglet.figlet_format("AVANT", font="slant").split('\n')
         for line in figlet_text:
             self.UTILITIES.iterate(0.1, 0.015, *line)
-        self.UTILITIES.iterate(0.8, 0.025, *"Random Data Generating Algorithm for Experimental Quake III Machinima Production.")
-        self.UTILITIES.iterate(0.8, 0.025, *"Made by Jordy Veenstra (A Pixelated Point of View)")
-        self.UTILITIES.iterate(0.8, 0.025, *"Version 0.0.0 - December 2024")
+        self.UTILITIES.iterate(0.8, 0.025, *avantxt.init_one)
+        self.UTILITIES.iterate(0.8, 0.025, *avantxt.init_two)
+        self.UTILITIES.print_whitespace()
+        self.UTILITIES.iterate(0.8, 0.025, *avantxt.init_three)
         self.UTILITIES.wait_and_clear(2)
 
     def main_menu(self):
         self.UTILITIES.wait(1)
         print(pyfiglet.figlet_format("AVANT", font="slant"))
         main_menu = [inquirer.List('choice', message="Main Menu", choices=[
-            "Generate Map Data",
-            "Generate Demo Files",
-            "Generate MME Project Files",
-            "Generate EDL/XML",
-            "About Avant",
-            "Credits",
-            "Exit"
+            avantxt.main_one,
+            avantxt.main_two,
+            avantxt.main_three,
+            avantxt.main_four,
+            avantxt.main_five,
+            avantxt.main_six,
+            avantxt.main_seven
         ])]
         show_main_menu = inquirer.prompt(main_menu)
         if show_main_menu is None:
             return 7
         selection = show_main_menu['choice']
         match (selection):
-            case "Generate Map Data":
+            case avantxt.main_one:
                 return 1
-            case "Generate Demo Files":
+            case avantxt.main_two:
                 return 2
-            case "Generate MME Project Files":
+            case avantxt.main_three:
                 return 3
-            case "Generate EDL/XML":
+            case avantxt.main_four:
                 return 4
-            case "About Avant":
+            case avantxt.main_five:
                 return 5
-            case "Credits":
+            case avantxt.main_six:
                 return 6
-            case "Exit":
+            case avantxt.main_seven:
                 return 7
 
     def gen_map_data(self):
@@ -83,16 +83,34 @@ class System:
         return True
 
     def show_credits(self):
-        self.UTILITIES.clear()
-        print("SHOW CREDITS")
-        self.UTILITIES.wait(2)
+        texts = [avantxt.credits_one, avantxt.credits_two, avantxt.credits_three, avantxt.credits_four, avantxt.credits_five, avantxt.credits_six, avantxt.credits_seven, avantxt.credits_eight, avantxt.credits_nine, avantxt.credits_ten, avantxt.credits_eleven, avantxt.credits_twelve, avantxt.credits_thirteen]
+        wait_at = [3, 7, 10]
+        self.UTILITIES.clear(), self.UTILITIES.wait(1)
+        print(pyfiglet.figlet_format("CREDITS", font="slant")), self.UTILITIES.wait(1)
+        for x, text in enumerate(texts, start=1):
+            print(textwrap.fill(text, width=100))
+            if x == 12:
+                self.UTILITIES.print_whitespace()
+            if x in wait_at:
+                self.UTILITIES.wait(1), self.UTILITIES.print_whitespace()
+        self.UTILITIES.wait(1), self.UTILITIES.print_whitespace()
+        input(f"{avantxt.credits_fourteen}\n\n")
         self.UTILITIES.clear()
         return True
 
     def how_to_use(self):
-        self.UTILITIES.clear()
-        print("ABOUT/HTU")
-        self.UTILITIES.wait(2)
+        texts = [avantxt.htu_one, avantxt.htu_two, avantxt.htu_three, avantxt.htu_four, avantxt.htu_five, avantxt.htu_six, avantxt.htu_seven, avantxt.htu_eight, avantxt.htu_nine, avantxt.htu_ten, avantxt.htu_eleven, avantxt.htu_twelve, avantxt.htu_thirteen]
+        wait_at = [3, 5, 7, 9, 11]
+        self.UTILITIES.clear(), self.UTILITIES.wait(1)
+        print(pyfiglet.figlet_format("ABOUT", font="slant")), self.UTILITIES.wait(1)
+        for x, text in enumerate(texts, start=1):
+            print(textwrap.fill(text, width=75))
+            if x in [1, 2]:
+                self.UTILITIES.print_whitespace()
+            if x in wait_at:
+                self.UTILITIES.wait(3), self.UTILITIES.print_whitespace(), self.UTILITIES.print_whitespace()
+        self.UTILITIES.wait(3), self.UTILITIES.print_whitespace()
+        input(f"{avantxt.htu_fourteen}\n\n")
         self.UTILITIES.clear()
         return True
 
@@ -103,4 +121,3 @@ class System:
         self.UTILITIES.wait(1.5)
         self.UTILITIES.clear()
         self.UTILITIES.kill("", 0)
-

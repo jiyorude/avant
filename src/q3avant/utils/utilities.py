@@ -1,4 +1,3 @@
-# Reusable Utility Functions
 import sys, time, os
 from datetime import datetime
 
@@ -30,6 +29,9 @@ class Utilities():
             print(char, end='', flush=True)
             time.sleep(type_del)
         print()
+
+    def print_whitespace(self):
+        return print()
 
     def get_time(self):
         time_string = datetime.now().strftime("%A %d %B %Y %H %M %S")
