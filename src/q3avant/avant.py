@@ -8,18 +8,20 @@ def main():
             choice = AVANT.main_menu()
             match(choice):
                 case 1:
-                    AVANT.gen_map_data()
+                    AVANT.manage_avant_projects()
                 case 2:
-                    AVANT.gen_demo_files()
+                    AVANT.gen_map_data()
                 case 3:
-                    AVANT.gen_mme_projs()
+                    AVANT.gen_demo_files()
                 case 4:
-                    AVANT.gen_nle_data()
+                    AVANT.gen_mme_projs()
                 case 5:
-                    AVANT.how_to_use()
+                    AVANT.gen_nle_data()
                 case 6:
-                    AVANT.credits()
+                    AVANT.how_to_use()
                 case 7:
+                    AVANT.show_credits()
+                case 8:
                     AVANT.exit_avant()
     except KeyboardInterrupt:
         AVANT.exit_avant()

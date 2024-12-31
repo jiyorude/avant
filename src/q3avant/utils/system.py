@@ -32,11 +32,12 @@ class System:
             avantxt.main_four,
             avantxt.main_five,
             avantxt.main_six,
-            avantxt.main_seven
+            avantxt.main_seven,
+            avantxt.main_eight
         ])]
         show_main_menu = inquirer.prompt(main_menu)
         if show_main_menu is None:
-            return 7
+            return 8
         selection = show_main_menu['choice']
         match (selection):
             case avantxt.main_one:
@@ -53,6 +54,24 @@ class System:
                 return 6
             case avantxt.main_seven:
                 return 7
+            case avantxt.main_eight:
+                return 8
+
+    def folder_structure_check(self):
+        # If folder structure does not exist, create it in Documents plus shortcut to docs.
+        pass
+
+    def check_q3_installation(self):
+        # Only during first boot, verify q3 installation and create a hidden file.
+        # During each boot, check if file is still there
+        pass
+
+    def manage_avant_projects(self):
+        self.UTILITIES.clear()
+        print("MANAGE AVANT PROJECT...")
+        self.UTILITIES.wait(2)
+        self.UTILITIES.clear()
+        return True
 
     def gen_map_data(self):
         self.UTILITIES.clear()
@@ -115,9 +134,6 @@ class System:
         return True
 
     def exit_avant(self):
-        self.UTILITIES.clear()
-        self.UTILITIES.wait(0.5)
+        self.UTILITIES.clear(), self.UTILITIES.wait(0.5)
         self.UTILITIES.iterate(0.4, 0.025, *"Exiting...")
-        self.UTILITIES.wait(1.5)
-        self.UTILITIES.clear()
-        self.UTILITIES.kill("", 0)
+        self.UTILITIES.wait(1.5), self.UTILITIES.clear(), self.UTILITIES.kill("", 0)
