@@ -101,6 +101,8 @@ Avant can be installed through one of two possible methods: either through the P
 
 <br/>
 
+****
+
 ### How To use
 Upon first boot, Avant will run an initial setup and create its folder structure alongside a shortcut towards the documentation website in your <code>My Documents</code> folder. Furthermore, it will ask for the exact path where the game Quake III Arena can be found and check for required files (quake3.exe, baseq3 folder and the q3mme mod, to name a few). If any important files are missing, avant will raise an exception, tell you how to fix it and terminate the current process. Once the issues are fixed and all initial checks are passed, you are greeted with the <code>Main Menu</code>, which can be navigated with the <code>arrow</code> keys on your keyboard. You can confirm your selection by hitting the <code>return</code> key.
 
@@ -127,6 +129,8 @@ Your best bet is to start and create an <code>Avant Project</code>, which you wi
 * Do you want to create a **randomized edit** from the demo files you just captured? Make sure your image sequences stay put in your q3mme capture folder, and navigate to the <code>Generate EDL/XML</code> function. A brief setup wizard will ask for input regarding which folder should be used, how long the film should be, what the name of the sequence should be, what the required framerate is and whether there should be time reserved for intro and outro titles (which you can add yourself in your NLE of choice). The <code>Generate EDL/XML</code> function works with both avant generated footage as with Quake III footage you have captured yourself, given that all image sequences (or videofiles) are in a separate folder within your captures folder. After generating the EDL/XML, import the file into your NLE of choice and adjust the edit as you see fit or export your new randomized and experimental Quake III machinima!
 
 <br/>
+
+****
 
 ### License
 Avant is licensed under the MIT-License. Please check the <code>LICENSE</code> file found in the repository regarding usage and implementing Avant or parts of its source code into your own software.
