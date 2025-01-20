@@ -12,10 +12,10 @@ An overview can be found underneath containing the current software roadmap for 
 | **0.1.2** | Pseudo-Functions | All required functions for each library have been created in pseudo-code | 100% |
 | **0.2.0** | Credits | Credits Function works properly, has been tested, and properly reverts back to main menu | 100% |
 | **0.2.1** | Setup and Utility Tests | Setup.py functions work properly. Utility functions have all been tested | 100% |
-| **0.2.2** | About | About Function works properly, has been tested, and properly reverts back to main menu | 50% |
-| **0.2.3** | Background | Background section in README.md finished | 0% |
-| **0.2.4** | Documentation | Documentation section in README.md updated and finished | 0%|
-| 0.2.5 | Documentation Front-End Up | Next.js Front-End working with code from previous version, updated front-page with chapter buttons, empty linkable pages, responsive footer fixes | 0% |
+| **0.2.2** | About | About Function works properly, has been tested, and properly reverts back to main menu | 100% |
+| **0.2.3** | Background | Background section in README.md finished | 100% |
+| **0.2.4** | Documentation | Documentation section in README.md updated and finished | 100% |
+| *0.2.5* | Documentation Front-End Up | Next.js Front-End working with code from previous version, updated front-page with chapter buttons, empty linkable pages, responsive footer fixes | 30% |
 | 0.2.6 | Quake III folder selection | Functions working that can recognize both q3 and mme dir, save the directory to a file and use that info to verify Q3 location on computer upon boot | 0% |
 | 0.3.0 | Mapgen basic functionality | Basic functionality for extracting bsp files and analyzing entities such as "player_info_deathmatch", ctf and teamspawn | 0% |
 | 0.3.1 | Mapgen coordinates | Spawnpoints and coordinates are properly passed down, plus available camera space between player and 'the void' is calculated for each map and spawn point inside a dictionary. | 0% |
