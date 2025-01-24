@@ -1,6 +1,8 @@
 try:
-    import inquirer, pyfiglet, sys, textwrap
+    import inquirer, pyfiglet, sys, textwrap, os, stat
     import utils.texts as avantxt
+    import tkinter as tk
+    from tkinter import filedialog
     from utils.utilities import Utilities
     from utils.mapgen import MapGen
     from utils.demogen import DemoGen
@@ -58,13 +60,68 @@ class System:
                 return 8
 
     def folder_structure_check(self):
-        # If folder structure does not exist, create it in Documents plus shortcut to docs.
-        pass
+        try:
+            if not os.path.exists(os.path.join(os.path.expanduser('~/Documents'), 'Avant')):
+                os.makedirs(os.path.join(os.path.expanduser('~/Documents'), 'Avant'))
+                with open(os.path.join(os.path.expanduser('~/Documents/Avant'), '_Avant_Documentation.url'), 'w') as file:
+                    file.write(f"[InternetShortcut]\nURL=https://avant-docs.vercel.app")
+        except Exception as e:
+            exit(1, f"ERR005: Exception arose while generating Avant folder structure: {e}")
 
     def check_q3_installation(self):
-        # Only during first boot, verify q3 installation and create a hidden file.
-        # During each boot, check if file is still there
-        pass
+        if not os.path.isfile(os.path.join(os.path.expanduser("~/Documents/Avant"), "._avant_data")):
+            self.UTILITIES.wait(1), print(pyfiglet.figlet_format("SETUP", font="slant"))
+            self.UTILITIES.wait(1), self.UTILITIES.iterate(0.8, 0.025, *avantxt.setup_one), self.UTILITIES.iterate(0.8, 0.025, *avantxt.setup_two)
+            self.UTILITIES.iterate(0.8, 0.025, *avantxt.setup_three), self.UTILITIES.iterate(0.8, 0.025, *avantxt.setup_four), self.UTILITIES.iterate(0.8, 0.025, *avantxt.setup_five)
+            self.UTILITIES.wait(2), self.UTILITIES.clear()
+            root = tk.Tk(), root.withdraw()
+            folder_path = filedialog.askdirectory(initialdir="C:/Program Files")
+            if folder_path is None:
+                self.UTILITIES.iterate(0.8, 0.025, *avantxt.setup_six), self.UTILITIES.wait_and_clear(1)
+                sys.exit(0)
+            else:
+                QUAKE_FOUND, PAKZERO_FOUND, MME_FOUND = False, False, False
+                self.UTILITIES.iterate(0.8, 0.025, *f"Analyzing {folder_path}...")
+                if os.path.isfile(os.path.join(folder_path, "quake3.exe")):
+                    QUAKE_FOUND = True
+                    self.UTILITIES.iterate(0.8, 0.025, *avantxt.setup_seven)
+                    EXE_PATH = os.path.join(folder_path, "quake3.exe")
+                if os.path.isdir(os.path.join(folder_path, "baseq3")):
+                    if os.path.isfile(os.path.join(folder_path, "baseq3", "pak0.pk3")):
+                        PAKZERO_FOUND = True
+                        for x in range(0, 10):
+                            if not os.path.isfile(os.path.join(folder_path, "baseq3", f"pak{x}.pk3")):
+                                PAKZERO_FOUND = False
+                                break
+                    if PAKZERO_FOUND:
+                        self.UTILITIES.iterate(0.8, 0.025, *avantxt.setup_eight)
+                        PAKZERO_PATH = os.path.join(folder_path, "baseq3", "pak0.pk3")
+                if os.path.isdir(os.path.join(folder_path, "mme")):
+                    if os.path.isfile(os.path.join(folder_path, "quake3mme.exe")) and os.path.isfile(os.path.join(folder_path, "start q3mme.cmd")):
+                        if all(os.path.isfile(os.path.join(folder_path, "mme", file)) for file in ["autoexec.cfg", "mmedemos.cfg", "uix86.dll", "qagamex86.dll", "cgamex86.dll"]):
+                            if all(os.path.isfile(os.path.join(folder_path, "mme", "scripts", file)) for file in ["base_weapons.fx", "mme.shader", "base_player.fx", "base_extra.fx"]):
+                                MME_FOUND = True
+                                self.UTILITIES.iterate(0.8, 0.025, *avantxt.setup_nine)
+                                MME_PATH = os.path.join(folder_path, "mme")
+                if all([QUAKE_FOUND, PAKZERO_FOUND, MME_FOUND]):
+                    with open(os.path.join(os.path.expanduser("~/Documents/Avant"), ".avant_data"), "w") as file:
+                        file.write(EXE_PATH), file.write(PAKZERO_PATH), file.write(MME_PATH)
+                        os.system(f'attrib +h"{os.path.join(os.path.expanduser("~/Documents/Avant"), ".avant_data")}"')
+                        os.chmod(os.path.join(os.path.expanduser("~/Documents/Avant"), ".avant_data"), stat.S_IRUSR | stat.S_IWUSR)
+                    self.UTILITIES.iterate(0.8, 0.025, *avantxt.setup_ten), self.utilities.wait_and_clear(2)
+                else:
+                    self.UTILITIES.clear()
+                    if not QUAKE_FOUND:
+                        self.UTILITIES.iterate(0.8, 0.025, *avantxt.setup_eleven)
+                    if not PAKZERO_FOUND:
+                        self.UTILITIES.iterate(0.8, 0.025, *avantxt.setup_twelve)
+                    if not MME_FOUND:
+                        self.UTILITIES.iterate(0.8, 0.025, *avantxt.setup_thirteen)
+                    self.UTILITIES.wait(2), self.UTILITIES.print_whitespace(), self.UTILITIES.iterate(0.8, 0.025, *avantxt.setup_fourteen)
+                    self.UTILITIES.wait(2), self.UTILITIES.clear(), sys.exit(1)
+        else:
+            # Keep checking at every boot if all files are still present.
+            # Nothing wrong, boot as normal, if something's missing, iterate a new text welcome back, seems something has changed with ....
 
     def manage_avant_projects(self):
         self.UTILITIES.clear()

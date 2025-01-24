@@ -13,5 +13,5 @@ def test_get_time_contents():
     result = get_time()
     for element in result:
         assert isinstance(element, str)
-        pytest.success("It worked")
 
+# 2 passed in 0.01s

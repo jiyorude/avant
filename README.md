@@ -6,13 +6,13 @@ Quake III Machinima (post-)production
 
 <br/>
 
-**Version: 0.2.4**
+**Version: 0.2.5**
 <br/><br/>
 Created by Jordy Veenstra (A Pixelated Point of View)<br/>
 
 <br/>
 
-****
+
 
 ### Table of Contents
 
@@ -24,7 +24,7 @@ Created by Jordy Veenstra (A Pixelated Point of View)<br/>
 
 <br/>
 
-****
+
 
 ### Background
 Avant is a <code>Python-based CLI tool</code> designed to simplify the creation of experimental Quake III Machinima films. Originally developed as a tool for my machinima label "A Pixelated Point of View," Avant’s main function is to generate random, experimental Quake III Arena compositions while automating much of the production process. Technically speaking, Avant allows for the generation of practically unlimited variations of potential experimental Quake III machinima films.
@@ -59,7 +59,7 @@ Avant’s functionality is centered around **four** main features, which can be 
 
 <br/>
 
-****
+
 
 ### Documentation
 Avant's documentation website contains extensive information regarding installation, how to get started, algorithm usage, different features and modes, changelogs, answers to frequently asked questions and a database of error codes, should you encounter one. The documentation website for avant was created with Next.js, TypeScript and Tailwind CSS.
@@ -71,7 +71,7 @@ If you encounter a problem that has not been documented yet, feel free to open a
 
 <br/>
 
-****
+
 
 ### Installation
 Avant can be installed through one of two possible methods: either through the Python Package Index with the pip command <code>pip install q3avant</code>, or by cloning the repository with <code>git clone https://github.com/jiyorude/avant.git</code> Depending on which method you would like to use, please proceed with the following steps down below:
@@ -101,7 +101,7 @@ Avant can be installed through one of two possible methods: either through the P
 
 <br/>
 
-****
+
 
 ### How To use
 Upon first boot, Avant will run an initial setup and create its folder structure alongside a shortcut towards the documentation website in your <code>My Documents</code> folder. Furthermore, it will ask for the exact path where the game Quake III Arena can be found and check for required files (quake3.exe, baseq3 folder and the q3mme mod, to name a few). If any important files are missing, avant will raise an exception, tell you how to fix it and terminate the current process. Once the issues are fixed and all initial checks are passed, you are greeted with the <code>Main Menu</code>, which can be navigated with the <code>arrow</code> keys on your keyboard. You can confirm your selection by hitting the <code>return</code> key.
@@ -130,7 +130,7 @@ Your best bet is to start and create an <code>Avant Project</code>, which you wi
 
 <br/>
 
-****
+
 
 ### License
 Avant is licensed under the MIT-License. Please check the <code>LICENSE</code> file found in the repository regarding usage and implementing Avant or parts of its source code into your own software.

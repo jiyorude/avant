@@ -1,6 +1,6 @@
 ### Avant Road Map
 
-*Current Version: 0.2.4*
+*Current Version: 0.2.5*
 
 An overview can be found underneath containing the current software roadmap for the Avant Algorithm. <br><br>
 
@@ -15,15 +15,15 @@ An overview can be found underneath containing the current software roadmap for 
 | **0.2.2** | About | About Function works properly, has been tested, and properly reverts back to main menu | 100% |
 | **0.2.3** | Background | Background section in README.md finished | 100% |
 | **0.2.4** | Documentation | Documentation section in README.md updated and finished | 100% |
-| *0.2.5* | Documentation Front-End Up | Next.js Front-End working with code from previous version, updated front-page with chapter buttons, empty linkable pages, responsive footer fixes | 30% |
-| 0.2.6 | Quake III folder selection | Functions working that can recognize both q3 and mme dir, save the directory to a file and use that info to verify Q3 location on computer upon boot | 0% |
-| 0.3.0 | Mapgen basic functionality | Basic functionality for extracting bsp files and analyzing entities such as "player_info_deathmatch", ctf and teamspawn | 0% |
+| **0.2.5** | Documentation Front-End Up | Next.js Front-End working with code from previous version, updated front-page with chapter buttons, empty linkable pages, responsive footer fixes, fix formatting issues in README.MD on GH | 100% |
+| *0.2.6* | Quake III folder selection | Functions working that can recognize both q3 and mme dir, save the directory to a file and use that info to verify Q3 location on computer upon boot, test avant folder structure function locally | 40% |
+| 0.3.0 | Mapgen basic functionality | Basic functionality for extracting bsp files and analyzing entities such as "player_info_deathmatch", ctf and teamspawn either with bsp_tool or own code. Content/React elements for documentation 'background' page | 0% |
 | 0.3.1 | Mapgen coordinates | Spawnpoints and coordinates are properly passed down, plus available camera space between player and 'the void' is calculated for each map and spawn point inside a dictionary. | 0% |
 | 0.3.2 | Mapgen Save Feature | Save all generated data to JSON/CSV file for demogen, allow user to set name. | 0% |
 | 0.3.3 | Mapgen Testing I | Extensive testing of all mapgen functions | 0% |
 | 0.3.3 | Mapgen Modes | If empty, generate data, if not empty, ask if you want to generate new data and append to new file (if user added new maps) and ask for name, or empty the current dict and start over. | 0% |
 | 0.3.4 | Matplotlib | Generate PDF with information of all spawn points | 0% |
-| 0.4.0 | Mapgen Complete | Mapgen modes and functions are fully working and have been tested. Mapgen has been added to Documentation website | 0%|
+| 0.4.0 | Mapgen Complete | Mapgen modes and functions are fully working and have been tested. Mapgen has been added to Documentation website alongside background, requirements and installation pages. | 0%|
 | 0.4.1 | Demogen basic functionality | Basic functionality for creating custom .dm_68 demo files for all spawnpoints found in each map | 0% |
 | 0.4.2 | Demogen basic testing | Testing custom demo files in mme for correctness. Implementing fixes | 0%|
 | 0.4.3 | Demogen Modes | If only 1 mapgen file exists, use automatically. Else, create a inquirer list allowing for the user to select a list of choice. Create Demo Files in folder corresponding to mapgen dict name | 0% |
@@ -51,4 +51,4 @@ An overview can be found underneath containing the current software roadmap for 
 The backlog will contain potential future updates and new features for the avant algorithm. When chosen, the feature will be added to the Roadmap.
 
 <br/>
-* Connection to <code>TRIII</code>: a work in progress API that contains Quake III map data;
+* Connection to <code>TRIII</code>: a work in progress API that contains Quake III map data, images and download links;

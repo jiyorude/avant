@@ -13,7 +13,7 @@ except FileNotFoundError:
 else:
     setup(
         name='q3avant',
-        version='0.2.2',
+        version='0.1.2',
         author='Jordy Veenstra / A Pixelated Point of View',
         author_email='jordy.gaptx@gmail.com',
         description='Random data-generating algorithm for experimental Quake III Arena Machinima (post-)production',
