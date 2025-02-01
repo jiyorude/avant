@@ -8,11 +8,12 @@ try:
     from utils.demogen import DemoGen
     from utils.mmeprojgen import MMEProjGen
     from utils.editorgen import NLEGen
+    from utils.projmanager import ProjectManager
 except ImportError as err:
     sys.exit(f"ERR004: SYSTEM unable to reach critical libraries => => {err}")
 
 class System:
-    UTILITIES, MAPGEN, DEMOGEN, MMEPROJGEN, NLEGEN = Utilities(), MapGen(), DemoGen(), MMEProjGen(), NLEGen()
+    UTILITIES, MAPGEN, DEMOGEN, MMEPROJGEN, NLEGEN, PROJMANAGER = Utilities(), MapGen(), DemoGen(), MMEProjGen(), NLEGen(), ProjectManager()
 
     def init(self):
         figlet_text = pyfiglet.figlet_format("AVANT", font="slant").split('\n')
@@ -61,73 +62,122 @@ class System:
 
     def folder_structure_check(self):
         try:
-            if not os.path.exists(os.path.join(os.path.expanduser('~/Documents'), 'Avant')):
-                os.makedirs(os.path.join(os.path.expanduser('~/Documents'), 'Avant'))
-                with open(os.path.join(os.path.expanduser('~/Documents/Avant'), '_Avant_Documentation.url'), 'w') as file:
+            if not os.path.exists(os.path.join(os.path.expanduser("~"), "Documents", "Avant")):
+                os.makedirs(os.path.join(os.path.expanduser("~"), "Documents", "Avant"))
+                with open(os.path.join(os.path.expanduser("~"), "Documents", "Avant", '_Avant_Documentation.url'), 'w') as file:
                     file.write(f"[InternetShortcut]\nURL=https://avant-docs.vercel.app")
+            else:
+                return True
         except Exception as e:
             exit(1, f"ERR005: Exception arose while generating Avant folder structure: {e}")
 
     def check_q3_installation(self):
-        if not os.path.isfile(os.path.join(os.path.expanduser("~/Documents/Avant"), "._avant_data")):
-            self.UTILITIES.wait(1), print(pyfiglet.figlet_format("SETUP", font="slant"))
-            self.UTILITIES.wait(1), self.UTILITIES.iterate(0.8, 0.025, *avantxt.setup_one), self.UTILITIES.iterate(0.8, 0.025, *avantxt.setup_two)
-            self.UTILITIES.iterate(0.8, 0.025, *avantxt.setup_three), self.UTILITIES.iterate(0.8, 0.025, *avantxt.setup_four), self.UTILITIES.iterate(0.8, 0.025, *avantxt.setup_five)
+        if not os.path.isfile(os.path.join(os.path.expanduser("~"), "Documents", 'Avant', '.avant_data')):
+            self.UTILITIES.wait(1), self.UTILITIES.print_whitespace(), print(pyfiglet.figlet_format("SETUP", font="slant"))
+            self.UTILITIES.wait(1), self.UTILITIES.iterate(0.8, 0.025, *textwrap.fill(avantxt.setup_one, width=85)), self.UTILITIES.print_whitespace(), self.UTILITIES.iterate(0.8, 0.025, *textwrap.fill(avantxt.setup_two, width=85)), self.UTILITIES.print_whitespace()
+            self.UTILITIES.iterate(0.8, 0.025, *textwrap.fill(avantxt.setup_three, width=85)), self.UTILITIES.print_whitespace(), self.UTILITIES.iterate(0.8, 0.025, *textwrap.fill(avantxt.setup_four, width=85)), self.UTILITIES.print_whitespace(), self.UTILITIES.iterate(0.8, 0.025, *textwrap.fill(avantxt.setup_five, width=85))
             self.UTILITIES.wait(2), self.UTILITIES.clear()
-            root = tk.Tk(), root.withdraw()
-            folder_path = filedialog.askdirectory(initialdir="C:/Program Files")
-            if folder_path is None:
-                self.UTILITIES.iterate(0.8, 0.025, *avantxt.setup_six), self.UTILITIES.wait_and_clear(1)
+            root = tk.Tk()
+            root.withdraw()
+            root.update()
+            folder_path = filedialog.askdirectory(parent=root, title='Select Quake III folder', initialdir=os.path.join("C:", "Program Files"))
+            if not folder_path:
+                self.UTILITIES.iterate(0.8, 0.025, *textwrap.fill(avantxt.setup_six, width=85)), self.UTILITIES.wait_and_clear(1)
                 sys.exit(0)
             else:
                 QUAKE_FOUND, PAKZERO_FOUND, MME_FOUND = False, False, False
                 self.UTILITIES.iterate(0.8, 0.025, *f"Analyzing {folder_path}...")
                 if os.path.isfile(os.path.join(folder_path, "quake3.exe")):
                     QUAKE_FOUND = True
-                    self.UTILITIES.iterate(0.8, 0.025, *avantxt.setup_seven)
+                    self.UTILITIES.iterate(0.8, 0.025, *textwrap.fill(avantxt.setup_seven, width=85))
                     EXE_PATH = os.path.join(folder_path, "quake3.exe")
                 if os.path.isdir(os.path.join(folder_path, "baseq3")):
                     if os.path.isfile(os.path.join(folder_path, "baseq3", "pak0.pk3")):
                         PAKZERO_FOUND = True
-                        for x in range(0, 10):
+                        for x in range(0, 9):
                             if not os.path.isfile(os.path.join(folder_path, "baseq3", f"pak{x}.pk3")):
                                 PAKZERO_FOUND = False
                                 break
                     if PAKZERO_FOUND:
-                        self.UTILITIES.iterate(0.8, 0.025, *avantxt.setup_eight)
+                        self.UTILITIES.iterate(0.8, 0.025, *textwrap.fill(avantxt.setup_eight, width=85))
                         PAKZERO_PATH = os.path.join(folder_path, "baseq3", "pak0.pk3")
                 if os.path.isdir(os.path.join(folder_path, "mme")):
                     if os.path.isfile(os.path.join(folder_path, "quake3mme.exe")) and os.path.isfile(os.path.join(folder_path, "start q3mme.cmd")):
                         if all(os.path.isfile(os.path.join(folder_path, "mme", file)) for file in ["autoexec.cfg", "mmedemos.cfg", "uix86.dll", "qagamex86.dll", "cgamex86.dll"]):
                             if all(os.path.isfile(os.path.join(folder_path, "mme", "scripts", file)) for file in ["base_weapons.fx", "mme.shader", "base_player.fx", "base_extra.fx"]):
                                 MME_FOUND = True
-                                self.UTILITIES.iterate(0.8, 0.025, *avantxt.setup_nine)
+                                self.UTILITIES.iterate(0.8, 0.025, *textwrap.fill(avantxt.setup_nine, width=85))
                                 MME_PATH = os.path.join(folder_path, "mme")
                 if all([QUAKE_FOUND, PAKZERO_FOUND, MME_FOUND]):
-                    with open(os.path.join(os.path.expanduser("~/Documents/Avant"), ".avant_data"), "w") as file:
-                        file.write(EXE_PATH), file.write(PAKZERO_PATH), file.write(MME_PATH)
-                        os.system(f'attrib +h"{os.path.join(os.path.expanduser("~/Documents/Avant"), ".avant_data")}"')
-                        os.chmod(os.path.join(os.path.expanduser("~/Documents/Avant"), ".avant_data"), stat.S_IRUSR | stat.S_IWUSR)
-                    self.UTILITIES.iterate(0.8, 0.025, *avantxt.setup_ten), self.utilities.wait_and_clear(2)
+                    with open(os.path.join(os.path.expanduser("~"), "Documents", "Avant", ".avant_data"), "w") as file:
+                        file.write(os.path.normpath(EXE_PATH) + "\n")
+                        file.write(os.path.normpath(PAKZERO_PATH) + "\n")
+                        file.write(os.path.normpath(MME_PATH) + "\n")                  
+                        os.system(f'attrib +h "{os.path.join(os.path.expanduser("~"), "Documents", "Avant", ".avant_data")}"')
+                        os.chmod(os.path.join(os.path.expanduser("~"), "Documents", "Avant", ".avant_data"), stat.S_IRUSR | stat.S_IWUSR)
+                    self.UTILITIES.iterate(0.8, 0.025, *textwrap.fill(avantxt.setup_ten, width=85)), self.UTILITIES.wait_and_clear(2)
                 else:
                     self.UTILITIES.clear()
                     if not QUAKE_FOUND:
-                        self.UTILITIES.iterate(0.8, 0.025, *avantxt.setup_eleven)
+                        self.UTILITIES.iterate(0.8, 0.025, *textwrap.fill(avantxt.setup_eleven, width=85))
                     if not PAKZERO_FOUND:
-                        self.UTILITIES.iterate(0.8, 0.025, *avantxt.setup_twelve)
+                        self.UTILITIES.iterate(0.8, 0.025, *textwrap.fill(avantxt.setup_twelve, width=85))
                     if not MME_FOUND:
-                        self.UTILITIES.iterate(0.8, 0.025, *avantxt.setup_thirteen)
-                    self.UTILITIES.wait(2), self.UTILITIES.print_whitespace(), self.UTILITIES.iterate(0.8, 0.025, *avantxt.setup_fourteen)
+                        self.UTILITIES.iterate(0.8, 0.025, *textwrap.fill(avantxt.setup_thirteen, width=85))
+                    self.UTILITIES.wait(2), self.UTILITIES.print_whitespace(), self.UTILITIES.iterate(0.8, 0.025, *textwrap.fill(avantxt.setup_fourteen, width=85))
                     self.UTILITIES.wait(2), self.UTILITIES.clear(), sys.exit(1)
         else:
-            # Keep checking at every boot if all files are still present.
-            # Nothing wrong, boot as normal, if something's missing, iterate a new text welcome back, seems something has changed with ....
+            if os.path.isfile(os.path.join(os.path.expanduser("~"), "Documents", "Avant", ".avant_data")):
+                with open(os.path.join(os.path.expanduser("~"), "Documents", "Avant", ".avant_data"), "r") as file:
+                    file_check = 0
+                    for line in file:
+                        filepath = line.strip()
+                        filepath = os.path.normpath(filepath)
+                        if os.path.isdir(filepath) or os.path.isfile(filepath):
+                            file_check += 1
+                if file_check != 3:
+                    os.chmod(os.path.join(os.path.expanduser("~"), "Documents", "Avant", ".avant_data"), stat.S_IWRITE)
+                    os.remove(os.path.join(os.path.expanduser("~"), "Documents", "Avant", ".avant_data"))
+                    self.UTILITIES.wait_and_clear(2), self.UTILITIES.iterate(0.8, 0.025, *textwrap.fill(avantxt.setup_fifteen, width=85))
+                    self.UTILITIES.iterate(0.8, 0.025, *textwrap.fill(avantxt.setup_sixteen, width=85)), self.UTILITIES.wait_and_clear(3), self.UTILITIES.kill("", 1)
+                else: 
+                    return True
+            else:
+                self.UTILITIES.wait_and_clear(2), self.UTILITIES.iterate(0.8, 0.025, *textwrap.fill(avantxt.setup_seventeen, width=85))
+                self.UTILITIES.iterate(0.8, 0.025, *textwrap.fill(avantxt.setup_eighteen, width=85)), self.UTILITIES.wait_and_clear(3), self.UTILITIES.kill("", 1)
 
     def manage_avant_projects(self):
-        self.UTILITIES.clear()
-        print("MANAGE AVANT PROJECT...")
-        self.UTILITIES.wait(2)
-        self.UTILITIES.clear()
+        avant_directory = os.path.join(os.path.expanduser("~"), "Documents", "Avant")
+        subdirectories = [d for d in os.listdir(avant_directory) if os.path.isdir(os.path.join(avant_directory, d))]
+        if not subdirectories:
+            self.UTILITIES.clear(), self.UTILITIES.wait(1)
+            self.PROJMANAGER.create_project()
+        else:
+            while True:
+                self.UTILITIES.clear(), self.UTILITIES.wait(1)
+                print(pyfiglet.figlet_format("PROJECTS", font="slant"))
+                project_menu = [inquirer.List('choice', message="Avant Project Manager", choices=[
+                    avantxt.proj_two,
+                    avantxt.proj_three,
+                    avantxt.proj_four,
+                    avantxt.proj_five,
+                    avantxt.proj_six
+                ])]
+                show_project_menu = inquirer.prompt(project_menu)
+                if show_project_menu is None:
+                    return False
+                selection = show_project_menu['choice']
+                match (selection):
+                    case avantxt.proj_two:
+                        self.PROJMANAGER.create_project()
+                    case avantxt.proj_three:
+                        self.PROJMANAGER.modify_project()
+                    case avantxt.proj_four:
+                        self.PROJMANAGER.delete_project()
+                    case avantxt.proj_five:
+                        self.PROJMANAGER.show_projects()
+                    case avantxt.proj_six:
+                        break
         return True
 
     def gen_map_data(self):

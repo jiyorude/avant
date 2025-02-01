@@ -6,7 +6,7 @@ Quake III Machinima (post-)production
 
 <br/>
 
-**Version: 0.2.5**
+**Version: 0.2.9**
 <br/><br/>
 Created by Jordy Veenstra (A Pixelated Point of View)<br/>
 

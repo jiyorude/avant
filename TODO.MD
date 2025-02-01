@@ -1,6 +1,6 @@
 ### Avant Road Map
 
-*Current Version: 0.2.5*
+*Current Version: 0.2.9*
 
 An overview can be found underneath containing the current software roadmap for the Avant Algorithm. <br><br>
 
@@ -16,8 +16,11 @@ An overview can be found underneath containing the current software roadmap for 
 | **0.2.3** | Background | Background section in README.md finished | 100% |
 | **0.2.4** | Documentation | Documentation section in README.md updated and finished | 100% |
 | **0.2.5** | Documentation Front-End Up | Next.js Front-End working with code from previous version, updated front-page with chapter buttons, empty linkable pages, responsive footer fixes, fix formatting issues in README.MD on GH | 100% |
-| *0.2.6* | Quake III folder selection | Functions working that can recognize both q3 and mme dir, save the directory to a file and use that info to verify Q3 location on computer upon boot, test avant folder structure function locally | 40% |
-| 0.3.0 | Mapgen basic functionality | Basic functionality for extracting bsp files and analyzing entities such as "player_info_deathmatch", ctf and teamspawn either with bsp_tool or own code. Content/React elements for documentation 'background' page | 0% |
+| **0.2.6** | Quake III folder selection | Functions working that can recognize both q3 and mme dir, save the directory to a file and use that info to verify Q3 location on computer upon boot, test avant folder structure function locally | 100% |
+| **0.2.7** | Project Manager | Project Manager basic functionality for creating, editing, removing and viewing projects | 100% |
+| **0.2.8** | Project Manager implementation | Implementation of Project Manager functionality with main menu, checks that will send user to create project if no projects are present, etc | 100% |
+| **0.2.9** | Tests of pre-boot functions and project manager | Extensively tested Q3 folder setup, avant folder structure setup and project manager; Functionality complete, gh commit | 100% |
+| *0.3.0* | Mapgen basic functionality | Basic functionality for extracting bsp files and analyzing entities such as "player_info_deathmatch", ctf and teamspawn either with bsp_tool or own code. Content/React elements for documentation 'background' page | 0% |
 | 0.3.1 | Mapgen coordinates | Spawnpoints and coordinates are properly passed down, plus available camera space between player and 'the void' is calculated for each map and spawn point inside a dictionary. | 0% |
 | 0.3.2 | Mapgen Save Feature | Save all generated data to JSON/CSV file for demogen, allow user to set name. | 0% |
 | 0.3.3 | Mapgen Testing I | Extensive testing of all mapgen functions | 0% |
