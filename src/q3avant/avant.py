@@ -4,7 +4,7 @@ def main():
     try:
         AVANT = System()
         AVANT.folder_structure_check()
-        AVANT.check_q3_installation() 
+        AVANT.check_q3_installation()
         AVANT.init()
         while True:
             choice = AVANT.main_menu()

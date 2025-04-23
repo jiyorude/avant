@@ -9,7 +9,7 @@ Tests initiated on Saturday, February 1st 2025<br/><br>
 ---
 
 <br>
-Due to the general complex nature of the folder structure, quake 3 folder structure and project manager functions, I've decided to go ahead and conduct manual tests on these functions. I will conduct more pytests on smaller functions found in the demogen, mapgen and other vital parts of Avant. However, as I found the projectmanager/structure functions to be quite expansive and as I wasn't quite sure how to tackle some of these with pytest, I've decided to conduct some good old tests by hand and with the built-in debugger inside of Visual Studio Code. 
+Due to the general complex nature of the folder structure, quake 3 folder structure and project manager functions, I've decided to go ahead and conduct manual tests on these functions. I will conduct more pytests on smaller functions found in the demogen, mapgen and other vital parts of Avant. However, as I found the projectmanager/structure functions to be quite expansive and as I wasn't quite sure how to tackle some of these with pytest, I've decided to conduct some good old tests by hand and with the built-in debugger inside of Visual Studio Code.
 
 <br/>
 The following tests were conducted: <br/> <br/>
@@ -82,7 +82,7 @@ It will automatically ask the user to generate a new project. If it presses ente
 <br/>
 
 * **What happens when a user tries to create a project, delete it, and try to go to the view and modify functions with no projects present?** <br/>
-All functions work. View and modify will simply return an empty overview. After that, the user can return to the project menu with the return key. 
+All functions work. View and modify will simply return an empty overview. After that, the user can return to the project menu with the return key.
 
 <br/>
 

@@ -22,8 +22,7 @@ Created by Jordy Veenstra (A Pixelated Point of View)<br/>
 * [How to Use](#how-to-use)
 * [License](#license)
 
-<br/>
-
+<br/><br/>
 
 
 ### Background
@@ -57,7 +56,7 @@ Avant’s functionality is centered around **four** main features, which can be 
 
     * *The NLE Generator can **both** be used during production of 'avant-machinima', or independently if you want to create a randomized edit of Quake III footage you've shot yourself. While Avant itself prefers image sequences, the NLE Generator does support certain video containers such as <code>.mp4</code>, <code>.wmv</code>, .<code>mkv</code> and <code>.mov.</code>
 
-<br/>
+<br/><br/>
 
 
 
@@ -69,7 +68,7 @@ Check it out [here.](https://avant-docs.vercel.app)
 
 If you encounter a problem that has not been documented yet, feel free to open an Issue on [GitHub.](https://github.com/jiyorude/avant/issues)
 
-<br/>
+<br/><br/>
 
 
 
@@ -99,7 +98,7 @@ Avant can be installed through one of two possible methods: either through the P
 * Avant will run the initial setup by creating its folder structure in your <code>My Documents</code> folder and ask for the exact path where Quake III Arena can be found. Once complete, the algorithm can be used like normal.
 
 
-<br/>
+<br/><br/>
 
 
 
@@ -128,7 +127,7 @@ Your best bet is to start and create an <code>Avant Project</code>, which you wi
 
 * Do you want to create a **randomized edit** from the demo files you just captured? Make sure your image sequences stay put in your q3mme capture folder, and navigate to the <code>Generate EDL/XML</code> function. A brief setup wizard will ask for input regarding which folder should be used, how long the film should be, what the name of the sequence should be, what the required framerate is and whether there should be time reserved for intro and outro titles (which you can add yourself in your NLE of choice). The <code>Generate EDL/XML</code> function works with both avant generated footage as with Quake III footage you have captured yourself, given that all image sequences (or videofiles) are in a separate folder within your captures folder. After generating the EDL/XML, import the file into your NLE of choice and adjust the edit as you see fit or export your new randomized and experimental Quake III machinima!
 
-<br/>
+<br/><br/>
 
 
 

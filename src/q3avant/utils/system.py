@@ -112,7 +112,7 @@ class System:
                     with open(os.path.join(os.path.expanduser("~"), "Documents", "Avant", ".avant_data"), "w") as file:
                         file.write(os.path.normpath(EXE_PATH) + "\n")
                         file.write(os.path.normpath(PAKZERO_PATH) + "\n")
-                        file.write(os.path.normpath(MME_PATH) + "\n")                  
+                        file.write(os.path.normpath(MME_PATH) + "\n")
                         os.system(f'attrib +h "{os.path.join(os.path.expanduser("~"), "Documents", "Avant", ".avant_data")}"')
                         os.chmod(os.path.join(os.path.expanduser("~"), "Documents", "Avant", ".avant_data"), stat.S_IRUSR | stat.S_IWUSR)
                     self.UTILITIES.iterate(0.8, 0.025, *textwrap.fill(avantxt.setup_ten, width=85)), self.UTILITIES.wait_and_clear(2)
@@ -140,7 +140,7 @@ class System:
                     os.remove(os.path.join(os.path.expanduser("~"), "Documents", "Avant", ".avant_data"))
                     self.UTILITIES.wait_and_clear(2), self.UTILITIES.iterate(0.8, 0.025, *textwrap.fill(avantxt.setup_fifteen, width=85))
                     self.UTILITIES.iterate(0.8, 0.025, *textwrap.fill(avantxt.setup_sixteen, width=85)), self.UTILITIES.wait_and_clear(3), self.UTILITIES.kill("", 1)
-                else: 
+                else:
                     return True
             else:
                 self.UTILITIES.wait_and_clear(2), self.UTILITIES.iterate(0.8, 0.025, *textwrap.fill(avantxt.setup_seventeen, width=85))
@@ -182,9 +182,7 @@ class System:
 
     def gen_map_data(self):
         self.UTILITIES.clear()
-        print("GENERATE MAP DATA")
-        self.UTILITIES.wait(2)
-        self.UTILITIES.clear()
+        self.MAPGEN.extract_bsp("shibam_1.3.pk3")
         return True
 
     def gen_demo_files(self):

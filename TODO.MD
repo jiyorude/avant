@@ -20,7 +20,7 @@ An overview can be found underneath containing the current software roadmap for 
 | **0.2.7** | Project Manager | Project Manager basic functionality for creating, editing, removing and viewing projects | 100% |
 | **0.2.8** | Project Manager implementation | Implementation of Project Manager functionality with main menu, checks that will send user to create project if no projects are present, etc | 100% |
 | **0.2.9** | Tests of pre-boot functions and project manager | Extensively tested Q3 folder setup, avant folder structure setup and project manager; Functionality complete, gh commit | 100% |
-| *0.3.0* | Mapgen basic functionality | Basic functionality for extracting bsp files and analyzing entities such as "player_info_deathmatch", ctf and teamspawn either with bsp_tool or own code. Content/React elements for documentation 'background' page | 0% |
+| *0.3.0* | Mapgen basic functionality | Implementation of bsp_tool, basic functionality for extracting bsp files and analyzing entities such as "player_info_deathmatch", ctf and teamspawn either with bsp_tool or own code. Content/React elements for documentation 'background' page, change license to GNU to comply with bsp tool. Change the import statements in bsp tool with tools.bsp_tool.etc.etc so that the application works. | 10% |
 | 0.3.1 | Mapgen coordinates | Spawnpoints and coordinates are properly passed down, plus available camera space between player and 'the void' is calculated for each map and spawn point inside a dictionary. | 0% |
 | 0.3.2 | Mapgen Save Feature | Save all generated data to JSON/CSV file for demogen, allow user to set name. | 0% |
 | 0.3.3 | Mapgen Testing I | Extensive testing of all mapgen functions | 0% |
@@ -44,7 +44,7 @@ An overview can be found underneath containing the current software roadmap for 
 | 0.6.4 | NLE Readme | Automatically create a README for the user when they generate the EDL/XML | 0% |
 | 0.7.0 | NLEGen Complete | NLEGen has been completed, all modes are fully working and have been tested. NLEGen has been added to the Documentation Website
 | 0.8.0A | Alpha Testing / Documentation Complete | Documentation website for avant has been fully completed. Alpha testing | 0% |
-| 0.9.0B | Beta Testing | Beta version of Avant, testPyPi package, testing testPyPi package distribution, bug fixes | 0% |
+| 0.9.0B | Beta Testing | Beta version of Avant, testPyPi package, testing testPyPi package distribution, bug fixes, fix license to GNU in accordance with bsp_tool | 0% |
 | 1.0.0 | Initial Version | Initial Version completed | 0%|
 
 
